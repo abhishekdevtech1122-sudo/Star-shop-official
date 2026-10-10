@@ -1,0 +1,1938 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Star Shops - Fully Dynamic Ecosystem Pro</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+    /* --- पूरे ऐप में टेक्स्ट सेलेक्शन बंद करने का लॉजिक --- */
+    body {
+      -webkit-user-select: none; /* Safari, Android WebView के लिए */
+      -moz-user-select: none;    /* Firefox के लिए */
+      -ms-user-select: none;     /* पुराने Edge के लिए */
+      user-select: none;         /* स्टैण्डर्ड */
+    }
+
+    /* --- सिर्फ Input (सर्च, पिन, नाम) में टाइपिंग और सेलेक्शन चालू रखने के लिए --- */
+    input, textarea {
+      -webkit-user-select: auto !important;
+      -moz-user-select: auto !important;
+      -ms-user-select: auto !important;
+      user-select: auto !important;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background-color: #F8F9FA;
+      overflow-x: hidden;
+      display: flex;
+      justify-content: center;
+      transition: background-color 0.6s ease;
+    }
+
+    /* Premium Body Background for Modals */
+    body.premium-mode-body { background-color: #050505 !important; }
+
+    .device-shell {
+      width: 100%;
+      max-width: 480px;
+      min-height: 100vh;
+      background-color: #F8F9FA;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 70px; 
+      transition: background-color 0.6s ease, color 0.6s ease;
+      box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    }
+
+    /* 👑 1% ELITE PREMIUM METALLIC GOLD THEME (Dynamic Update) 👑 */
+    .device-shell.high-discount-active {
+      background-color: #050505 !important;
+      background-image: none !important;
+    }
+    
+    .device-shell.high-discount-active .top-header,
+    .device-shell.high-discount-active .bottom-nav {
+      background-color: #0A0A0A !important;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2) !important;
+      border-top: 1px solid rgba(212, 175, 55, 0.2) !important;
+    }
+    
+    .device-shell.high-discount-active .brand-title { 
+      background: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .device-shell.high-discount-active .nav-item { color: #6B7280 !important; }
+    .device-shell.high-discount-active .nav-item.active { color: #FCF6BA !important; }
+    .device-shell.high-discount-active .step-pill { background: #111 !important; border: 1px solid rgba(212, 175, 55, 0.4) !important; color: #FCF6BA !important; }
+    .device-shell.high-discount-active .search-box { background: #111 !important; border: 1px solid rgba(212, 175, 55, 0.3) !important; }
+    .device-shell.high-discount-active .search-box input { color: #FFFFFF !important; }
+    
+    .device-shell.high-discount-active .category-chip {
+      background-color: #0F0F0F !important;
+      color: #BF953F !important;
+      border: 1px solid rgba(212, 175, 55, 0.4) !important;
+    }
+    .device-shell.high-discount-active .category-chip.active {
+      background: linear-gradient(to right, #BF953F, #FCF6BA, #B38728) !important;
+      color: #000000 !important;
+      border: none !important;
+    }
+
+    .device-shell.high-discount-active .merchant-card {
+      background: #0C0C0C !important;
+      border: 1px solid rgba(212, 175, 55, 0.25) !important;
+    }
+    .device-shell.high-discount-active .merchant-card .store-title { color: #FFFFFF !important; }
+    .device-shell.high-discount-active .merchant-card .cash-save { color: #FCF6BA !important; }
+    .device-shell.high-discount-active .merchant-card .cash-sub { color: #9CA3AF !important; }
+    .device-shell.high-discount-active .store-distance { background: #151515 !important; color: #BF953F !important; border: 1px solid rgba(212, 175, 55, 0.15) !important; }
+    
+    .device-shell.high-discount-active .scan-action-btn {
+      background: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C) !important;
+      color: #000000 !important;
+      text-shadow: none !important;
+      border: none !important;
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15) !important;
+    }
+
+    .device-shell.high-discount-active .merchant-card.high-discount-card {
+      background: linear-gradient(145deg, #0A0A0A, #141414) !important;
+      border: 1px solid #D4AF37 !important;
+      box-shadow: 0 0 12px rgba(212, 175, 55, 0.2), inset 0 0 5px rgba(212, 175, 55, 0.05) !important;
+    }
+    .device-shell.high-discount-active .merchant-card.high-discount-card .store-title { 
+      background: linear-gradient(to right, #FCF6BA, #B38728);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .device-shell.high-discount-active .merchant-card.high-discount-card .badge-limit { background: linear-gradient(to right, #BF953F, #AA771C) !important; color: #00 !important; }
+    
+    /* Premium Modals */
+    .premium-mode-body .success-modal-overlay .success-card,
+    .premium-mode-body .scanner-modal-overlay .scanner-card,
+    .premium-mode-body .shop-profile-modal .shop-profile-card,
+    .premium-mode-body .crop-modal-overlay .crop-modal-card,
+    .premium-mode-body .reel-popup-action-overlay .reel-popup-card {
+      background: #0A0A0A !important;
+      border: 1px solid rgba(212, 175, 55, 0.5) !important;
+    }
+    .premium-mode-body .success-card *,
+    .premium-mode-body .scanner-card *,
+    .premium-mode-body .shop-profile-card *,
+    .premium-mode-body .crop-modal-card *,
+    .premium-mode-body .reel-popup-card * {
+      color: #FFFFFF !important;
+    }
+    
+    .premium-mode-body .shop-profile-card .light-box-text-fix,
+    .premium-mode-body .shop-profile-card .light-box-text-fix * {
+      color: #111827 !important; 
+    }
+    .premium-mode-body .shop-profile-card .light-box-text-fix .highlight-text {
+      color: #B45309 !important; 
+    }
+    .premium-mode-body .shop-profile-card .light-box-text-fix .green-text {
+      color: #059669 !important; 
+    }
+    .premium-mode-body .shop-profile-card .light-box-text-fix .red-text {
+      color: #DC2626 !important; 
+    }
+
+    .modal-close-btn { background:none; border:none; font-size:22px; font-weight:900; cursor:pointer; color:#9CA3AF; transition:color 0.3s ease, text-shadow 0.3s ease; }
+    .full-post-close-btn { position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); border: 2px solid #fff; color: #fff; width: 32px; height: 32px; border-radius: 50%; font-size: 16px; font-weight: bold; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; padding: 0; transition: all 0.3s ease; }
+
+    body.premium-mode-body .modal-close-btn { color:#D4AF37 !important; text-shadow: 0 0 8px rgba(212, 175, 55, 0.4) !important; }
+    body.premium-mode-body .full-post-close-btn { border-color: #D4AF37 !important; color: #D4AF37 !important; box-shadow: 0 0 8px rgba(212, 175, 55, 0.6) !important; background: rgba(10,10,10,0.8) !important; }
+
+    .premium-mode-body .success-card button,
+    .premium-mode-body .scanner-card #verifyPinBtn,
+    .premium-mode-body .shop-profile-card button.btn-premium-ok,
+    .premium-mode-body .crop-modal-card button,
+    .premium-mode-body .reel-popup-card .btn-save-action {
+      background: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C) !important;
+      color: #000000 !important;
+      border: none !important;
+      font-weight: 900 !important;
+    }
+    .premium-mode-body .scanner-card input {
+      background: #111 !important; color: #FCF6BA !important; border-color: rgba(212, 175, 55, 0.4) !important;
+    }
+
+    .device-shell.high-discount-active #alertsHeadingText, 
+    .device-shell.high-discount-active #calcTitleText,
+    .device-shell.high-discount-active .profile-user-name,
+    .device-shell.high-discount-active #liveTrackerTitle { color: #F9FAFB !important; }
+    
+    .device-shell.high-discount-active .calc-card,
+    .device-shell.high-discount-active .profile-card,
+    .device-shell.high-discount-active .post-card,
+    .device-shell.high-discount-active .wallet-box { background: #0A0A0A !important; border-color: rgba(212, 175, 55, 0.2) !important; color: #fff; }
+    
+    .device-shell.high-discount-active .post-header { border-bottom-color: rgba(212, 175, 55, 0.2) !important; }
+    .device-shell.high-discount-active .post-content-body { color: #D1D5DB !important; }
+    .device-shell.high-discount-active .post-reels-title { color: #FCF6BA !important; }
+
+    .top-header {
+      background-color: #FFFFFF;
+      padding: 14px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #E9ECEF;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      width: 100%;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .brand-title { font-size: 20px; font-weight: 900; letter-spacing: 1.5px; color: #111827; display: flex; align-items: center; gap: 6px; user-select: none; }
+    .brand-title .star-badge { color: #F59E0B; font-size: 16px; }
+    .header-right-box { display: flex; align-items: center; gap: 8px; }
+    .step-pill { background: #FFFBEB; border: 1px solid #FDE68A; padding: 6px 14px; border-radius: 20px; color: #B45309; font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 5px; cursor: pointer; }
+    
+    .search-box { margin: 12px 16px 8px 16px; background: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 12px; padding: 12px 14px; display: flex; align-items: center; gap: 10px; color: #6B7280; font-size: 14px; box-shadow: 0 2px 6px rgba(0,0,0,0.02); }
+    .search-box input { border: none; outline: none; width: 100%; font-size: 13px; color: #111; background: transparent; }
+
+    .categories-bar { display: flex; align-items: center; gap: 10px; padding: 10px 16px 14px 16px; width: 100%; overflow-x: auto; scrollbar-width: none; z-index: 30; }
+    .categories-bar::-webkit-scrollbar { display: none; }
+    
+    .category-chip { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; height: 34px; background: #FFFFFF; border: 1px solid #E5E7EB; padding: 0 16px; border-radius: 20px; font-size: 12px; font-weight: 700; color: #4B5563; cursor: pointer; white-space: nowrap; user-select: none; transition: all 0.2s ease; }
+    .category-chip.active { background: #111827; color: #FFFFFF; border-color: #111827; }
+    .category-chip.chip-open-today { background: #ECFDF5; color: #047857; border-color: #A7F3D0; }
+    .category-chip.chip-open-today.active { background: #059669; color: #FFFFFF; border-color: #059669; }
+    .category-chip.chip-high-discount { background: linear-gradient(135deg, #FEF3C7, #FDE68A); color: #B45309; border-color: #F59E0B; font-weight: 900; animation: pulseGlow 1.5s infinite; }
+    .category-chip.chip-high-discount.active { background: #D97706; color: #FFFFFF; border-color: #D97706; }
+    
+    @keyframes pulseGlow { 0%, 100% { box-shadow: 0 0 5px rgba(245, 158, 11, 0.4); } 50% { box-shadow: 0 0 12px rgba(245, 158, 11, 0.8); } }
+
+    .tab-screen { display: none; padding: 0 16px 16px 16px; width: 100%; }
+    .tab-screen.active { display: block; }
+    #tab-posts { padding: 12px 16px 16px 16px; width: 100%; }
+
+    #dynamicStoresContainer::after, #postsFeedContainer::after, #liveAlertsContainer::after, #tab-profile::after { content: ""; display: block; height: 20px; width: 100%; }
+
+    .merchant-card { background: #FFFFFF; border-radius: 16px; border: 1px solid #E5E7EB; box-shadow: 0 4px 14px rgba(0,0,0,0.03); overflow: hidden; margin-top: 8px; margin-bottom: 14px; width: 100%; transition: transform 0.4s ease, opacity 0.4s ease; cursor: pointer; position: relative; touch-action: pan-y; }
+    .merchant-card.high-discount-card { border: 2px solid #F59E0B; background: linear-gradient(to bottom, #FFFBEB, #FFFFFF); box-shadow: 0 6px 18px rgba(245, 158, 11, 0.15); }
+    .merchant-card.claimed-card { border: 2.5px solid #F59E0B !important; background: #FFFCF5; }
+    .merchant-card.reclaimed-card { border: 2.5px solid #D97706 !important; background: #FFFBEB; }
+
+    .card-banner { height: 150px; background: #1F2937; position: relative; width: 100%; }
+    .card-banner img { width: 100%; height: 100%; object-fit: cover; }
+    .banner-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.7)); }
+    .badge-fomo { position: absolute; top: 10px; left: 10px; background: rgba(17, 24, 39, 0.85); border: 1px solid #F59E0B; color: #F59E0B; padding: 4px 8px; border-radius: 6px; font-size: 10px; font-weight: bold; }
+    .badge-limit { position: absolute; top: 8px; right: 8px; background: rgba(245, 158, 11, 0.9); backdrop-filter: blur(4px); color: #FFFFFF; padding: 3px 8px; border-radius: 4px; font-size: 9px; font-weight: 800; box-shadow: 0 2px 4px rgba(0,0,0,0.2); display: flex; align-items: center; gap: 2px; letter-spacing: 0.3px; }
+
+    .store-status-row { display: flex; justify-content: space-between; align-items: center; margin-top: 6px; }
+    .live-open-pill { display: inline-flex; align-items: center; gap: 6px; background: #DCFCE7; color: #15803D; font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 6px; }
+    .mini-reclaim-badge-pill { display: none; align-items: center; gap: 4px; background: linear-gradient(135deg, #D97706, #B45309); color: #FFFFFF; font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 6px; cursor: pointer; box-shadow: 0 2px 6px rgba(217, 119, 6, 0.3); }
+    .merchant-card.claimed-card .mini-reclaim-badge-pill, .merchant-card.reclaimed-card .mini-reclaim-badge-pill { display: inline-flex; }
+
+    .blink-dot { width: 8px; height: 8px; background: #22C55E; border-radius: 50%; animation: blinkGreen 1s infinite ease-in-out; }
+    @keyframes blinkGreen { 0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 6px #22C55E; } 50% { opacity: 0.3; transform: scale(0.8); box-shadow: none; } }
+
+    .card-body { padding: 16px; }
+    .store-meta { display: flex; justify-content: space-between; align-items: center; }
+    .store-title { font-size: 17px; font-weight: 800; color: #111827; display: flex; align-items: center; gap: 4px; }
+    .store-distance { font-size: 12px; color: #B45309; font-weight: 700; background: #FFFBEB; padding: 3px 8px; border-radius: 6px; }
+    .line-sep { height: 1px; background: #F3F4F6; margin: 14px 0; }
+    .deal-action-box { display: flex; justify-content: space-between; align-items: center; }
+    .cash-save { font-size: 18px; font-weight: 900; color: #059669; }
+    .cash-sub { font-size: 11px; color: #6B7280; margin-top: 2px; }
+    
+    .scan-action-btn { background: linear-gradient(135deg, #059669, #047857); color: #FFFFFF; border: none; padding: 11px 16px; border-radius: 10px; font-size: 13px; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 10px rgba(5,150,105,0.2); width: 100%; justify-content: center; }
+    .scan-action-btn.reclaim-btn { background: linear-gradient(135deg, #D97706, #B45309) !important; }
+    .info-btn-grocery { background: #FFFBEB; border: 1px solid #FDE68A; color: #B45309; padding: 6px 10px; border-radius: 8px; font-size: 12px; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 4px; }
+
+    .post-card { background: #FFFFFF; border-radius: 16px; border: 1px solid #E5E7EB; margin-bottom: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+    .post-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid #F3F4F6; }
+    .post-header-left { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+    .post-avatar-ring { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #F59E0B, #EC4899, #8B5CF6); padding: 2px; display: flex; align-items: center; justify-content: center; }
+    .post-avatar { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: #111; border: 2px solid #FFFFFF; }
+    .post-more-info-text { font-size: 12px; font-weight: 800; color: #2563EB; cursor: pointer; text-decoration: underline; }
+    .post-media-box { width: 100%; background: #111; overflow: hidden; cursor: pointer; position: relative; }
+    .post-media-box video, .post-media-box img { width: 100%; height: 100%; max-height: 360px; object-fit: cover; display: block; }
+    .post-content-body { padding: 14px 16px; font-size: 13px; font-weight: 700; color: #1F2937; cursor: pointer; }
+    .post-reels-preview-box { padding: 0 16px 14px 16px; border-top: 1px solid #F3F4F6; margin-top: 10px; }
+    .post-reels-header-row { display: flex; justify-content: space-between; align-items: center; margin: 10px 0 8px 0; }
+    .post-reels-title { font-size: 12px; font-weight: 900; color: #111827; display: flex; align-items: center; gap: 4px; }
+    .post-more-btn { background: #FFFBEB; color: #B45309; border: 1px solid #FDE68A; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 800; cursor: pointer; }
+    .post-mini-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .mini-reel-thumb { aspect-ratio: 1/1; background: #111; border-radius: 8px; overflow: hidden; border: 1px solid #E5E7EB; position: relative; cursor: pointer; }
+    .mini-reel-thumb video, .mini-reel-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
+
+    .merchant-gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 12px; max-height: 300px; overflow-y: auto; }
+    .gallery-thumb-item { aspect-ratio: 1/1; background: #111; border-radius: 8px; overflow: hidden; border: 1px solid #E5E7EB; position: relative; cursor: pointer; }
+    .gallery-thumb-item video { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
+
+    .story-inline-player-box { width: 100%; min-height: 280px; background: #000; border-radius: 12px; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+    .story-inline-player-box video { width: 100%; max-height: 320px; object-fit: contain; display: block; background: #000; }
+    .story-progress-container { position: absolute; top: 8px; left: 10px; right: 10px; display: flex; gap: 4px; z-index: 20; }
+    .story-progress-bar { flex: 1; height: 3px; background: rgba(255,255,255,0.4); border-radius: 2px; overflow: hidden; }
+    .story-progress-fill { width: 0%; height: 100%; background: #FFFFFF; transition: width 0.1s linear; }
+    .story-tap-left { position: absolute; top: 0; left: 0; width: 40%; height: 100%; z-index: 15; }
+    .story-tap-right { position: absolute; top: 0; right: 0; width: 60%; height: 100%; z-index: 15; }
+    .story-water-play-btn { position: absolute; bottom: 12px; right: 12px; background: rgba(0, 0, 0, 0.45); border: 1px solid rgba(255, 255, 255, 0.25); color: #fff; padding: 5px 12px; border-radius: 16px; font-size: 10px; font-weight: 700; cursor: pointer; z-index: 25; backdrop-filter: blur(4px); letter-spacing: 0.5px; }
+
+    /* Modal Styling */
+    .reel-popup-action-overlay, .crop-modal-overlay, .scanner-modal-overlay, .success-modal-overlay, .shop-profile-modal, .auth-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 999999 !important; display: none; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(5px); }
+    .reel-popup-action-overlay.open, .crop-modal-overlay.open, .scanner-modal-overlay.open, .success-modal-overlay.open, .shop-profile-modal.open, .auth-modal-overlay.open { display: flex; }
+    .shop-profile-modal { align-items: flex-end; }
+    
+    .reel-popup-card, .crop-modal-card, .scanner-card, .success-card, .auth-card { background: #FFFFFF; width: 100%; max-width: 340px; border-radius: 20px; padding: 24px; text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.3); }
+    .shop-profile-card { background: #FFFFFF; width: 100%; max-width: 480px; border-radius: 24px 24px 0 0; padding: 24px 20px 30px 20px; box-shadow: 0 -10px 30px rgba(0,0,0,0.3); animation: slideUpModal 0.25s ease-out; }
+    @keyframes slideUpModal { from { transform: translateY(100%); } to { transform: translateY(0); } }
+
+    /* POPUP HATA DIYA GAYA HAI - STYLE COMMENTED OUT 
+    .location-force-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 99999999; display: none; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(8px); }
+    .location-force-overlay.open { display: flex; }
+    .location-force-card { background: #FFFFFF; width: 100%; max-width: 320px; border-radius: 20px; padding: 30px 20px; text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.3); animation: slideUpModal 0.3s ease-out; position: relative; }
+    .device-shell.high-discount-active ~ .location-force-overlay .location-force-card, body.premium-mode-body .location-force-overlay .location-force-card { background: #0A0A0A !important; border: 1px solid rgba(212, 175, 55, 0.5) !important; }
+    body.premium-mode-body .location-force-overlay .location-force-card div { color: #FFFFFF !important; }
+    body.premium-mode-body .location-force-overlay .location-force-card button#retryLocBtn { background: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C) !important; color: #000000 !important; }
+    */
+
+    .popup-action-btn { width: 100%; padding: 12px; border-radius: 12px; font-size: 14px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 10px; border: none; }
+    .btn-like-action { background: #FEF2F2; color: #DC2626; border: 1px solid #FECACA; }
+    .btn-save-action { background: #FFFBEB; color: #B45309; border: 1px solid #FDE68A; }
+    .btn-share-action { background: #EFF6FF; color: #1D4ED8; border: 1px solid #BFDBFE; }
+
+    .pin-input-box { width: 100%; padding: 12px; border: 2px solid #E5E7EB; border-radius: 12px; font-size: 18px; text-align: center; letter-spacing: 8px; font-weight: 800; outline: none; margin-top: 8px; }
+    .pin-input-box:focus { border-color: #F59E0B; }
+
+    .profile-card { background: #FFFFFF; border-radius: 16px; border: 1px solid #E5E7EB; padding: 24px 20px; margin-top: 14px; text-align: center; position: relative; }
+    .profile-burger-btn { position: absolute; top: 16px; right: 16px; background: #F3F4F6; border: 1px solid #E5E7EB; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; cursor: pointer; color: #111827; }
+    .profile-avatar-container { position: relative; width: 90px; height: 90px; margin: 0 auto 12px auto; cursor: pointer; }
+    .profile-avatar-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: #111827; border: 2.5px solid #F59E0B; display: flex; align-items: center; justify-content: center; font-size: 34px; color: #FFFFFF; overflow: hidden; }
+    .profile-avatar-img img { width: 100%; height: 100%; object-fit: cover; }
+    .profile-avatar-badge { position: absolute; bottom: 2px; right: 2px; background: #F59E0B; color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: 13px; border: 2px solid #fff; }
+    .profile-name-row { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 4px; }
+    .profile-user-name { font-size: 18px; font-weight: 800; color: #111827; }
+    .profile-edit-name-btn { background: #FFFBEB; color: #B45309; border: none; width: 26px; height: 26px; border-radius: 50%; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+
+    .wallet-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+    .wallet-box { background: #F8F9FA; border-radius: 12px; padding: 14px; text-align: center; border: 1px solid #E5E7EB; position: relative; }
+    .live-savings-detector-card { width: 100%; background: linear-gradient(135deg, #ECFDF5, #D1FAE5); border: 1.5px solid #6EE7B7; border-radius: 14px; padding: 16px; margin-top: 12px; text-align: center; position: relative; }
+    .info-btn-badge { position: absolute; top: 10px; right: 10px; background: #059669; color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; cursor: pointer; }
+
+    .calc-card { background: #FFFFFF; border-radius: 16px; border: 1px solid #E5E7EB; padding: 16px; margin-top: 14px; margin-bottom: 20px; }
+    .calc-screen { background: #F3F4F6; border: 1px solid #E5E7EB; border-radius: 10px; padding: 12px; text-align: right; font-size: 22px; font-weight: 800; color: #111827; margin-bottom: 12px; min-height: 48px; overflow-x: auto; }
+    .calc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .calc-btn { background: #F8F9FA; border: 1px solid #E5E7EB; border-radius: 10px; padding: 14px 0; font-size: 17px; font-weight: 700; color: #1F2937; cursor: pointer; }
+    .calc-btn.op { background: #FFFBEB; color: #B45309; border-color: #FDE68A; }
+    .calc-btn.eq { background: #111827; color: #FFFFFF; border-color: #111827; }
+    .calc-btn.clear { background: #FEE2E2; color: #DC2626; border-color: #FECACA; }
+    .calc-btn.del { background: #FEF3C7; color: #D97706; border-color: #FDE68A; }
+
+    /* --- SYNCED BOTTOM NAV CSS --- */
+    .bottom-nav { position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important; width: 100% !important; max-width: 480px !important; margin: 0 auto !important; height: 60px !important; background: #FFFFFF !important; border-top: 1px solid #E5E7EB !important; display: flex !important; justify-content: space-around !important; align-items: center !important; z-index: 9999 !important; box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05); transition: transform 0.3s ease-in-out; }
+    .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 10px; color: #6B7280; cursor: pointer; user-select: none; height: 100%; transition: color 0.3s ease; }
+    .nav-item.active { color: #111827; font-weight: 800; }
+    
+    .nav-item .icon { display: flex; align-items: center; justify-content: center; height: 30px; margin-bottom: 2px; }
+    .nav-item .icon svg { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    
+    /* NORMAL MODE (Silver) */
+    .nav-item:not(.active) .icon svg {
+      opacity: 0.35;
+      transform: scale(0.85);
+      filter: grayscale(100%);
+    }
+    .nav-item.active .icon svg {
+      opacity: 1;
+      transform: scale(1.15);
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
+    }
+
+    /* ELITE MODE (Gold) */
+    .device-shell.high-discount-active .nav-item:not(.active) .icon svg {
+      filter: sepia(1) saturate(3) hue-rotate(0deg) brightness(0.7) opacity(0.6);
+    }
+    .device-shell.high-discount-active .nav-item.active .icon svg {
+      filter: sepia(1) saturate(5) hue-rotate(5deg) brightness(1.2) drop-shadow(0 4px 10px rgba(212, 175, 55, 0.6));
+      transform: scale(1.15);
+      opacity: 1;
+    }
+
+    .consumer-crop-box { width: 180px; height: 180px; margin: 0 auto 12px auto; border-radius: 50%; overflow: hidden; border: 3px solid #2563EB; background: #111; position: relative; touch-action: none; display: flex; align-items: center; justify-content: center; }
+    .consumer-crop-box img { position: absolute; cursor: grab; max-width: none; transform-origin: center center; }
+
+    .step-progress-wrapper { background: #EFF6FF; border: 1px solid #BFDBFE; padding: 12px; border-radius: 12px; margin: 10px 0; }
+    .step-progress-bar-bg { width: 100%; height: 10px; background: #E5E7EB; border-radius: 6px; overflow: hidden; margin-top: 6px; }
+    .step-progress-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #2563EB, #1D4ED8); border-radius: 6px; transition: width 0.4s ease; }
+
+    /* Infinite Scroll Loader Styles */
+    .infinite-scroll-loader { text-align: center; padding: 20px 10px 90px 10px; font-size: 12px; color: #6B7280; font-weight: 800; display: none; width: 100%; }
+    .infinite-scroll-loader.active { display: flex; align-items: center; justify-content: center; gap: 8px; }
+    @keyframes spinInfinite { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    .spinner-blue { display: inline-block; width: 16px; height: 16px; border: 3px solid rgba(37,99,235,0.2); border-radius: 50%; border-top-color: #2563EB; animation: spinInfinite 0.8s ease-in-out infinite; }
+    
+    /* Out of Service Area Screen Styles */
+    .out-of-area-screen { display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 10px 0 90px 0; text-align: center; }
+    .location-icon-box { width: 75px; height: 75px; background: #FEF2F2; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 36px; margin-bottom: 14px; box-shadow: 0 10px 25px rgba(220, 38, 38, 0.15); }
+    .out-title { font-size: 20px; font-weight: 900; color: #111827; margin-bottom: 6px; }
+    .out-desc { font-size: 12px; color: #4B5563; margin-bottom: 20px; line-height: 1.5; padding: 0 10px;}
+
+    .choice-action-box { width: 100%; max-width: 360px; display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+    .btn-choice-demo { background: linear-gradient(135deg, #2563EB, #1D4ED8); color: #FFF; border: none; padding: 13px; border-radius: 12px; font-size: 13px; font-weight: 900; cursor: pointer; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2); }
+    .btn-choice-manual { background: #FFFFFF; color: #111827; border: 1.5px solid #D1D5DB; padding: 12px; border-radius: 12px; font-size: 13px; font-weight: 800; cursor: pointer; }
+
+    .demand-card { background: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 16px; padding: 18px; width: 100%; max-width: 360px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); margin-bottom: 16px; text-align: left; transition: transform 0.3s ease, border 0.3s ease; }
+    .demand-card h3 { font-size: 13px; font-weight: 800; color: #111827; margin-bottom: 4px; }
+    .demand-card p { font-size: 11px; color: #6B7280; margin-bottom: 12px; line-height: 1.4; }
+    
+    .pin-input-group { display: flex; flex-direction: column; gap: 8px; }
+    .pin-input-group input { width: 100%; padding: 11px; border: 1px solid #D1D5DB; border-radius: 10px; font-size: 13px; font-weight: 700; outline: none; background: #F9FAFB; }
+    .btn-submit-pin { background: #111827; color: #FFF; border: none; padding: 11px; border-radius: 10px; font-size: 12px; font-weight: 800; cursor: pointer; margin-top: 2px; }
+
+    .divider-box { display: flex; align-items: center; width: 100%; max-width: 360px; margin: 4px 0 14px 0; }
+    .divider-line { flex: 1; height: 1px; background: #E5E7EB; }
+    .divider-text { padding: 0 10px; font-size: 11px; font-weight: 800; color: #9CA3AF; }
+
+    .merchant-recruit-card { background: linear-gradient(135deg, #FFFBEB, #FEF3C7); border: 1px solid #FDE68A; border-radius: 16px; padding: 18px; width: 100%; max-width: 360px; text-align: left; box-shadow: 0 8px 20px rgba(245, 158, 11, 0.1); }
+    .merch-title { font-size: 14px; font-weight: 900; color: #B45309; margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+    .merch-desc { font-size: 11px; color: #92400E; margin-bottom: 14px; line-height: 1.4; font-weight: 600; }
+    .btn-merchant-join { background: #D97706; color: #FFF; border: none; width: 100%; padding: 11px; border-radius: 10px; font-size: 12px; font-weight: 900; cursor: pointer; box-shadow: 0 4px 10px rgba(217, 119, 6, 0.3); text-decoration: none; display: block; text-align: center; }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+<div class="device-shell" id="appDeviceShell">
+
+  <header class="top-header" id="appMainHeader">
+    <div class="brand-title">
+      <span class="star-badge">★</span> <span id="appBrandTitleText">STAR SHOPS</span>
+    </div>
+    <div class="header-right-box">
+      <div class="step-pill" onclick="promptManualLocation()" title="क्लिक करके मैन्युअल एरिया बदलें" id="headerLocationPill">
+        📍 <span id="headerLocationText">सर्च हो रहा है...</span> 
+      </div>
+    </div>
+  </header>
+
+  <main id="tab-home" class="tab-screen active">
+    <!-- 1. LIVE STORES VIEW (IN-RANGE) -->
+    <div id="inRangeContent" style="display:block;">
+      <div class="search-box">
+        <span>🔍</span>
+        <input type="text" id="storeSearchInput" placeholder="दुकान, लोकेशन, 'high' या 'claimed' खोजें..." oninput="fastSearchStores(this.value)">
+      </div>
+
+      <div class="categories-bar" id="appCategoriesBar">
+        <div class="category-chip active" onclick="filterCategory('ALL', this)" id="chipAll">ALL</div>
+        <div class="category-chip chip-open-today" onclick="filterCategory('OPENTODAY', this)">⚡ OPEN TODAY</div>
+        <div class="category-chip chip-high-discount" onclick="filterCategory('HIGHDISCOUNT', this)" id="chipHighDiscount" style="display:none;">★ VERIFIED MERCHANT</div>
+        <div class="category-chip" onclick="filterCategory('SALON', this)">SALON</div>
+        <div class="category-chip" onclick="filterCategory('PARLOR', this)">PARLOR</div>
+      </div>
+
+      <div id="dynamicStoresContainer">
+        <div style="font-size:12px; color:#6B7280; text-align:center; padding:30px;" id="loadingStoresText">डेटाबेस से लाइव दुकानें लोड हो रही हैं...</div>
+      </div>
+    </div>
+
+    <!-- 2. OUT OF AREA VIEW -->
+    <div id="outOfRangeContent" style="display:none;">
+      <div class="out-of-area-screen">
+        <div class="location-icon-box">📍</div>
+        <div class="out-title">हम अभी आपके एरिया में नहीं हैं!</div>
+        <div class="out-desc">माफ़ करें! Star Shops की सर्विस अभी इस लोकेशन पर उपलब्ध नहीं है। लेकिन आप नीचे दिए गए विकल्पों से ऐप का लेआउट देख सकते हैं या अपना एरिया चुन सकते हैं:</div>
+
+        <div class="choice-action-box">
+          <button class="btn-choice-demo" onclick="goToDemoLayout()">
+            👀 क्या आप इस ऐप का लेआउट देखना चाहते हैं?<br>(बेगमपुर दुकानें देखें)
+          </button>
+          <button class="btn-choice-manual" onclick="promptManualLocation()">
+            📍 अपना एरिया / पिन कोड सेलेक्ट करें
+          </button>
+        </div>
+
+        <div class="demand-card" id="demandBoxAnim">
+          <h3>अपने एरिया में सर्विस चाहते हैं?</h3>
+          <p>अपना एरिया का नाम और पिन कोड दर्ज करें। डिमांड बढ़ते ही हम आपके एरिया में भी सर्विस शुरू करेंगे!</p>
+          <div class="pin-input-group">
+            <input type="text" id="customerAreaName" placeholder="एरिया का नाम (जैसे: रोहिणी, पीतमपुरा)">
+            <input type="tel" id="customerPinCode" placeholder="6-अंकों का पिन कोड" maxlength="6">
+            <button class="btn-submit-pin" onclick="submitPinDemand()">वोट करें (डेटा भेजें)</button>
+          </div>
+          <div id="pinSuccessMsg" style="color:#059669; font-size:11px; font-weight:700; margin-top:10px; display:none;">
+            ✅ धन्यवाद! हमने आपका एरिया नोट कर लिया है।
+          </div>
+        </div>
+
+        <div class="divider-box">
+          <div class="divider-line"></div>
+          <div class="divider-text">दुकानदारों के लिए</div>
+          <div class="divider-line"></div>
+        </div>
+
+        <div class="merchant-recruit-card">
+          <div class="merch-title">⭐ क्या आप एक दुकानदार हैं?</div>
+          <div class="merch-desc">
+            अपने एरिया में Star Shops शुरू करें और अपनी दुकान पर ग्राहकों की भीड़ बढ़ाएं!
+          </div>
+          <a href="https://marchent-form2.netlify.app/" target="_blank" class="btn-merchant-join">
+            ➕ अपनी दुकान रजिस्टर करें (Free)
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <main id="tab-posts" class="tab-screen">
+    <div style="font-size:16px; font-weight:900; color:#111827; margin-bottom: 12px;">📰 मर्चेंट پست्स फीड</div>
+    <div id="postsFeedContainer">
+      <div style="font-size:13px; color:#6B7280; text-align:center; padding:30px;">पोस्ट्स लोड हो रही हैं...</div>
+    </div>
+  </main>
+
+  <main id="tab-alerts" class="tab-screen">
+    <div style="font-size:16px; font-weight:900; color:#111827; margin: 14px 0 10px 0;" id="alertsHeadingText">⚡ लाइव मर्चेंट अलर्ट्स & ऑफर्स</div>
+    <div id="liveAlertsContainer">
+      <div style="font-size:12px; color:#6B7280; text-align:center; padding:20px;">अलर्ट्स लोड हो रहे हैं...</div>
+    </div>
+  </main>
+
+  <main id="tab-profile" class="tab-screen">
+    <div class="profile-card">
+      <div class="profile-burger-btn" onclick="openSavedReelsModal()" title="सेव्ड डील्स और लोकेशन देखें">☰</div>
+
+      <div class="profile-avatar-container" onclick="document.getElementById('hiddenAvatarFileInput').click()" title="प्रोफाइल फोटो बदलें">
+        <div class="profile-avatar-img" id="profileAvatarDisplay">👤</div>
+        <div class="profile-avatar-badge">📷</div>
+      </div>
+      <input type="file" id="hiddenAvatarFileInput" accept="image/*" style="display:none;" onchange="openConsumerCropModal(event)">
+
+      <div class="profile-name-row">
+        <div class="profile-user-name" id="profileDisplayUserName">लोड हो रहा है...</div>
+        <button class="profile-edit-name-btn" onclick="promptChangeName()">✎</button>
+      </div>
+
+      <div class="wallet-grid">
+        <div class="wallet-box" onclick="openMonthlyHistoryModal()" style="cursor:pointer;" title="महीने की हिस्ट्री देखने के लिए क्लिक करें">
+          <div class="info-btn-badge" style="top: 8px; right: 8px; width: 20px; height: 20px; font-size: 10px;">ℹ</div>
+          <div style="font-size:18px; font-weight:800; color:#059669;" id="statClaimedCardCount">0 कार्ड्स</div>
+          <div style="font-size:11px; color:#6B7280;" id="statClaimedCardLabel">सफल क्लेम कार्ड्स</div>
+        </div>
+        <div class="wallet-box">
+          <div style="font-size:18px; font-weight:800; color:#F59E0B;" id="statFootprintCount">0</div>
+          <div style="font-size:11px; color:#6B7280;" id="statFootprintLabel">टोटल फुटप्रिंट (फुटफॉल)</div>
+        </div>
+      </div>
+
+      <!-- Hidden elements to ensure JS runs flawlessly without errors -->
+      <div style="display:none;">
+        <span id="liveTrackerTitle"></span>
+        <span id="todayClaimSummaryCount"></span>
+        <span id="liveDetectedMonthSavings"></span>
+      </div>
+
+    </div>
+
+    <div class="calc-card">
+      <div class="calc-title"><span id="calcTitleText">स्मार्ट बचत कैलकुलेटर</span></div>
+      <div class="calc-screen" id="calcDisplay">0</div>
+      <div class="calc-grid">
+        <button class="calc-btn clear" onclick="calcAction('C')">C</button>
+        <button class="calc-btn del" onclick="calcAction('DEL')">⌫</button>
+        <button class="calc-btn op" onclick="calcAction('%')">%</button>
+        <button class="calc-btn op" onclick="calcAction('/')">÷</button>
+        <button class="calc-btn" onclick="calcAction('7')">7</button>
+        <button class="calc-btn" onclick="calcAction('8')">8</button>
+        <button class="calc-btn op" onclick="calcAction('9')">9</button>
+        <button class="calc-btn op" onclick="calcAction('*')">×</button>
+        <button class="calc-btn" onclick="calcAction('4')">4</button>
+        <button class="calc-btn" onclick="calcAction('5')">5</button>
+        <button class="calc-btn" onclick="calcAction('6')">6</button>
+        <button class="calc-btn op" onclick="calcAction('-')">-</button>
+        <button class="calc-btn" onclick="calcAction('1')">1</button>
+        <button class="calc-btn" onclick="calcAction('2')">2</button>
+        <button class="calc-btn" onclick="calcAction('3')">3</button>
+        <button class="calc-btn op" onclick="calcAction('+')">+</button>
+        <button class="calc-btn" onclick="calcAction('0')">0</button>
+        <button class="calc-btn" onclick="calcAction('00')">00</button>
+        <button class="calc-btn" onclick="calcAction('.')">.</button>
+        <button class="calc-btn eq" onclick="calcAction('=')">=</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Auto-Refresh Scroll Loader -->
+  <div class="infinite-scroll-loader" id="infiniteScrollLoader">
+    <span class="spinner-blue"></span> नई अपडेट्स लोड हो रही हैं...
+  </div>
+
+  <nav class="bottom-nav" id="appBottomNav">
+    <!-- 3D मैटेलिक इफ़ेक्ट के लिए SVG डेफिनिशन्स -->
+    <svg width="0" height="0" style="position:absolute; width:0; height:0;">
+      <defs>
+        <linearGradient id="metal3D" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#F3F4F6"/>
+          <stop offset="25%" stop-color="#9CA3AF"/>
+          <stop offset="50%" stop-color="#4B5563"/>
+          <stop offset="80%" stop-color="#111827"/>
+          <stop offset="100%" stop-color="#374151"/>
+        </linearGradient>
+        <filter id="dropShadow" x="-20%" y="-20%" width="140%" height="140%">
+          <feDropShadow dx="0" dy="3" stdDeviation="2" flood-opacity="0.4"/>
+        </filter>
+      </defs>
+    </svg>
+
+    <!-- 1. होम (दुकानें) -->
+    <div class="nav-item active" onclick="switchMainTab('home', this)">
+      <div class="icon">
+        <svg width="26" height="26" viewBox="0 0 100 100">
+          <path d="M 15 20 L 25 20 L 35 70 L 80 70 L 90 30 L 30 30" fill="none" stroke="url(#metal3D)" stroke-width="8" stroke-linejoin="round" stroke-linecap="round" filter="url(#dropShadow)"/>
+          <circle cx="45" cy="85" r="8" fill="url(#metal3D)" filter="url(#dropShadow)"/>
+          <circle cx="75" cy="85" r="8" fill="url(#metal3D)" filter="url(#dropShadow)"/>
+        </svg>
+      </div>
+      <div id="navStoreText">दुकानें</div>
+    </div>
+    
+    <!-- 2. फीड (पोस्ट्स) -->
+    <div class="nav-item" onclick="switchMainTab('posts', this)">
+      <div class="icon">
+        <svg width="26" height="26" viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="40" fill="none" stroke="url(#metal3D)" stroke-width="10" filter="url(#dropShadow)"/>
+          <circle cx="50" cy="50" r="22" fill="none" stroke="url(#metal3D)" stroke-width="10" filter="url(#dropShadow)"/>
+          <circle cx="50" cy="50" r="6" fill="url(#metal3D)" filter="url(#dropShadow)"/>
+        </svg>
+      </div>
+      <div id="navPostsText">पोस्ट्स</div>
+    </div>
+    
+    <!-- 3. अलर्ट्स -->
+    <div class="nav-item" onclick="switchMainTab('alerts', this)">
+      <div class="icon">
+        <svg width="26" height="26" viewBox="0 0 100 100">
+          <path d="M 50 15 C 25 15, 20 40, 20 55 L 10 75 L 90 75 L 80 55 C 80 40, 75 15, 50 15 Z" fill="url(#metal3D)" filter="url(#dropShadow)"/>
+          <circle cx="50" cy="85" r="10" fill="url(#metal3D)" filter="url(#dropShadow)"/>
+          <circle cx="75" cy="25" r="18" fill="#DC2626" filter="url(#dropShadow)"/>
+          <text x="75" y="31" fill="white" font-size="16" font-family="sans-serif" font-weight="900" text-anchor="middle">+1</text>
+        </svg>
+      </div>
+      <div id="navAlertsText">अलर्ट्स</div>
+    </div>
+    
+    <!-- 4. प्रोफ़ाइल -->
+    <div class="nav-item" onclick="switchMainTab('profile', this)">
+      <div class="icon">
+        <svg width="26" height="26" viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="40" fill="none" stroke="url(#metal3D)" stroke-width="10" filter="url(#dropShadow)"/>
+          <circle cx="50" cy="35" r="14" fill="url(#metal3D)" filter="url(#dropShadow)"/>
+          <path d="M 22 80 C 22 55, 35 52, 50 52 C 65 52, 78 55, 78 80" fill="url(#metal3D)" filter="url(#dropShadow)"/>
+        </svg>
+      </div>
+      <div id="navProfileText">प्रोफ़ाइल</div>
+    </div>
+  </nav>
+
+</div>
+
+<div class="auth-modal-overlay" id="authModalOverlay">
+  <div class="auth-card">
+    <div style="font-size:20px; font-weight:900; margin-bottom:8px; color:#111827;">वेलकम टू Star Shops ⭐</div>
+    <div style="font-size:12px; color:#6B7280; margin-bottom:16px;">कृपया अपना नाम और मोबाइल नंबर दर्ज करें</div>
+    <input type="text" id="authNameInput" class="pin-input-box" style="font-size:14px; letter-spacing:normal; text-align:left;" placeholder="आपका पूरा नाम (जैसे: अभिषेक)">
+    <input type="tel" id="authPhoneInput" class="pin-input-box" style="font-size:14px; letter-spacing:normal; text-align:left; margin-top:10px;" placeholder="मोबाइल नंबर" maxlength="10">
+    <button style="width:100%; background:#059669; color:#fff; border:none; padding:12px; border-radius:12px; font-weight:800; margin-top:16px; cursor:pointer;" onclick="registerConsumerUser()">शुरू करें 🚀</button>
+  </div>
+</div>
+
+<!-- POPUP HTML HATA DIYA GAYA HAI -->
+<!--
+<div class="location-force-overlay" id="locationForceOverlay">
+  <div class="location-force-card">
+    <div style="font-size: 40px; margin-bottom: 10px;">📍</div>
+    <div style="font-size: 18px; font-weight: 900; color: #111827; margin-bottom: 8px;">लोकेशन अनिवार्य है</div>
+    <div style="font-size: 13px; color: #4B5563; line-height: 1.5; margin-bottom: 20px;">
+      Star Shops के शानदार ऑफर्स देखने के लिए कृपया अपने फोन की <b>GPS / Location</b> चालू करें।
+    </div>
+    <button id="retryLocBtn" onclick="retryLiveLocation()" style="width: 100%; background: #059669; color: #fff; border: none; padding: 14px; border-radius: 12px; font-weight: 800; font-size: 14px; cursor: pointer; box-shadow: 0 4px 12px rgba(5,150,105,0.2); margin-bottom: 10px;">
+      मैंने लोकेशन ऑन कर ली है (Retry)
+    </button>
+    <button onclick="closeLocationForceModal()" style="width: 100%; background: #F3F4F6; color: #4B5563; border: none; padding: 12px; border-radius: 12px; font-weight: 800; font-size: 12px; cursor: pointer;">
+      बंद करें और मैनुअल डालें
+    </button>
+  </div>
+</div>
+-->
+
+<div class="reel-popup-action-overlay" id="reelPopupActionOverlay">
+  <div class="reel-popup-card">
+    <div style="font-size: 16px; font-weight: 900; color: #111827; margin-bottom: 14px;">⚡ रील क्विक एक्शंस</div>
+    <button class="popup-action-btn btn-like-action" onclick="actionPopupLike()">❤️ <span id="popupLikeText">लाइक करें (0)</span></button>
+    <button class="popup-action-btn btn-save-action" onclick="actionPopupSaveWithWarning()">⭐ डील / रील सेव करें</button>
+    <button class="popup-action-btn btn-share-action" onclick="actionPopupShare()">↗ <span id="popupShareText">शेयर करें - 0 बार</span></button>
+    <button onclick="closeReelPopupAction()" class="modal-close-btn" style="background:#F3F4F6; width:100%; padding:10px; border-radius:10px; font-size:14px; margin-top:8px;">रद्द करें</button>
+  </div>
+</div>
+
+<div class="crop-modal-overlay" id="consumerCropModal">
+  <div class="crop-modal-card">
+    <div style="font-size: 14px; font-weight: 900; color: #111827; margin-bottom: 4px;">📸 प्रोफाइल फोटो सेट करें</div>
+    <div style="font-size: 10px; color: #6B7280; margin-bottom: 10px;">फ्रेम में खींचकर और ज़ूम करके एडजस्ट करें:</div>
+    <div class="consumer-crop-box" id="consumerCropPreviewBox"><img id="consumerCropperImage" src="" alt="Crop Source"></div>
+    <div style="margin-bottom: 12px;"><input type="range" id="consumerZoomRange" min="0.5" max="3" step="0.05" value="1" style="width: 100%; margin-top: 4px;" oninput="adjustConsumerZoom(this.value)"></div>
+    <div style="display:flex; gap:8px;">
+      <button style="background:#059669; flex:1; padding:10px; border:none; border-radius:8px; color:#fff; font-weight:800; cursor:pointer;" onclick="saveConsumerCroppedPhoto()">✅ सेव करें</button>
+      <button style="background:#DC2626; flex:1; padding:10px; border:none; border-radius:8px; color:#fff; font-weight:800; cursor:pointer;" class="modal-close-btn" style="font-size:14px;" onclick="closeConsumerCropModal()">❌ रद्द करें</button>
+    </div>
+  </div>
+</div>
+
+<!-- 🚨 MODAL UPDATED: Click on background to close 🚨 -->
+<div class="success-modal-overlay" id="fullPostViewModal" onclick="if(event.target.id === 'fullPostViewModal') closeFullPostViewModal()">
+  <div style="background: #FFFFFF; width: 100%; max-width: 380px; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; max-height: 85vh; box-shadow: 0 15px 35px rgba(0,0,0,0.3); position: relative;">
+    <div style="position: relative; background: #000; width: 100%; display: flex; justify-content: center; align-items: center;" id="fullPostModalMediaContainer">
+      <!-- Media will load here dynamically -->
+    </div>
+    <div style="padding: 18px; overflow-y: auto; background: #fff; text-align: left;">
+      <div style="font-size: 15px; font-weight: 900; color: #111827; margin-bottom: 8px;">📝 पोस्ट विवरण</div>
+      <div style="font-size: 13px; font-weight: 700; color: #4B5563; word-break: break-word; white-space: pre-wrap; line-height: 1.6;" id="fullPostModalCaption"></div>
+    </div>
+  </div>
+</div>
+
+<div class="shop-profile-modal" id="merchantPublicProfileModal">
+  <div class="shop-profile-card" style="text-align: center;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+      <div style="font-size:16px; font-weight:900; color:#111827;">🏪 मर्चेंट स्टोर विवरण</div>
+      <button onclick="closeMerchantPublicProfileModal()" class="modal-close-btn">✕</button>
+    </div>
+    <div style="width: 75px; height: 75px; border-radius: 50%; overflow: hidden; margin: 0 auto 8px auto; border: 2.5px solid #F59E0B; background: #111;" id="pubProfileAvatarBox">
+      <img id="pubProfileImg" src="" style="width:100%; height:100%; object-fit:cover;" alt="Store">
+    </div>
+    <div style="font-size: 17px; font-weight: 900; color: #111827;" id="pubProfileStoreName">स्टोर नाम</div>
+    <div style="font-size: 11px; color: #059669; font-weight: 700; margin-top: 2px;" id="pubProfileCategory">कैटेगरी</div>
+    
+    <div class="light-box-text-fix" style="background: #F8F9FA; border: 1px solid #E5E7EB; border-radius: 12px; padding: 12px; margin: 10px 0; text-align: left; font-size: 12px; line-height: 1.5;">
+      <div><b>📍 लोकेशन / पता:</b> <span id="pubProfileAddress">दिल्ली</span></div>
+      <div style="margin-top:6px;"><b>💬 मर्चेंट डिस्क्रिप्शन / ऑफ़र:</b> <br><span id="pubProfileCaption" class="highlight-text" style="color:#B45309; font-weight:700;">एन/ए</span></div>
+    </div>
+
+    <div style="font-size: 13px; font-weight: 900; color: #111827; text-align: left; margin-bottom: 4px; display: flex; align-items: center; gap: 4px;">
+      <span>🎬</span> <span>मर्चेंट रील सेक्शन:</span>
+    </div>
+
+    <div id="merchantGalleryAreaWrapper">
+      <div class="merchant-gallery-grid" id="merchantGalleryGridContainer">
+        <div style="grid-column: span 3; font-size:11px; color:#6B7280; padding:15px; text-align:center;">रील लोड हो रही है...</div>
+      </div>
+    </div>
+    <button class="btn-premium-ok" style="width:100%; background:#111827; color:#fff; border:none; padding:11px; border-radius:10px; font-weight:800; font-size:13px; cursor:pointer; margin-top:14px;" onclick="closeMerchantPublicProfileModal()">ठीक है (OK)</button>
+  </div>
+</div>
+
+<div class="shop-profile-modal" id="shopProfileModal">
+  <div class="shop-profile-card">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+      <div style="font-size:18px; font-weight:900; color:#111827;" id="modalShopTitle">दुकान का नाम</div>
+      <button onclick="closeShopProfileModal()" class="modal-close-btn">✕</button>
+    </div>
+    <div class="light-box-text-fix highlight-text" style="font-size:12px; color:#B45309; font-weight:700; background:#FFFBEB; padding:6px 10px; border-radius:8px; display:inline-block; margin-bottom:12px;" id="modalShopCategory"></div>
+    <div class="light-box-text-fix" style="background:#F8F9FA; border:1px solid #E5E7EB; border-radius:12px; padding:14px; margin-bottom:16px;" id="modalShopDescContainer"></div>
+    <div style="font-size:11px; color:#6B7280; margin-bottom:16px;" id="modalShopDistance">📍 दूरी: 0.5 किमी दूर • खुली है आज</div>
+    <button class="btn-premium-ok" style="width:100%; background:#111827; color:#fff; border:none; padding:13px; border-radius:12px; font-weight:800; font-size:13px; cursor:pointer;" onclick="closeShopProfileModal()">समझ आ गया (OK)</button>
+  </div>
+</div>
+
+<div class="shop-profile-modal" id="monthlyHistoryModal">
+  <div class="shop-profile-card">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+      <div style="font-size:18px; font-weight:900; color:#111827;">📅 पूरी क्लेम हिस्ट्री</div>
+      <button onclick="closeMonthlyHistoryModal()" class="modal-close-btn">✕</button>
+    </div>
+    <div class="light-box-text-fix green-text" style="font-size:12px; color:#059669; font-weight:700; background:#ECFDF5; padding:6px 10px; border-radius:8px; display:inline-block; margin-bottom:12px;" id="monthlyTotalSummaryBadge">लोड हो रहा है...</div>
+    <div class="light-box-text-fix" style="background:#F8F9FA; border:1px solid #E5E7EB; border-radius:12px; padding:14px; margin-bottom:16px; max-height:220px; overflow-y:auto;" id="monthlyHistoryListContainer"></div>
+    <button class="btn-premium-ok" style="width:100%; background:#059669; color:#fff; border:none; padding:13px; border-radius:12px; font-weight:800; font-size:13px; cursor:pointer;" onclick="closeMonthlyHistoryModal()">ठीक है (OK)</button>
+  </div>
+</div>
+
+<div class="shop-profile-modal" id="savedReelsModal">
+  <div class="shop-profile-card">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+      <div style="font-size:18px; font-weight:900; color:#111827;">⭐ सेव्ड डील्स & लोकेशन</div>
+      <button onclick="closeSavedReelsModal()" class="modal-close-btn">✕</button>
+    </div>
+    <div class="light-box-text-fix" style="margin-bottom: 12px; background: #F3F4F6; border: 1px solid #E5E7EB; border-radius: 10px; padding: 8px 12px; display: flex; align-items: center; gap: 8px;">
+      <span>📍</span>
+      <input type="text" id="savedLocationSearchInput" placeholder="लोकेशन या एरिया खोजें..." oninput="filterSavedDealsByLocation(this.value)" style="border:none; outline:none; background:transparent; width:100%; font-size:12px; color:#111;">
+    </div>
+    <div class="light-box-text-fix highlight-text" style="font-size:11px; color:#B45309; font-weight:700; background:#FFFBEB; padding:6px 10px; border-radius:8px; display:block; margin-bottom:10px;">
+      ⚠️ चेतावनी: यह सेव की गई रील और ऑफर रात 12:00 बजे हमेशा के लिए गायब हो जाएंगे!
+    </div>
+    <div class="light-box-text-fix" style="background:#F8F9FA; border:1px solid #E5E7EB; border-radius:12px; padding:12px; margin-bottom:16px; max-height:200px; overflow-y:auto;" id="savedReelsListContainer"></div>
+    <button class="btn-premium-ok" style="width:100%; background:#111827; color:#fff; border:none; padding:13px; border-radius:12px; font-weight:800; font-size:13px; cursor:pointer;" onclick="closeSavedReelsModal()">बंद करें</button>
+  </div>
+</div>
+
+<div class="scanner-modal-overlay" id="scannerModalOverlay">
+  <div class="scanner-card">
+    <div style="font-size:16px; font-weight:800; color:#111827;" id="scannerModalTitle">डिस्काउंट क्लेम करें</div>
+    <div style="font-size:12px; color:#6B7280; margin-top:4px;">काउंटर पर उपलब्ध 4-अंकों का पिन दर्ज करें</div>
+    <div style="margin-top: 14px;">
+      <input type="password" id="merchantSecretPinInput" class="pin-input-box" maxlength="4" placeholder="••••">
+    </div>
+    <div style="display:flex; gap:10px; margin-top:16px;">
+      <button style="flex:1; background:#F3F4F6; border:none; padding:11px; border-radius:10px; font-weight:700; cursor:pointer; color:#111;" class="modal-close-btn" style="font-size:14px;" onclick="closePinModal()">रद्द करें</button>
+      <button style="flex:1; background:#F59E0B; color:#fff; border:none; padding:11px; border-radius:10px; font-weight:700; cursor:pointer;" id="verifyPinBtn" onclick="verifyDiscountClaim()">वेरीफ़ाई करें</button>
+    </div>
+  </div>
+</div>
+
+<div class="success-modal-overlay" id="successModalOverlay">
+  <div class="success-card">
+    <div style="font-size:36px; margin-bottom:8px;" id="successModalEmoji">🎉</div>
+    <div style="font-size:16px; font-weight:900; color:#111827; margin-bottom:6px;" id="successModalTitle">सफलता!</div>
+    <div style="font-size:13px; color:#4B5563; line-height:1.4; margin-bottom:20px;" id="successModalDesc">ऑफर सफलतापूर्वक वेरीफ़ाई और क्लेम हो गया है।</div>
+    <button style="width:100%; background:#059669; color:#fff; border:none; padding:12px; border-radius:12px; font-weight:800; font-size:13px; cursor:pointer;" id="successModalBtn" onclick="closeSuccessModal()">ठीक है (OK)</button>
+  </div>
+</div>
+
+<script>
+  const SUPABASE_URL = "https://gejrzpflcuvlbpedliwq.supabase.co";
+  const SUPABASE_ANON_KEY = "sb_publishable_dw9J2AX0nd3SxPrRy9JGCg_YqS8ZfUF";
+  const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  let homeLat = null, homeLon = null, userCurrentState = "", userCurrentCity = "";
+  let currentShopperName = ""; let currentUserPhone = "";
+  let activeShopName = "", activeShopDiscount = 0, activeCardId = null, activeClaimTitle = "";
+  let todayClaimCount = 0, totalClaimedCardsCount = 0;
+  let liveSupabaseStores = [];
+  
+  let userIsOutOfRange = false; 
+
+  let userStepsData = JSON.parse(localStorage.getItem('star_user_steps_goal')) || { currentSteps: 0, targetSteps: 2000, unlockedHighDiscount: false };
+  let userClaimHistory = [];
+  let savedReelsList = JSON.parse(localStorage.getItem('starshops_saved_deals')) || [];
+  let dynamicPostsList = [];
+  
+  let isFetchingMore = false;
+
+  let userFootprints = parseInt(localStorage.getItem('starshops_total_footprints'));
+  if (isNaN(userFootprints)) {
+    userFootprints = 0; 
+    localStorage.setItem('starshops_total_footprints', userFootprints);
+  }
+
+  if (userFootprints < userStepsData.currentSteps) {
+      userFootprints = userStepsData.currentSteps;
+      localStorage.setItem('starshops_total_footprints', userFootprints);
+  }
+
+  let activeSelectedReelData = { id: '', store: '', caption: '', url: '', likes: 0, shares: 0 };
+  let isGloballyPlaying = true; 
+
+  let deviceUserId = localStorage.getItem('starshops_device_uuid');
+  if (!deviceUserId) {
+    deviceUserId = 'user_' + Math.random().toString(36).substring(2, 11);
+    localStorage.setItem('starshops_device_uuid', deviceUserId);
+  }
+
+  const fallbackSalonImages = [
+    "https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&w=700&q=80",
+    "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=700&q=80",
+    "https://images.unsplash.com/photo-1516975080661-42bceb9f0028?auto=format&fit=crop&w=700&q=80",
+    "https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?auto=format&fit=crop&w=700&q=80",
+    "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=700&q=80",
+    "https://images.unsplash.com/photo-1622286342621-4bd786c2447c?auto=format&fit=crop&w=700&q=80"
+  ];
+
+  window.addEventListener('DOMContentLoaded', async () => {
+    const savedUser = JSON.parse(localStorage.getItem('starshops_consumer_user'));
+    if(savedUser) {
+        currentShopperName = savedUser.name;
+        currentUserPhone = savedUser.phone;
+        document.getElementById('profileDisplayUserName').innerText = currentShopperName;
+    } else {
+        document.getElementById('authModalOverlay').classList.add('open');
+    }
+
+    const todayDateStr = new Date().toDateString();
+    const savedDateStr = localStorage.getItem('starshops_saved_date');
+    if (savedDateStr !== todayDateStr) {
+      savedReelsList = [];
+      localStorage.setItem('starshops_saved_deals', JSON.stringify([]));
+      localStorage.setItem('starshops_saved_date', todayDateStr);
+    }
+
+    let savedStepsDate = localStorage.getItem('star_user_steps_date');
+    if (savedStepsDate !== todayDateStr) {
+      userStepsData = { currentSteps: 0, targetSteps: 2000, unlockedHighDiscount: false };
+      localStorage.setItem('star_user_steps_goal', JSON.stringify(userStepsData));
+      localStorage.setItem('star_user_steps_date', todayDateStr);
+      document.getElementById('appDeviceShell').classList.remove('high-discount-active');
+      document.body.classList.remove('premium-mode-body');
+      const chip = document.getElementById('chipHighDiscount'); if (chip) chip.style.display = 'none';
+    }
+
+    document.getElementById('headerLocationText').innerText = "सर्च हो रहा है...";
+    toggleRangeView('out-of-range'); 
+
+    initLiveLocation();
+
+    const savedAvatar = localStorage.getItem('starshops_user_avatar');
+    if (savedAvatar) { document.getElementById('profileAvatarDisplay').innerHTML = `<img src="${savedAvatar}" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">`; }
+    
+    await syncUserClaimStatsFromSupabase();
+    await fetchLiveMerchantsFromSupabase();
+
+    if (userStepsData.unlockedHighDiscount) activateHighDiscountZoneUIMode();
+    
+    initInfiniteScrollLogic();
+  });
+
+  window.addEventListener('popstate', function(event) {
+    const isHomeTabActive = document.getElementById('tab-home').classList.contains('active');
+    if (isHomeTabActive) {
+      if (location.hash === '#demo') {
+         toggleRangeView('in-range');
+         document.getElementById('headerLocationText').innerText = "बेगमपुर, दिल्ली (डेमो)";
+      } else {
+         if (userIsOutOfRange) {
+            toggleRangeView('out-of-range');
+            document.getElementById('headerLocationText').innerText = "आउट ऑफ एरिया";
+         } else {
+            toggleRangeView('in-range');
+         }
+      }
+    }
+  });
+
+  function toggleRangeView(mode) {
+    if (mode === 'in-range') {
+      document.getElementById('inRangeContent').style.display = 'block';
+      document.getElementById('outOfRangeContent').style.display = 'none';
+    } else {
+      document.getElementById('inRangeContent').style.display = 'none';
+      document.getElementById('outOfRangeContent').style.display = 'block';
+    }
+  }
+
+  window.goToDemoLayout = function() {
+    history.pushState({ isDemo: true }, "Demo", "#demo"); 
+    document.getElementById('headerLocationText').innerText = "बेगमपुर, दिल्ली (डेमो)";
+    toggleRangeView('in-range');
+    fetchLiveMerchantsFromSupabase(true);
+  }
+
+  window.promptManualLocation = function() {
+    let chosenArea = prompt("अपना एरिया या शहर का नाम दर्ज करें (जैसे: Rohini Sector 7, Delhi):", "Rohini Delhi");
+    if (chosenArea && chosenArea.trim().length > 0) {
+      document.getElementById('headerLocationText').innerText = chosenArea.trim();
+      userIsOutOfRange = false; 
+      toggleRangeView('in-range');
+      fetchLiveMerchantsFromSupabase(true);
+    }
+  }
+
+  function initInfiniteScrollLogic() {
+    window.addEventListener('scroll', async () => {
+      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 100) {
+        const homeTabActive = document.getElementById('tab-home').classList.contains('active');
+        const postsTabActive = document.getElementById('tab-posts').classList.contains('active');
+        
+        if ((homeTabActive || postsTabActive) && !isFetchingMore) {
+          isFetchingMore = true;
+          document.getElementById('infiniteScrollLoader').classList.add('active');
+          
+          setTimeout(async () => {
+            await fetchLiveMerchantsFromSupabase(true); 
+            document.getElementById('infiniteScrollLoader').classList.remove('active');
+            isFetchingMore = false;
+          }, 1200); 
+        }
+      }
+    });
+  }
+
+  function registerConsumerUser() {
+    const n = document.getElementById('authNameInput').value.trim();
+    const p = document.getElementById('authPhoneInput').value.trim();
+    if(n.length < 2 || p.length < 10) { alert("कृपया सही नाम और 10-अंकों का मोबाइल नंबर दर्ज करें!"); return; }
+    
+    const userData = {name: n, phone: p};
+    localStorage.setItem('starshops_consumer_user', JSON.stringify(userData));
+    currentShopperName = n; currentUserPhone = p;
+    document.getElementById('profileDisplayUserName').innerText = currentShopperName;
+    document.getElementById('authModalOverlay').classList.remove('open');
+  }
+
+  window.retryLiveLocation = function() {
+    if (typeof AndroidNative !== 'undefined' && AndroidNative.turnOnGPS) {
+        AndroidNative.turnOnGPS();
+    }
+    // const btn = document.getElementById('retryLocBtn'); // Button is removed
+    // btn.innerText = "चेक हो रहा है...";
+    initLiveLocation(); 
+    // setTimeout(() => { btn.innerText = "मैंने लोकेशन ऑन कर ली है (Retry)"; }, 2000);
+  }
+  
+  window.closeLocationForceModal = function() {
+    // document.getElementById('locationForceOverlay').classList.remove('open'); // Element removed
+  }
+
+  // JS HATA DIYA GAYA HAI - Function body cleared
+  function showLocationOverlay() {
+     // document.getElementById('locationForceOverlay').classList.add('open');
+     if (typeof AndroidNative !== 'undefined' && AndroidNative.turnOnGPS) {
+        AndroidNative.turnOnGPS(); 
+     }
+  }
+
+  async function initLiveLocation() {
+    const locText = document.getElementById('headerLocationText');
+    if (navigator.geolocation) {
+      navigator.geolocation.watchPosition(async (position) => {
+        // document.getElementById('locationForceOverlay').classList.remove('open'); // Element removed
+        
+        let newLat = position.coords.latitude;
+        let newLon = position.coords.longitude;
+
+        if (homeLat !== null && homeLon !== null && (homeLat !== newLat || homeLon !== newLon)) {
+           let stepDist = calculateDistanceMeters(homeLat, homeLon, newLat, newLon);
+           if (stepDist > 3) {
+              let walked = Math.round(stepDist / 0.762);
+              userStepsData.currentSteps += walked;
+              if (userStepsData.currentSteps >= userStepsData.targetSteps) {
+                userStepsData.currentSteps = userStepsData.targetSteps;
+                if (!userStepsData.unlockedHighDiscount) { 
+                    userStepsData.unlockedHighDiscount = true; 
+                    setTimeout(openHighDiscountUnlockModal, 800); 
+                }
+              }
+              localStorage.setItem('star_user_steps_goal', JSON.stringify(userStepsData)); 
+              updateAllStoreCardsStepsUI(); 
+              userFootprints += walked;
+              localStorage.setItem('starshops_total_footprints', userFootprints);
+              if(document.getElementById('statFootprintCount')) document.getElementById('statFootprintCount').innerText = userFootprints;
+           }
+        }
+
+        homeLat = newLat;
+        homeLon = newLon;
+
+        if (!userCurrentCity) {
+          try {
+            const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${homeLat}&lon=${homeLon}&accept-language=hi,en`);
+            const data = await res.json();
+            let area = data.address.suburb || data.address.neighbourhood || data.address.city_district || data.address.town || data.address.city || "लोकेशन";
+            let city = data.address.city || data.address.state || "इंडिया";
+            locText.innerText = `${area}, ${city}`;
+            userCurrentCity = data.address.city || data.address.state_district || data.address.town || "";
+            userCurrentState = data.address.state || "";
+            applyLocationFilter();
+          } catch (e) { 
+            locText.innerText = "लोकेशन मिल गई (Live)"; 
+            userIsOutOfRange = false;
+            applyLocationFilter();
+          }
+        }
+      }, () => { 
+         showLocationOverlay();
+         if(!userCurrentCity) {
+            locText.innerText = "GPS ऑन करें"; 
+            userIsOutOfRange = true;
+            toggleRangeView('out-of-range');
+         }
+      }, { enableHighAccuracy: true, maximumAge: 0 }); 
+    } else { 
+      showLocationOverlay();
+      locText.innerText = "GPS सपोर्ट नहीं है"; 
+      userIsOutOfRange = true;
+      toggleRangeView('out-of-range');
+    }
+  }
+
+  window.submitPinDemand = function() {
+    const area = document.getElementById('customerAreaName').value.trim();
+    const pincode = document.getElementById('customerPinCode').value.trim();
+    
+    if(pincode.length === 6 && area.length > 0) {
+      try {
+        supabaseClient.from('pin_demands').insert([{ area_name: area, pin_code: pincode }]);
+      } catch(e) {}
+      
+      document.getElementById('pinSuccessMsg').style.display = 'block';
+      document.getElementById('customerAreaName').value = '';
+      document.getElementById('customerPinCode').value = '';
+      
+      setTimeout(() => {
+        document.getElementById('pinSuccessMsg').style.display = 'none';
+      }, 3000);
+    } else {
+      alert("कृपया सही एरिया का नाम और 6-अंकों का पिन कोड दर्ज करें।");
+    }
+  }
+
+  function applyLocationFilter() {
+    const container = document.getElementById('dynamicStoresContainer');
+    
+    if (liveSupabaseStores.length === 0) {
+      container.innerHTML = `<div style="text-align:center; padding:30px; color:#6B7280;">कोई दुकान उपलब्ध नहीं है।</div>`;
+      return;
+    }
+    
+    let isWithinRange = false;
+    for (let store of liveSupabaseStores) {
+      let sLat = store.latitude || store.lat;
+      let sLon = store.longitude || store.lng || store.lon;
+      
+      if (!sLat && store.location && store.location.includes(',')) {
+         let parts = store.location.split(',');
+         sLat = parts[0].trim();
+         sLon = parts[1].trim();
+      }
+
+      if (homeLat !== null && homeLon !== null && sLat && sLon && !isNaN(parseFloat(sLat))) {
+        let distMeters = calculateDistanceMeters(homeLat, homeLon, parseFloat(sLat), parseFloat(sLon));
+        if ((distMeters / 1000) <= 6) {
+          isWithinRange = true;
+          break;
+        }
+      } else {
+        isWithinRange = true; 
+      }
+    }
+
+    if (isWithinRange) {
+      userIsOutOfRange = false;
+      toggleRangeView('in-range');
+      renderDynamicStores(liveSupabaseStores); 
+    } else {
+      userIsOutOfRange = true;
+      toggleRangeView('out-of-range');
+      document.getElementById('headerLocationText').innerText = "आउट ऑफ एरिया";
+    }
+  }
+
+  function calculateDistanceMeters(lat1, lon1, lat2, lon2) {
+    const R = 6371e3; 
+    const φ1 = lat1 * Math.PI/180; const φ2 = lat2 * Math.PI/180;
+    const Δφ = (lat2-lat1) * Math.PI/180; const Δλ = (lon2-lon1) * Math.PI/180;
+    const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) + Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ/2) * Math.sin(Δλ/2);
+    return R * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)));
+  }
+
+  function updateAllStoreCardsStepsUI() {
+    const percent = Math.min(100, Math.round((userStepsData.currentSteps / userStepsData.targetSteps) * 100));
+    document.querySelectorAll('.step-progress-wrapper').forEach(wrapper => {
+      const textSpan = wrapper.querySelector('div > span:nth-child(2)');
+      const fillBar = wrapper.querySelector('.step-progress-bar-fill');
+      if (textSpan) textSpan.innerText = `${userStepsData.currentSteps}/${userStepsData.targetSteps} (${percent}%)`;
+      if (fillBar) fillBar.style.width = `${percent}%`;
+    });
+  }
+
+  function openShopInfoModalSafe(shopName, category, distance, encDesc, encDiscount) {
+    let desc = decodeURIComponent(encDesc);
+    let disc = decodeURIComponent(encDiscount);
+    openShopInfoModal(shopName, category, [desc], distance, disc);
+  }
+
+  async function syncUserClaimStatsFromSupabase() {
+    let localClaims = JSON.parse(localStorage.getItem('starshops_local_claims')) || [];
+    userClaimHistory = localClaims;
+
+    try {
+      const { data, error } = await supabaseClient.from('user_claims').select('*').eq('user_identifier', deviceUserId);
+      if (!error && data && data.length > 0) {
+        let dbClaims = data.map(item => ({ rawDate: item.created_at, date: new Date(item.created_at || Date.now()).toLocaleDateString('hi-IN'), store: item.store_name || 'स्टार मर्चेंट', saved: item.offer_title || 'विशेष छूट' }));
+        if(dbClaims.length > userClaimHistory.length) {
+            userClaimHistory = dbClaims;
+            localStorage.setItem('starshops_local_claims', JSON.stringify(userClaimHistory));
+        }
+      }
+    } catch (err) {}
+    updateLiveSavingsDetector();
+  }
+
+  function getDailyClaimCount(storeName) {
+    const todayStr = new Date().toDateString();
+    let count = 0;
+    userClaimHistory.forEach(claim => {
+       let claimDate = new Date(claim.rawDate).toDateString();
+       if(claimDate === todayStr && claim.store === storeName) count++;
+    });
+    return count;
+  }
+
+  // --- 🚨 FIXED: CORRECT CAPTIONS FETCHED DIRECTLY 🚨 ---
+  async function fetchLiveMerchantsFromSupabase(isSilent = false) {
+    const container = document.getElementById('dynamicStoresContainer');
+    
+    if (!isSilent) {
+        try { document.getElementById('loadingStoresText').innerText = "डेटाबेस से लाइव दुकानें लोड हो रही हैं..."; } catch(e){}
+    }
+    
+    try {
+      const [merchantsRes, reelsRes] = await Promise.all([ supabaseClient.from('merchants').select('*'), supabaseClient.from('reels').select('*') ]);
+      if (merchantsRes.error) throw merchantsRes.error;
+
+      const allStores = merchantsRes.data || [];
+      const allReels = reelsRes.data || [];
+      const openStores = allStores.filter(s => (s.status || '').toLowerCase() !== 'closed' && (s.status || '').toLowerCase() !== 'false');
+
+      dynamicPostsList = []; liveSupabaseStores = [];
+
+      openStores.forEach((store, index) => {
+        const storeId = store.id;
+        const merchantMedia = allReels.filter(r => r.merchant_id == storeId);
+
+        const storeVideos = merchantMedia.filter(m => m.media_type === 'video' || (!m.media_type && (m.video_url?.includes('.mp4') || m.video_url?.includes('reel'))));
+
+        store.display_image = (store.image_url && store.image_url.trim() !== '') ? store.image_url : fallbackSalonImages[index % fallbackSalonImages.length];
+        
+        store.reels = storeVideos; 
+
+        if (merchantMedia.length > 0 || store.display_image) {
+          liveSupabaseStores.push(store);
+        }
+
+        if (merchantMedia.length > 0) {
+          merchantMedia.forEach(media => {
+            let pUrl = media.video_url || media.url || media.image_url;
+            let isVideo = media.media_type === 'video' || (!media.media_type && (pUrl?.includes('.mp4') || pUrl?.includes('reel')));
+            
+            let pCap = media.caption || media.description;
+            if (!pCap || pCap.trim() === '') {
+                pCap = store.offer_details?.discount || store.description || "✨ बेहतरीन सर्विस, सबसे सही दाम";
+            }
+
+            dynamicPostsList.push({
+              id: storeId,
+              storeName: store.store_name || 'स्टोर',
+              category: store.category || 'जनरल स्टोर',
+              avatar: store.display_image,
+              post_image: pUrl,
+              caption: pCap,
+              distance: store.address || "दिल्ली",
+              address: store.address || "दिल्ली",
+              reels: storeVideos,
+              isVideo: isVideo 
+            });
+          });
+        } else if (store.display_image) {
+          let pCap = store.offer_details?.discount || store.description || "✨ बेहतरीन सर्विस, सबसे सही दाम";
+          dynamicPostsList.push({
+              id: storeId,
+              storeName: store.store_name || 'स्टोर',
+              category: store.category || 'जनरल स्टोर',
+              avatar: store.display_image,
+              post_image: store.display_image,
+              caption: pCap,
+              distance: store.address || "दिल्ली",
+              address: store.address || "दिल्ली",
+              reels: storeVideos,
+              isVideo: false
+          });
+        }
+      });
+
+      if (dynamicPostsList.length === 0) {
+        if(!isSilent && container) container.innerHTML = `<div style="font-size:13px; color:#6B7280; text-align:center; padding:30px;">फिलहाल किसी भी मर्चेंट ने पोस्ट या रील अपलोड नहीं की है।</div>`;
+        return;
+      }
+
+      liveSupabaseStores.sort((a, b) => {
+        const discA = (a.offer_details?.discount || "").toLowerCase();
+        const discB = (b.offer_details?.discount || "").toLowerCase();
+        const numA = parseInt(discA.match(/(\d+)/)?.[1] || 0);
+        const numB = parseInt(discB.match(/(\d+)/)?.[1] || 0);
+        const isHighA = (numA >= 150 || discA.includes('200') || discA.includes('flat')) ? 1 : 0;
+        const isHighB = (numB >= 150 || discB.includes('200') || discB.includes('flat')) ? 1 : 0;
+        if (isHighA !== isHighB) return isHighB - isHighA; 
+        return numB - numA; 
+      });
+
+      if(document.getElementById('inRangeContent').style.display === 'block') {
+          renderDynamicStores(liveSupabaseStores);
+      }
+      renderDynamicAlerts(liveSupabaseStores);
+      renderPostsFeed(dynamicPostsList);
+
+    } catch (err) { 
+        if(!isSilent && container) container.innerHTML = `<div style="font-size:13px; color:#DC2626; text-align:center; padding:30px;">नेटवर्क या Supabase कनेक्शन में समस्या है।</div>`; 
+    }
+  }
+
+  // --- 🚨 FIXED: ADDED CLOSE BUTTON (✕) TO REEL FEED MODAL 🚨 ---
+  function openFullPostView(mediaUrl, encodedCaption, isVideo = false) {
+    const caption = decodeURIComponent(encodedCaption);
+    const container = document.getElementById('fullPostModalMediaContainer');
+    
+    // Close button snippet
+    const closeBtnHtml = `<button onclick="closeFullPostViewModal()" class="full-post-close-btn">✕</button>`;
+    
+    if(isVideo) {
+       container.innerHTML = closeBtnHtml + `<video src="${mediaUrl}" style="width: 100%; max-height: 60vh; object-fit: contain; display: block; background: #000;" controls autoplay playsinline></video>`;
+    } else {
+       container.innerHTML = closeBtnHtml + `<img src="${mediaUrl}" style="width: 100%; max-height: 60vh; object-fit: contain; display: block;">`;
+    }
+    
+    document.getElementById('fullPostModalCaption').innerHTML = caption;
+    document.getElementById('fullPostViewModal').classList.add('open');
+  }
+
+  function closeFullPostViewModal() {
+    document.getElementById('fullPostModalMediaContainer').innerHTML = ''; 
+    document.getElementById('fullPostViewModal').classList.remove('open');
+  }
+
+  function renderPostsFeed(postsArray) {
+    const container = document.getElementById('postsFeedContainer');
+    if (!postsArray || postsArray.length === 0) { container.innerHTML = `<div style="text-align:center; padding:30px; color:#6B7280;">कोई पोस्ट उपलब्ध नहीं है।</div>`; return; }
+    let html = '';
+    postsArray.forEach(post => {
+      let reelsPreviewHtml = '';
+      if (post.reels && post.reels.length > 0) {
+        let miniList = post.reels.slice(0, 3);
+        let thumbItems = miniList.map(reel => {
+          let vUrl = reel.video_url || reel.url || reel.image_url || '';
+          let mediaElement = `<video src="${vUrl}#t=0.1" preload="metadata" muted playsinline style="width:100%; height:100%; object-fit:cover; display:block; pointer-events:none;"></video>`;
+          return `<div class="mini-reel-thumb" onclick="openMerchantPublicProfileById('${post.id}')">${mediaElement}</div>`;
+        }).join('');
+        
+        reelsPreviewHtml = `
+          <div class="post-reels-preview-box">
+            <div class="post-reels-header-row"><div class="post-reels-title">🎬 मर्चेंट रील सेक्शन</div><button class="post-more-btn" onclick="openMerchantPublicProfileById('${post.id}')">More →</button></div>
+            <div class="post-mini-grid">${thumbItems}</div>
+          </div>`;
+      }
+      
+      let mediaHtml = post.isVideo 
+        ? `<video src="${post.post_image}#t=0.1" style="width:100%; height:100%; max-height:360px; object-fit:cover; display:block;" muted playsinline loop></video>
+           <div style="position:absolute; top:10px; right:10px; background:rgba(0,0,0,0.7); color:#fff; font-size:10px; padding:4px 8px; border-radius:6px; font-weight:bold;">🎬 रील</div>`
+        : `<img src="${post.post_image}" style="width:100%; height:100%; max-height:360px; object-fit:cover; display:block;" alt="Post Image">`;
+
+      html += `
+        <div class="post-card">
+          <div class="post-header">
+            <div class="post-header-left" onclick="openMerchantPublicProfileById('${post.id}')">
+              <div class="post-avatar-ring"><img src="${post.avatar}" class="post-avatar" alt="Store"></div>
+              <div><div style="font-size:14px; font-weight:800; color:#111827;">${post.storeName}</div><div style="font-size:11px; color:#B45309; font-weight:700;">📍 ${post.distance}</div></div>
+            </div>
+            <div class="post-more-info-text" onclick="openShopInfoModalSafe('${post.storeName}', '${post.category}', '${post.address}', '${encodeURIComponent(post.caption)}', '${encodeURIComponent(post.caption)}')">More Info</div>
+          </div>
+          
+          <div class="post-media-box" style="position:relative;" onclick="openFullPostView('${post.post_image}', '${encodeURIComponent(post.caption)}', ${post.isVideo})">
+            ${mediaHtml}
+          </div>
+          <div class="post-content-body" onclick="openFullPostView('${post.post_image}', '${encodeURIComponent(post.caption)}', ${post.isVideo})">
+            <div style="font-size:13px; font-weight:700; color:#1F2937; word-break:break-word; white-space:pre-wrap; line-height:1.4;">${post.caption}</div>
+          </div>
+          
+          ${reelsPreviewHtml}
+        </div>`;
+    });
+    container.innerHTML = html;
+  }
+
+  function renderDynamicAlerts(storesArray) {
+    const container = document.getElementById('liveAlertsContainer');
+    if (!storesArray || storesArray.length === 0) { container.innerHTML = `<div style="text-align:center; padding:20px; color:#6B7280;">कोई नया अलर्ट नहीं है।</div>`; return; }
+    container.innerHTML = storesArray.map(store => {
+      let safeOffer = store.offer_details?.discount || "✨ बेहतरीन सर्विस";
+      return `
+      <div class="merchant-card" style="padding:16px; margin-bottom:12px;">
+        <div style="display:flex; gap:12px; align-items:flex-start;">
+          <div style="font-size:24px; background:#FFFBEB; padding:10px; border-radius:12px; border:1px solid #FDE68A;">⚡</div>
+          <div style="flex:1;">
+            <div style="font-size:14px; font-weight:800; color:#111827;">${store.store_name} लाइव हो चुकी है!</div>
+            <div style="font-size:12px; color:#4B5563; margin-top:2px;">📍 ${store.address} • ऑफ़र: ${safeOffer}</div>
+            <div style="font-size:11px; color:#059669; font-weight:700; margin-top:6px;">✨ काउंटर पर पिन दर्ज करें और ऑफर क्लेम करें!</div>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  function openHighDiscountUnlockModal() {
+    document.getElementById('successModalEmoji').innerText = "👑";
+    document.getElementById('successModalTitle').innerText = "VVIP ज़ोन अनलॉक!";
+    document.getElementById('successModalDesc').innerText = "बधाई हो! आपने 2000 कदम (4 क्लेम) पूरे कर लिए हैं। आपका ऐप अब '1% Elite Velvet Black' थीम में बदल गया है और VIP डील्स सोने की तरह चमक रही हैं!";
+    const btn = document.getElementById('successModalBtn');
+    btn.innerText = "★ प्रीमियम ऐप देखें";
+    btn.onclick = () => { closeSuccessModal(); activateHighDiscountZoneUIMode(); const highChip = document.getElementById('chipHighDiscount'); if (highChip) filterCategory('HIGHDISCOUNT', highChip); };
+    document.getElementById('successModalOverlay').classList.add('open');
+  }
+
+  function activateHighDiscountZoneUIMode() {
+    document.getElementById('appDeviceShell').classList.add('high-discount-active');
+    document.body.classList.add('premium-mode-body');
+    const chip = document.getElementById('chipHighDiscount'); if (chip) chip.style.display = 'inline-flex';
+  }
+
+  function renderDynamicStores(storesArray) {
+    const container = document.getElementById('dynamicStoresContainer');
+    if (!storesArray || storesArray.length === 0) { container.innerHTML = `<div style="text-align:center; padding:30px; color:#6B7280;">कोई खुली हुई दुकान उपलब्ध नहीं है।</div>`; return; }
+
+    let html = '';
+    storesArray.forEach((store, index) => {
+      const storeName = store.store_name || 'स्टार मर्चेंट स्टोर'; const address = store.address || store.location || 'दिल्ली';
+      const cardId = store.id || index; const dbCategory = (store.category || 'SALON').toUpperCase();
+      
+      const discountText = store.offer_details?.discount || "✨ बेहतरीन सर्विस"; 
+      const conditionsText = store.offer_details?.conditions || store.description || "सबसे सही दाम और शानदार काम";
+      
+      const bannerImg = store.display_image || fallbackSalonImages[index % fallbackSalonImages.length];
+      
+      let numericDiscount = parseInt(discountText.match(/(\d+)/)?.[1] || 0);
+      const percent = Math.min(100, Math.round((userStepsData.currentSteps / userStepsData.targetSteps) * 100));
+      const isHighDiscountStore = numericDiscount >= 150 || discountText.toLowerCase().includes('200') || discountText.toLowerCase().includes('flat');
+      
+      const claimCount = getDailyClaimCount(storeName);
+
+      let displayDistanceText = `📍 ${address}`;
+      let sLat = store.latitude || store.lat; 
+      let sLon = store.longitude || store.lng || store.lon;
+      
+      if (!sLat && store.location && store.location.includes(',')) {
+         let parts = store.location.split(',');
+         sLat = parts[0].trim();
+         sLon = parts[1].trim();
+      }
+
+      if (homeLat !== null && homeLon !== null && sLat && sLon && !isNaN(parseFloat(sLat))) {
+        let distMeters = calculateDistanceMeters(homeLat, homeLon, parseFloat(sLat), parseFloat(sLon));
+        let distKm = (distMeters / 1000).toFixed(1);
+        displayDistanceText = `📍 ${distKm} किमी दूर • ${address}`;
+      }
+
+      let cardClassNames = "merchant-card store-item" + (isHighDiscountStore ? " high-discount-card" : "");
+      let btnText = "⚡ काउंटर पिन डालकर क्लेम करें"; let btnClass = "scan-action-btn";
+
+      if (claimCount === 1) { cardClassNames += " claimed-card"; btnText = "🔄 रीक्लेम करें (Reclaim)"; btnClass += " reclaim-btn"; }
+      else if (claimCount >= 2) { cardClassNames += " reclaimed-card"; btnText = "✓ स्टोर लिमिट पूरी"; }
+
+      html += `
+        <div class="${cardClassNames}" id="storeCard_${cardId}" data-category="${dbCategory}" data-address="${address.toLowerCase()}" data-open-today="true" data-high-discount="${isHighDiscountStore}" data-claim-count="${claimCount}" data-keywords="${storeName.toLowerCase()} ${address.toLowerCase()} ${dbCategory.toLowerCase()} ${claimCount > 0 ? 'claimed' : ''} ${isHighDiscountStore ? 'high' : ''}" onclick='openMerchantPublicProfileById("${store.id}")'>
+          <div class="card-banner"><img src="${bannerImg}" alt="${storeName}"><div class="banner-overlay"></div><div class="badge-fomo">⚡ लाइव डील</div><div class="badge-limit">${isHighDiscountStore ? '★ VERIFIED MERCHANT' : '★ VERIFIED PARTNER'}</div></div>
+          <div class="card-body">
+            <div class="store-meta"><div class="store-title">${storeName} <span style="color:#F59E0B;">★</span></div><div class="store-distance">${displayDistanceText}</div></div>
+            <div class="store-status-row"><div class="live-open-pill"><span class="blink-dot"></span> दुकान खुली है (आज)</div><div class="mini-reclaim-badge-pill" onclick="event.stopPropagation(); openPinModal('${storeName}', ${numericDiscount}, '${cardId}', '${storeName} - ${discountText}')">🔄 रीक्लेम करें</div></div>
+            
+            <div class="step-progress-wrapper"><div style="font-size: 11px; font-weight: 900; color: #1E40AF; display:flex; justify-content:space-between;"><span>🎯 2000 कदम लक्ष्य (ट्रैक हो रहा है)</span><span>${userStepsData.currentSteps}/2000 (${percent}%)</span></div><div class="step-progress-bar-bg"><div class="step-progress-bar-fill" style="width: ${percent}%;"></div></div></div>
+            <div class="line-sep"></div>
+            <div class="deal-action-box"><div><div class="cash-save" style="font-size: 15px;">${discountText}</div><div class="cash-sub">काउंटर पर विशेष छूट उपलब्ध</div></div><button class="info-btn-grocery" onclick="event.stopPropagation(); openShopInfoModalSafe('${storeName}', '${dbCategory}', '${address}', '${encodeURIComponent(conditionsText)}', '${encodeURIComponent(discountText)}')">ℹ डील देखें</button></div>
+            <div style="margin-top: 12px;"><button class="${btnClass}" id="cardBtn_${cardId}" ${claimCount >= 2 ? 'disabled style="background:#9CA3AF !important; cursor:not-allowed;"' : ''} onclick="event.stopPropagation(); openPinModal('${storeName}', ${numericDiscount}, '${cardId}', '${storeName} - ${discountText}')">${btnText}</button></div>
+          </div>
+        </div>`;
+    });
+    container.innerHTML = html;
+  }
+
+  async function openMerchantPublicProfileById(merchantId) {
+    const store = liveSupabaseStores.find(s => s.id == merchantId);
+    if (!store) return;
+    document.getElementById('pubProfileStoreName').innerText = store.store_name || "स्टोर";
+    document.getElementById('pubProfileCategory').innerText = `📂 ${store.category || 'सलून'}`;
+    
+    document.getElementById('pubProfileImg').src = store.display_image || fallbackSalonImages[0];
+    document.getElementById('pubProfileAddress').innerText = store.address || store.location || "दिल्ली";
+    
+    let safeOffer = store.offer_details?.discount || "✨ बेहतरीन सर्विस, सबसे सही दाम";
+    let safeDesc = store.offer_details?.conditions || store.description || "सबसे सही दाम और शानदार काम";
+    
+    document.getElementById('pubProfileCaption').innerText = `ऑफर: ${safeOffer}\nविवरण: ${safeDesc}`;
+
+    const wrapperContainer = document.getElementById('merchantGalleryAreaWrapper');
+    document.getElementById('merchantPublicProfileModal').classList.add('open');
+
+    if (store.reels && store.reels.length > 0) { renderStoryStyleGrid(store.reels, store, wrapperContainer); } 
+    else { 
+      wrapperContainer.innerHTML = `<div class="merchant-gallery-grid" style="grid-template-columns: 1fr;"><div class="gallery-thumb-item" style="aspect-ratio: 16/9;"><img src="${store.display_image || fallbackSalonImages[0]}" style="width:100%; height:100%; object-fit:cover;" alt="Store Photo"></div></div>`; 
+    }
+  }
+
+  function renderStoryStyleGrid(reelsList, store, wrapperContainer) {
+    let gridHtml = `<div class="merchant-gallery-grid" id="merchantGalleryGridContainer">`;
+    reelsList.forEach((reel, idx) => {
+      let vUrl = reel.video_url || reel.url || reel.image_url || '';
+      let reelCaption = reel.caption || reel.description || ''; 
+      let encodedCaption = encodeURIComponent(reelCaption || 'विशेष ऑफर');
+      
+      let isVideo = reel.media_type === 'video' || (!reel.media_type && (vUrl.includes('.mp4') || vUrl.includes('reel')));
+
+      let mediaElement = isVideo 
+        ? `<video src="${vUrl}#t=0.1" preload="metadata" muted playsinline style="width:100%; height:100%; object-fit:cover; display:block; pointer-events:none;"></video>`
+        : `<img src="${vUrl}" style="width:100%; height:100%; object-fit:cover; display:block; pointer-events:none;" alt="Post">`;
+
+      gridHtml += `
+        <div style="display:flex; flex-direction:column; background:#fff; border-radius:8px; overflow:hidden; border:1px solid #E5E7EB;">
+          <div class="gallery-thumb-item" id="thumbItem_${idx}" onclick="launchStoryPlayer(${idx})" style="aspect-ratio:1/1; position:relative; background:#111;">
+            ${mediaElement}
+          </div>
+          <div style="padding:6px 8px; font-size:11px; color:#1F2937; font-weight:700; text-align:left; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; background:#F9FAFB; cursor:pointer;" onclick="openFullCaptionModal('${encodedCaption}')" title="पूरा कैप्शन देखने के लिए क्लिक करें">
+            💬 ${reelCaption ? reelCaption : 'विशेष ऑफर'}
+          </div>
+        </div>`;
+    });
+    gridHtml += `</div>`;
+    wrapperContainer.innerHTML = gridHtml;
+
+    reelsList.forEach((reel, idx) => {
+      let el = document.getElementById(`thumbItem_${idx}`);
+      if (!el) return;
+      let pressTimer = null;
+      const triggerPopup = (e) => {
+        e.preventDefault();
+        let reelId = reel.id || idx;
+        let storedStats = JSON.parse(localStorage.getItem('reel_stats_' + reelId)) || { likes: Math.floor(Math.random()*50)+10, shares: Math.floor(Math.random()*20)+1 };
+        localStorage.setItem('reel_stats_' + reelId, JSON.stringify(storedStats));
+
+        let safeOffer = reel.caption || reel.description || store.offer_details?.discount || '✨ बेहतरीन सर्विस';
+        activeSelectedReelData = { id: reelId, store: store.store_name, caption: safeOffer, url: reel.video_url || reel.image_url, likes: storedStats.likes, shares: storedStats.shares };
+        document.getElementById('popupLikeText').innerText = `लाइक करें (${activeSelectedReelData.likes})`;
+        document.getElementById('popupShareText').innerText = `शेयर करें - ${activeSelectedReelData.shares} बार`;
+        document.getElementById('reelPopupActionOverlay').classList.add('open');
+      };
+      el.addEventListener('touchstart', (e) => { pressTimer = setTimeout(() => triggerPopup(e), 600); });
+      el.addEventListener('touchend', () => clearTimeout(pressTimer));
+      el.addEventListener('mousedown', (e) => { pressTimer = setTimeout(() => triggerPopup(e), 600); });
+      el.addEventListener('mouseup', () => clearTimeout(pressTimer));
+    });
+
+    window.launchStoryPlayer = function(selectedIndex) {
+      let currentIdx = selectedIndex; isGloballyPlaying = true;
+      function loadStoryAt(i) {
+        if (i < 0 || i >= reelsList.length) return;
+        currentIdx = i; let r = reelsList[i]; 
+        let url = r.video_url || r.url || r.image_url || '';
+        let isStoryVideo = r.media_type === 'video' || (!r.media_type && (url.includes('.mp4') || url.includes('reel')));
+
+        let progressBarsHtml = reelsList.map((_, pIdx) => `<div class="story-progress-bar"><div class="story-progress-fill" id="storyProgressFill_${pIdx}" style="width: ${pIdx < i ? '100%' : '0%'}"></div></div>`).join('');
+        
+        let storyMediaElement = isStoryVideo 
+          ? `<video id="activeStoryVideo" src="${url}" autoplay playsinline controlslist="nodownload" disablepictureinpicture></video>
+             <button class="story-water-play-btn" id="storyPlayPauseBtn" onclick="toggleStoryPlayPause()">${isGloballyPlaying ? '⏸ पॉज़' : '▶ प्ले'}</button>`
+          : `<img id="activeStoryImage" src="${url}" style="width:100%; max-height:320px; object-fit:contain; background:#000;">`;
+
+        wrapperContainer.innerHTML = `
+          <div class="story-inline-player-box" id="storyPlayerBox">
+            <div class="story-progress-container">${progressBarsHtml}</div>
+            <div class="story-tap-left" onclick="storyPrev()"></div><div class="story-tap-right" onclick="storyNext()"></div>
+            ${storyMediaElement}
+          </div>`;
+
+        if (isStoryVideo) {
+          let vid = document.getElementById('activeStoryVideo');
+          let fillBar = document.getElementById(`storyProgressFill_${i}`);
+          let btnPlayPause = document.getElementById('storyPlayPauseBtn');
+
+          if (!isGloballyPlaying) vid.pause();
+          vid.ontimeupdate = () => { if (vid.duration && fillBar) fillBar.style.width = ((vid.currentTime / vid.duration) * 100) + '%'; };
+
+          window.toggleStoryPlayPause = function() {
+            if (vid.paused) { vid.play(); isGloballyPlaying = true; btnPlayPause.innerText = "⏸ पॉज़"; } 
+            else { vid.pause(); isGloballyPlaying = false; btnPlayPause.innerText = "▶ प्ले"; }
+          };
+
+          vid.onended = () => { if (currentIdx + 1 < reelsList.length) loadStoryAt(currentIdx + 1); else renderStoryStyleGrid(reelsList, store, wrapperContainer); };
+        } else {
+            let fillBar = document.getElementById(`storyProgressFill_${i}`);
+            let progress = 0;
+            let imgTimer = setInterval(() => {
+                progress += 2; 
+                if(fillBar) fillBar.style.width = progress + '%';
+                if(progress >= 100) {
+                    clearInterval(imgTimer);
+                    if (currentIdx + 1 < reelsList.length) loadStoryAt(currentIdx + 1); 
+                    else renderStoryStyleGrid(reelsList, store, wrapperContainer);
+                }
+            }, 100);
+            
+            window.storyPrev = function() { clearInterval(imgTimer); if (currentIdx > 0) loadStoryAt(currentIdx - 1); };
+            window.storyNext = function() { clearInterval(imgTimer); if (currentIdx + 1 < reelsList.length) loadStoryAt(currentIdx + 1); else renderStoryStyleGrid(reelsList, store, wrapperContainer); };
+        }
+      }
+      
+      window.storyPrev = function() { if (currentIdx > 0) loadStoryAt(currentIdx - 1); };
+      window.storyNext = function() { if (currentIdx + 1 < reelsList.length) loadStoryAt(currentIdx + 1); else renderStoryStyleGrid(reelsList, store, wrapperContainer); };
+
+      loadStoryAt(selectedIndex);
+    };
+  }
+
+  function closeReelPopupAction() { document.getElementById('reelPopupActionOverlay').classList.remove('open'); }
+  function actionPopupLike() { activeSelectedReelData.likes++; localStorage.setItem('reel_stats_' + activeSelectedReelData.id, JSON.stringify({likes: activeSelectedReelData.likes, shares: activeSelectedReelData.shares})); closeReelPopupAction(); openSuccessModal("सफलता! ❤️", "आपने इस रील को लाइक कर दिया है!"); }
+  function actionPopupSaveWithWarning() {
+    closeReelPopupAction();
+    savedReelsList.unshift({ store: activeSelectedReelData.store, location: "दिल्ली", offer: activeSelectedReelData.caption, expires: "आज रात 12:00 बजे" });
+    localStorage.setItem('starshops_saved_deals', JSON.stringify(savedReelsList));
+    openSuccessModal("डील सेव हो गई! ⏰", "⭐ रील और ऑफर सफलतापूर्वक सेव कर लिया गया है!\n\n⚠️ चेतावनी: यह ऑफर आज रात 12:00 बजे के बाद गायब हो जाएगा।");
+  }
+  function actionPopupShare() {
+    activeSelectedReelData.shares++; localStorage.setItem('reel_stats_' + activeSelectedReelData.id, JSON.stringify({likes: activeSelectedReelData.likes, shares: activeSelectedReelData.shares})); closeReelPopupAction();
+    if (navigator.share) navigator.share({ title: 'Star Shops रील', text: `🔥 ${activeSelectedReelData.store} का ऑफ़र: ${activeSelectedReelData.caption}`, url: window.location.href }).catch(()=>{});
+  }
+  function closeMerchantPublicProfileModal() {
+    document.getElementById('merchantPublicProfileModal').classList.remove('open');
+    document.querySelectorAll('#merchantGalleryAreaWrapper video').forEach(v => { v.pause(); v.currentTime = 0; });
+  }
+
+  function switchMainTab(tabName, clickedNavItem) {
+    document.querySelectorAll('.tab-screen').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    
+    if (tabName === 'outOfRangeView') {
+      document.getElementById('outOfRangeContent').style.display = 'block';
+      document.getElementById('inRangeContent').style.display = 'none';
+      document.getElementById('tab-home').classList.add('active'); 
+    } else {
+      document.getElementById(`tab-${tabName}`).classList.add('active');
+      if (clickedNavItem) clickedNavItem.classList.add('active');
+    }
+    window.scrollTo(0, 0);
+  }
+
+  function updateLiveSavingsDetector() {
+    totalClaimedCardsCount = userClaimHistory.length;
+    if(document.getElementById('statClaimedCardCount')) document.getElementById('statClaimedCardCount').innerText = `${totalClaimedCardsCount} कार्ड्स`;
+    if(document.getElementById('statFootprintCount')) document.getElementById('statFootprintCount').innerText = userFootprints;
+    if(document.getElementById('liveDetectedMonthSavings')) document.getElementById('liveDetectedMonthSavings').innerText = totalClaimedCardsCount;
+    
+    const currentTodayStr = new Date().toDateString();
+    todayClaimCount = userClaimHistory.filter(h => new Date(h.rawDate).toDateString() === currentTodayStr).length;
+    if(document.getElementById('todayClaimSummaryCount')) document.getElementById('todayClaimSummaryCount').innerText = `${todayClaimCount} ऑफर आज`;
+  }
+
+  function fastSearchStores(query) {
+    const rawTerm = query.toLowerCase().trim();
+    const terms = rawTerm.split(/\s+/).filter(t => t.length > 0);
+
+    document.querySelectorAll('.store-item').forEach(card => {
+      const keywords = (card.getAttribute('data-keywords') || '').toLowerCase();
+      const title = (card.querySelector('.store-title').innerText || '').toLowerCase();
+      const address = (card.getAttribute('data-address') || '').toLowerCase();
+      
+      const claimCount = parseInt(card.getAttribute('data-claim-count') || '0');
+      const isHigh = card.getAttribute('data-high-discount') === 'true';
+      
+      const searchableText = title + " " + keywords + " " + address;
+
+      let match = false;
+      
+      if (terms.length === 0) {
+        match = true;
+      } else if (rawTerm === 'claimed' || rawTerm === 'क्लेम') {
+        match = claimCount > 0;
+      } else if (rawTerm === 'high' || rawTerm === 'हाई' || rawTerm === 'verified') {
+        match = isHigh;
+      } else {
+        match = terms.every(word => searchableText.includes(word));
+      }
+
+      card.style.display = match ? 'block' : 'none';
+    });
+  }
+
+  function filterCategory(category, chipEl) {
+    document.querySelectorAll('#appCategoriesBar .category-chip').forEach(c => c.classList.remove('active'));
+    chipEl.classList.add('active');
+    document.querySelectorAll('.store-item').forEach(card => {
+      const cardCategory = (card.getAttribute('data-category') || '').toUpperCase();
+      const isOpenToday = card.getAttribute('data-open-today') === 'true';
+      const isHighDiscount = card.getAttribute('data-high-discount') === 'true';
+      let categoryMatch = false;
+      if (category === 'ALL') categoryMatch = true;
+      else if (category === 'OPENTODAY') categoryMatch = isOpenToday;
+      else if (category === 'HIGHDISCOUNT') categoryMatch = isHighDiscount;
+      else categoryMatch = cardCategory.includes(category);
+      card.style.display = categoryMatch ? 'block' : 'none';
+    });
+  }
+
+  function openShopInfoModal(shopName, category, itemsList, distance, discountText) {
+    document.getElementById('modalShopTitle').innerText = shopName;
+    document.getElementById('modalShopCategory').innerText = `📂 कैटेगरी: ${category}`;
+    let htmlContent = `<div class="green-text" style="font-size:15px; font-weight:900; color:#059669; margin-bottom:8px;">🔥 ${discountText}</div><div style="font-size:12px; color:#4B5563; margin-bottom:6px; font-weight:700;">लागू शर्तें और विवरण:</div><ul style="margin-left: 18px; font-size:13px; color:#1F2937; line-height:1.6;">`;
+    itemsList.forEach(item => { htmlContent += `<li>✔ ${item}</li>`; });
+    htmlContent += `</ul>`;
+    document.getElementById('modalShopDescContainer').innerHTML = htmlContent;
+    document.getElementById('modalShopDistance').innerText = `📍 पता: ${distance}`;
+    document.getElementById('shopProfileModal').classList.add('open');
+  }
+  function closeShopProfileModal() { document.getElementById('shopProfileModal').classList.remove('open'); }
+
+  function openMonthlyHistoryModal() {
+    const container = document.getElementById('monthlyHistoryListContainer');
+    let html = '';
+    const currentTodayStr = new Date().toDateString();
+    let todayCount = 0;
+
+    if (userClaimHistory.length === 0) { 
+      html = `<div style="text-align:center; color:#6B7280; font-size:13px; padding:10px;">अभी तक कोई कार्ड क्लेम नहीं किया गया है।</div>`; 
+    } else { 
+      userClaimHistory.forEach(history => { 
+        if(new Date(history.rawDate).toDateString() === currentTodayStr) todayCount++;
+        html += `<div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid #E5E7EB;"><div><div style="font-size:13px; font-weight:800; color:#111827;">${history.store}</div><div style="font-size:11px; color:#6B7280;">📅 ${history.date}</div></div><div style="font-size:13px; font-weight:800; color:#059669;" class="green-text">${history.saved}</div></div>`; 
+      }); 
+    }
+    container.innerHTML = html;
+    document.getElementById('monthlyTotalSummaryBadge').innerHTML = `आज क्लेम: <b>${todayCount}</b> &nbsp;|&nbsp; इस महीने कुल: <b>${userClaimHistory.length}</b>`;
+    document.getElementById('monthlyHistoryModal').classList.add('open');
+  }
+  function closeMonthlyHistoryModal() { document.getElementById('monthlyHistoryModal').classList.remove('open'); }
+
+  function openSavedReelsModal() { renderSavedDealsList(savedReelsList); document.getElementById('savedReelsModal').classList.add('open'); }
+  function renderSavedDealsList(list) {
+    const container = document.getElementById('savedReelsListContainer');
+    if (!list || list.length === 0) { container.innerHTML = `<div style="text-align:center; color:#6B7280; font-size:13px; padding:10px;">कोई डील्स या लोकेशन नहीं मिली।</div>`; return; }
+    container.innerHTML = list.map(item => `<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid #E5E7EB;"><div><div style="font-size:13px; font-weight:800; color:#111827;">${item.store}</div><div class="highlight-text" style="font-size:11px; color:#B45309; font-weight:700; margin-top:2px;">📍 ${item.location}</div><div class="red-text" style="font-size:10px; color:#DC2626; font-weight:700; margin-top:1px;">⏳ एक्सपायर: रात 12:00 बजे</div></div><div class="green-text" style="font-size:12px; font-weight:800; color:#059669; background:#ECFDF5; padding:6px 10px; border-radius:8px;">${item.offer}</div></div>`).join('');
+  }
+  function filterSavedDealsByLocation(query) {
+    const term = query.toLowerCase().trim();
+    renderSavedDealsList(savedReelsList.filter(item => !term || item.location.toLowerCase().includes(term) || item.store.toLowerCase().includes(term) || item.offer.toLowerCase().includes(term)));
+  }
+  function closeSavedReelsModal() { document.getElementById('savedReelsModal').classList.remove('open'); }
+
+  function openPinModal(shopName, amount, cardId, claimTitle) {
+    const currentCount = getDailyClaimCount(shopName);
+    if (currentCount >= 2) { 
+      openSuccessModal("स्टोर लिमिट समाप्त", "आप इस दुकान पर आज के 2 क्लेम पूरे कर चुके हैं। आप दूसरी दुकानों पर जाकर और भी क्लेम कर सकते हैं!"); 
+      return; 
+    }
+    
+    const store = liveSupabaseStores.find(s => s.id == cardId);
+    if (store) {
+      let sLat = store.latitude || store.lat; 
+      let sLon = store.longitude || store.lng || store.lon;
+      if (!sLat && store.location && store.location.includes(',')) {
+         let parts = store.location.split(',');
+         sLat = parts[0].trim();
+         sLon = parts[1].trim();
+      }
+      
+      if (sLat && sLon && homeLat !== null && homeLon !== null) {
+        let distMeters = calculateDistanceMeters(homeLat, homeLon, parseFloat(sLat), parseFloat(sLon));
+        if (distMeters > 500) { 
+           openSuccessModal("लोकेशन अलर्ट 📍", `आप अभी इस दुकान से लगभग ${(distMeters/1000).toFixed(1)} km दूर हैं! ऑफर क्लेम करने के लिए आपका काउंटर पर मौजूद होना अनिवार्य है।`);
+           return;
+        }
+      } else if (homeLat === null) {
+         openSuccessModal("GPS अलर्ट 📍", "डिस्काउंट क्लेम करने के लिए कृपया अपने फोन का असली GPS/लोकेशन ऑन करें ताकि आपकी असली लोकेशन चेक हो सके।");
+         return;
+      }
+    }
+
+    activeShopName = shopName; activeShopDiscount = amount; activeCardId = cardId; activeClaimTitle = claimTitle;
+    document.getElementById('scannerModalTitle').innerText = `${shopName} डिस्काउंट क्लेम`;
+    document.getElementById('merchantSecretPinInput').value = '';
+    document.getElementById('verifyPinBtn').innerText = "वेरीफ़ाई करें";
+    document.getElementById('scannerModalOverlay').classList.add('open');
+  }
+
+  function openSuccessModal(title, message) {
+    document.getElementById('successModalEmoji').innerText = userStepsData.unlockedHighDiscount ? "👑" : "🎉"; 
+    document.getElementById('successModalTitle').innerText = title; 
+    document.getElementById('successModalDesc').innerText = message;
+    const btn = document.getElementById('successModalBtn'); 
+    btn.innerText = "ठीक है (OK)"; 
+    btn.onclick = closeSuccessModal;
+    document.getElementById('successModalOverlay').classList.add('open');
+  }
+  function closeSuccessModal() { document.getElementById('successModalOverlay').classList.remove('open'); }
+  function closePinModal() { document.getElementById('scannerModalOverlay').classList.remove('open'); }
+
+  async function verifyDiscountClaim() {
+    const pin = document.getElementById('merchantSecretPinInput').value.trim();
+    if (pin.length !== 4) { openSuccessModal("त्रुटि", "कृपया सही 4-अंकों का पिन दर्ज करें।"); return; }
+    document.getElementById('verifyPinBtn').innerText = "जाँच हो रही है...";
+
+    try {
+      const { data, error } = await supabaseClient.rpc('secure_verify_claim', {
+        p_merchant_id: activeCardId,
+        p_pin: pin,
+        p_device_id: deviceUserId,
+        p_store_name: activeShopName,
+        p_claim_title: activeClaimTitle
+      });
+
+      closePinModal();
+
+      if (error) { openSuccessModal("सर्वर त्रुटि", error.message); return; }
+
+      if (data && data.success) {
+        let currentCount = data.claim_count;
+
+        const handleStepsAndUnlock = (stepsWalked) => {
+          userStepsData.currentSteps += stepsWalked;
+          if (userStepsData.currentSteps >= userStepsData.targetSteps) {
+            userStepsData.currentSteps = userStepsData.targetSteps;
+            if (!userStepsData.unlockedHighDiscount) { 
+                userStepsData.unlockedHighDiscount = true; 
+                setTimeout(openHighDiscountUnlockModal, 1200); 
+            }
+          }
+          localStorage.setItem('star_user_steps_goal', JSON.stringify(userStepsData)); 
+          updateAllStoreCardsStepsUI(); 
+          
+          userFootprints += stepsWalked;
+          localStorage.setItem('starshops_total_footprints', userFootprints);
+          if(document.getElementById('statFootprintCount')) document.getElementById('statFootprintCount').innerText = userFootprints;
+        };
+
+        if (navigator.geolocation && homeLat !== null) {
+          navigator.geolocation.getCurrentPosition((position) => {
+            const distanceMeters = calculateDistanceMeters(homeLat, homeLon, position.coords.latitude, position.coords.longitude);
+            let stepsWalked = Math.round(distanceMeters / 0.762);
+            if (stepsWalked < 500) stepsWalked = 500; 
+            
+            handleStepsAndUnlock(stepsWalked);
+            
+            homeLat = position.coords.latitude;
+            homeLon = position.coords.longitude;
+          }, (error) => {
+             handleStepsAndUnlock(500);
+          });
+        } else {
+          handleStepsAndUnlock(500);
+        }
+
+        userClaimHistory.unshift({
+            rawDate: new Date().toISOString(),
+            date: new Date().toLocaleDateString('hi-IN'),
+            store: activeShopName,
+            saved: activeClaimTitle
+        });
+        localStorage.setItem('starshops_local_claims', JSON.stringify(userClaimHistory));
+        updateLiveSavingsDetector();
+
+        openSuccessModal("सफलता!", `सफलता! ${activeShopName} का ऑफर (${currentCount === 1 ? 'क्लेम' : 'रीक्लेम'}) वेरीफ़ाई हो गया है।`);
+
+        const cardEl = document.getElementById(`storeCard_${activeCardId}`);
+        const btnEl = document.getElementById(`cardBtn_${activeCardId}`);
+        if (cardEl && btnEl) {
+          cardEl.setAttribute('data-claim-count', currentCount); cardEl.setAttribute('data-keywords', cardEl.getAttribute('data-keywords') + ' claimed');
+          
+          if (currentCount === 1) {
+            cardEl.classList.replace('reclaimed-card', 'claimed-card') || cardEl.classList.add('claimed-card');
+            btnEl.innerText = "🔄 रीक्लेम करें (Reclaim)"; btnEl.className = "scan-action-btn reclaim-btn";
+          } else if (currentCount >= 2) {
+            cardEl.classList.replace('claimed-card', 'reclaimed-card') || cardEl.classList.add('reclaimed-card');
+            btnEl.innerText = "✓ स्टोर लिमिट पूरी"; btnEl.disabled = true; btnEl.style.background = "#9CA3AF"; btnEl.style.cursor = "not-allowed";
+            setTimeout(() => { cardEl.style.transition = "transform 0.5s ease, opacity 0.5s ease"; cardEl.style.transform = "translateX(400px)"; cardEl.style.opacity = "0"; setTimeout(() => cardEl.remove(), 500); }, 1200);
+          }
+        }
+        
+        await syncUserClaimStatsFromSupabase(); 
+
+      } else {
+        openSuccessModal("विफल ❌", data?.message || "गलत पिन या स्टोर लिमिट पार हो गई!");
+      }
+    } catch(e) { 
+      closePinModal();
+      openSuccessModal("त्रुटि", "सर्वर से कनेक्ट नहीं हो सका।"); 
+    }
+  }
+
+  function promptChangeName() {
+    const newName = prompt("नया नाम दर्ज करें:", currentShopperName);
+    if (newName && newName.trim().length > 0) { currentShopperName = newName.trim(); document.getElementById('profileDisplayUserName').innerText = currentShopperName; localStorage.setItem('starshops_consumer_user', JSON.stringify({name: currentShopperName, phone: currentUserPhone})); }
+  }
+
+  let calcVal = '0';
+  function calcAction(btn) {
+    const display = document.getElementById('calcDisplay');
+    if (btn === 'C') { calcVal = '0'; }
+    else if (btn === 'DEL') { calcVal = calcVal.length > 1 ? calcVal.slice(0, -1) : '0'; }
+    else if (btn === '=') { 
+      try { const sanitized = calcVal.replace(/[^0-9+\-*/.]/g, ''); calcVal = String(new Function('return ' + sanitized)()); } catch (e) { calcVal = 'Error'; setTimeout(()=>calcAction('C'), 1500); } 
+    }
+    else if (btn === '%') { try { calcVal = String(Number(calcVal) / 100); } catch(e){ calcVal = 'Error'; setTimeout(()=>calcAction('C'), 1500); } }
+    else { calcVal = (calcVal === '0' && !isNaN(btn)) ? btn : calcVal + btn; }
+    display.innerText = calcVal;
+  }
+
+  let cImgObj = null, cZoom = 1, cPosX = 0, cPosY = 0, isCDragging = false, cStartX = 0, cStartY = 0, rawConsumerFileEvt = null;
+  let cDispW = 180, cDispH = 180;
+  
+  function openConsumerCropModal(event) {
+    const file = event.target.files[0]; if (!file) return;
+    rawConsumerFileEvt = event; const reader = new FileReader();
+    reader.onload = function(e) { 
+      const img = document.getElementById('consumerCropperImage'); 
+      img.src = e.target.result; 
+      img.onload = function() { 
+        cImgObj = img; cZoom = 1; document.getElementById('consumerZoomRange').value = 1; cPosX = 0; cPosY = 0; 
+        
+        if (img.naturalWidth > img.naturalHeight) { 
+          cDispH = 180; cDispW = img.naturalWidth * (180 / img.naturalHeight);
+          img.style.height = '180px'; img.style.width = 'auto'; 
+        } else { 
+          cDispW = 180; cDispH = img.naturalHeight * (180 / img.naturalWidth);
+          img.style.width = '180px'; img.style.height = 'auto'; 
+        }
+        
+        updateConsumerTransform(); 
+        document.getElementById('consumerCropModal').classList.add('open'); 
+      }; 
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function adjustConsumerZoom(val) { cZoom = parseFloat(val); updateConsumerTransform(); }
+  
+  function updateConsumerTransform() { 
+    if (cImgObj) { 
+      const limit = 150 * cZoom; 
+      if (cPosX > limit) cPosX = limit; if (cPosX < -limit) cPosX = -limit; 
+      if (cPosY > limit) cPosY = limit; if (cPosY < -limit) cPosY = -limit; 
+      cImgObj.style.transform = `translate(${cPosX}px, ${cPosY}px) scale(${cZoom})`; 
+    }
+  }
+
+  const cPreviewBox = document.getElementById('consumerCropPreviewBox');
+  cPreviewBox.addEventListener('mousedown', (e) => { isCDragging = true; cStartX = e.clientX - cPosX; cStartY = e.clientY - cPosY; });
+  cPreviewBox.addEventListener('touchstart', (e) => { isCDragging = true; cStartX = e.touches[0].clientX - cPosX; cStartY = e.touches[0].clientY - cPosY; e.preventDefault(); }, {passive: false});
+  window.addEventListener('mousemove', (e) => { if (!isCDragging) return; cPosX = e.clientX - cStartX; cPosY = e.clientY - cStartY; updateConsumerTransform(); });
+  window.addEventListener('touchmove', (e) => { if (!isCDragging) return; cPosX = e.touches[0].clientX - cStartX; cPosY = e.touches[0].clientY - cStartY; updateConsumerTransform(); e.preventDefault(); }, {passive: false});
+  window.addEventListener('mouseup', () => isCDragging = false);
+  window.addEventListener('touchend', () => isCDragging = false);
+  function closeConsumerCropModal() { document.getElementById('consumerCropModal').classList.remove('open'); if (rawConsumerFileEvt) rawConsumerFileEvt.target.value = ""; }
+  
+  function saveConsumerCroppedPhoto() {
+    if (!cImgObj) return; document.getElementById('consumerCropModal').classList.remove('open');
+    
+    const canvas = document.createElement('canvas'); canvas.width = 400; canvas.height = 400;
+    const ctx = canvas.getContext('2d'); ctx.fillStyle = "#FFFFFF"; ctx.fillRect(0, 0, 400, 400);
+    ctx.save(); 
+    
+    const scaleFactor = 400 / 180;
+    ctx.translate(200 + (cPosX * scaleFactor), 200 + (cPosY * scaleFactor)); 
+    ctx.scale(cZoom, cZoom);
+    
+    const drawW = cDispW * scaleFactor; 
+    const drawH = cDispH * scaleFactor;
+    
+    ctx.drawImage(cImgObj, -drawW / 2, -drawH / 2, drawW, drawH); 
+    ctx.restore();
+    
+    const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+    if(document.getElementById('profileAvatarDisplay')) document.getElementById('profileAvatarDisplay').innerHTML = `<img src="${dataUrl}" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">`;
+    localStorage.setItem('starshops_user_avatar', dataUrl);
+    openSuccessModal("सफलता! 📸", "आपकी प्रोफाइल फोटो सफलतापूर्वक सेट हो गई है।");
+    if (rawConsumerFileEvt) rawConsumerFileEvt.target.value = "";
+  }
+</script>
+
+</body>
+</html>
