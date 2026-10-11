@@ -3,9 +3,14 @@
   "short_name": "Star Shops",
   "description": "Star Shops Premium Ecosystem",
   "start_url": "/Star-shop-official/index.html",
+  "id": "star-shops",
   "display": "standalone",
+  "orientation": "any",
   "background_color": "#FFFFFF",
   "theme_color": "#FACC15",
+  "lang": "en",
+  "dir": "ltr",
+  "scope": "/Star-shop-official/",
   "icons": [
     {
       "src": "logo.svg",
@@ -21,3 +26,4 @@
     }
   ]
 }
+
