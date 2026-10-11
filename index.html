@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#0B0B0E" id="themeColorMeta">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Star Shops - Fully Dynamic Ecosystem Pro</title>
-<link rel="manifest" href="manifest.json">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <!-- 🚨 NEW: Theme Color Meta Tag for Status Bar 🚨 -->
+  <meta name="theme-color" content="#F8F9FA" id="themeColorMeta">
+  <title>Star Shops - Fully Dynamic Ecosystem Pro</title>
   <style>
     * {
       box-sizing: border-box;
@@ -16,71 +15,33 @@
       -webkit-tap-highlight-color: transparent;
       touch-action: manipulation;
     }
-    /* --- पूरे ऐप में टेक्स्ट सेलेक्शन बंद करने का लॉजिक --- */
-    body {
-      -webkit-user-select: none; /* Safari, Android WebView के लिए */
-      -moz-user-select: none;    /* Firefox के लिए */
-      -ms-user-select: none;     /* पुराने Edge के लिए */
-      user-select: none;         /* स्टैण्डर्ड */
-    }
-
-    /* --- सिर्फ Input (सर्च, पिन, नाम) में टाइपिंग और सेलेक्शन चालू रखने के लिए --- */
-    input, textarea {
-      -webkit-user-select: auto !important;
-      -moz-user-select: auto !important;
-      -ms-user-select: auto !important;
-      user-select: auto !important;
-    }
-  :root {
-    --bg-color: #0B0B0E;
-    --text-color: #FFFFFF;
-    --header-glass: rgba(11, 11, 14, 0.75);
-    --header-border: rgba(255, 255, 255, 0.08);
-  }
-  body.light-mode {
-    --bg-color: #FFFFFF;
-    --text-color: #000000;
-    --header-glass: rgba(255, 255, 255, 0.82);
-    --header-border: rgba(0, 0, 0, 0.08);
-  }
 
     html, body {
-    width: 100%;
-    height: 100%;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    overflow-x: hidden;
-    display: flex;
-    justify-content: center;
-    transition: background-color 0.6s ease;
-}
+      width: 100%;
+      height: 100%;
+      background-color: #F8F9FA;
+      overflow-x: hidden;
+      display: flex;
+      justify-content: center;
+      transition: background-color 0.6s ease;
+    }
 
-.top-header {
-    background: var(--header-glass) !important;
-    backdrop-filter: blur(20px) !important;
-    -webkit-backdrop-filter: blur(20px) !important;
-    border-bottom: 1px solid var(--header-border) !important;
-    padding-top: max(14px, env(safe-area-inset-top)) !important;
-    height: auto !important;
-}
+    /* Premium Body Background for Modals */
+    body.premium-mode-body { background-color: #050505 !important; }
 
-/* Premium Body Background for Modals */
-body.premium-mode-body { 
-    background-color: #050505 !important; 
-}
+    .device-shell {
+      width: 100%;
+      max-width: 480px;
+      min-height: 100vh;
+      background-color: #F8F9FA;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 70px; 
+      transition: background-color 0.6s ease, color 0.6s ease;
+      box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    }
 
-.device-shell {
-    width: 100%;
-    max-width: 480px;
-    min-height: 100vh;
-    background-color: #F8F9FA;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    padding-bottom: 70px;
-    transition: background-color 0.6s ease, color 0.6s ease;
-    box-shadow: 0 0 20px rgba(0,0,0,0.05)
-}
     /* 👑 1% ELITE PREMIUM METALLIC GOLD THEME (Dynamic Update) 👑 */
     .device-shell.high-discount-active {
       background-color: #050505 !important;
@@ -212,19 +173,17 @@ body.premium-mode-body {
     .device-shell.high-discount-active .post-reels-title { color: #FCF6BA !important; }
 
     .top-header {
-    background: rgba(11, 11, 14, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 14px 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 99;
-  width: 100%;
-
+      background-color: #FFFFFF;
+      padding: 14px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #E9ECEF;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      width: 100%;
+      transition: transform 0.3s ease-in-out;
     }
 
     .brand-title { font-size: 20px; font-weight: 900; letter-spacing: 1.5px; color: #111827; display: flex; align-items: center; gap: 6px; user-select: none; }
@@ -522,7 +481,7 @@ body.premium-mode-body {
   </main>
 
   <main id="tab-posts" class="tab-screen">
-    <div style="font-size:16px; font-weight:900; color:#111827; margin-bottom: 12px;">📰 मर्चेंट फीड</div>
+    <div style="font-size:16px; font-weight:900; color:#111827; margin-bottom: 12px;">📰 मर्चेंट پست्स फीड</div>
     <div id="postsFeedContainer">
       <div style="font-size:13px; color:#6B7280; text-align:center; padding:30px;">पोस्ट्स लोड हो रही हैं...</div>
     </div>
@@ -835,6 +794,25 @@ body.premium-mode-body {
 </div>
 
 <script>
+  // 🚨 NEW FUNCTIONS ADDED AS REQUESTED 🚨
+  function updateStatusBarTheme(isDark) {
+    const metaThemeColor = document.getElementById('themeColorMeta');
+    if (metaThemeColor) {
+      metaThemeColor.setAttribute('content', isDark ? '#050505' : '#F8F9FA');
+    }
+  }
+
+  function requestFirstTimeLocation() {
+    if (!localStorage.getItem('starshops_loc_permission_asked')) {
+      localStorage.setItem('starshops_loc_permission_asked', 'true');
+      if (typeof AndroidNative !== 'undefined' && AndroidNative.turnOnGPS) {
+        AndroidNative.turnOnGPS();
+      } else if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(){}, function(){});
+      }
+    }
+  }
+
   const SUPABASE_URL = "https://gejrzpflcuvlbpedliwq.supabase.co";
   const SUPABASE_ANON_KEY = "sb_publishable_dw9J2AX0nd3SxPrRy9JGCg_YqS8ZfUF";
   const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -889,6 +867,7 @@ body.premium-mode-body {
         currentShopperName = savedUser.name;
         currentUserPhone = savedUser.phone;
         document.getElementById('profileDisplayUserName').innerText = currentShopperName;
+        requestFirstTimeLocation(); // Ask for location if they are already registered but not asked
     } else {
         document.getElementById('authModalOverlay').classList.add('open');
     }
@@ -909,6 +888,9 @@ body.premium-mode-body {
       document.getElementById('appDeviceShell').classList.remove('high-discount-active');
       document.body.classList.remove('premium-mode-body');
       const chip = document.getElementById('chipHighDiscount'); if (chip) chip.style.display = 'none';
+      updateStatusBarTheme(false); // Reset Theme Color
+    } else if (userStepsData.unlockedHighDiscount) {
+      activateHighDiscountZoneUIMode(); // Apply Theme Color automatically if already unlocked
     }
 
     document.getElementById('headerLocationText').innerText = "सर्च हो रहा है...";
@@ -1001,6 +983,9 @@ body.premium-mode-body {
     currentShopperName = n; currentUserPhone = p;
     document.getElementById('profileDisplayUserName').innerText = currentShopperName;
     document.getElementById('authModalOverlay').classList.remove('open');
+    
+    // Ask for location immediately upon registering
+    requestFirstTimeLocation();
   }
 
   window.retryLiveLocation = function() {
@@ -1405,14 +1390,16 @@ body.premium-mode-body {
   function activateHighDiscountZoneUIMode() {
     document.getElementById('appDeviceShell').classList.add('high-discount-active');
     document.body.classList.add('premium-mode-body');
-    const chip = document.getElementById('chipHighDiscount'); 
+    const chip = document.getElementById('chipHighDiscount'); if (chip) chip.style.display = 'inline-flex';
+    updateStatusBarTheme(true); // Apply Theme Color
+  }
 
-    const metaThemeColor = document.getElementById('themeColorMeta');
-    if (metaThemeColor) {
-        metaThemeColor.setAttribute('content', '#050505');
-    }
-}
+  function renderDynamicStores(storesArray) {
+    const container = document.getElementById('dynamicStoresContainer');
+    if (!storesArray || storesArray.length === 0) { container.innerHTML = `<div style="text-align:center; padding:30px; color:#6B7280;">कोई खुली हुई दुकान उपलब्ध नहीं है।</div>`; return; }
 
+    let html = '';
+    storesArray.forEach((store, index) => {
       const storeName = store.store_name || 'स्टार मर्चेंट स्टोर'; const address = store.address || store.location || 'दिल्ली';
       const cardId = store.id || index; const dbCategory = (store.category || 'SALON').toUpperCase();
       
@@ -1961,31 +1948,5 @@ body.premium-mode-body {
   }
 </script>
 
-
-<!-- Geolocation Auto Trigger -->
-<script>
-  window.addEventListener('DOMContentLoaded', () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => { console.log("Location allowed"); },
-        (error) => { console.log("Location error"); }
-      );
-    }
-  });
-</script>
-  <!-- PWABuilder Install Pop-up -->
-<script type="module" src="https://cdn.jsdelivr.net/npm/@pwabuilder/pwainstall"></script>
-<script>
-  // डायनेमिक थीम टॉगल करने का फंक्शन
-  function toggleAppTheme(isLightMode) {
-    if (isLightMode) {
-      document.body.classList.add('light-mode');
-    } else {
-      document.body.classList.remove('light-mode');
-    }
-  }
-</script>
-  
-  <pwa-install></pwa-install>
 </body>
 </html>
