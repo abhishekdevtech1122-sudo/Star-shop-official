@@ -45,53 +45,42 @@
   }
 
     html, body {
-      
-      width: 100%;
-      height: 100%;
-      background-color: var(--bg-color);
-color: var(--text-color);
-
-      overflow-x: hidden;
-      display: flex;
-      justify-content: center;
-      transition: background-color 0.6s ease;
-    }
-  .top-header {
-  background: var(--header-glass) !important;
-  backdrop-filter: blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
-  border-bottom: 1px solid var(--header-border) !important;
-  padding-top: max(14px, env(safe-area-inset-top)) !important;
-  height: auto !important;
-  }
-}
-  /* स्टेटस बार को ऊपर तक खींचकर मर्ज करने के लिए ये जोड़ दे: */
-  padding-top: max(14px, env(safe-area-inset-top)); 
-  height: auto;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    overflow-x: hidden;
+    display: flex;
+    justify-content: center;
+    transition: background-color 0.6s ease;
 }
 
-  background: var(--header-glass) !important;
-  backdrop-filter: blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
-  border-bottom: 1px solid var(--header-border) !important;
+.top-header {
+    background: var(--header-glass) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border-bottom: 1px solid var(--header-border) !important;
+    padding-top: max(14px, env(safe-area-inset-top)) !important;
+    height: auto !important;
 }
-    
-    /* Premium Body Background for Modals */
-    body.premium-mode-body { background-color: #050505 !important; }
 
-    .device-shell {
-      width: 100%;
-      max-width: 480px;
-      min-height: 100vh;
-      background-color: #F8F9FA;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      padding-bottom: 70px; 
-      transition: background-color 0.6s ease, color 0.6s ease;
-      box-shadow: 0 0 20px rgba(0,0,0,0.05);
-    }
+/* Premium Body Background for Modals */
+body.premium-mode-body { 
+    background-color: #050505 !important; 
+}
 
+.device-shell {
+    width: 100%;
+    max-width: 480px;
+    min-height: 100vh;
+    background-color: #F8F9FA;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 70px;
+    transition: background-color 0.6s ease, color 0.6s ease;
+    box-shadow: 0 0 20px rgba(0,0,0,0.05)
+}
     /* 👑 1% ELITE PREMIUM METALLIC GOLD THEME (Dynamic Update) 👑 */
     .device-shell.high-discount-active {
       background-color: #050505 !important;
@@ -1416,15 +1405,14 @@ color: var(--text-color);
   function activateHighDiscountZoneUIMode() {
     document.getElementById('appDeviceShell').classList.add('high-discount-active');
     document.body.classList.add('premium-mode-body');
-    const chip = document.getElementById('chipHighDiscount'); if (chip) chip.style.display = 'inline-flex';
-  }
+    const chip = document.getElementById('chipHighDiscount'); 
 
-  function renderDynamicStores(storesArray) {
-    const container = document.getElementById('dynamicStoresContainer');
-    if (!storesArray || storesArray.length === 0) { container.innerHTML = `<div style="text-align:center; padding:30px; color:#6B7280;">कोई खुली हुई दुकान उपलब्ध नहीं है।</div>`; return; }
+    const metaThemeColor = document.getElementById('themeColorMeta');
+    if (metaThemeColor) {
+        metaThemeColor.setAttribute('content', '#050505');
+    }
+}
 
-    let html = '';
-    storesArray.forEach((store, index) => {
       const storeName = store.store_name || 'स्टार मर्चेंट स्टोर'; const address = store.address || store.location || 'दिल्ली';
       const cardId = store.id || index; const dbCategory = (store.category || 'SALON').toUpperCase();
       
