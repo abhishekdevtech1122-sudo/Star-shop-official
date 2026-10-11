@@ -188,17 +188,19 @@
     .device-shell.high-discount-active .post-reels-title { color: #FCF6BA !important; }
 
     .top-header {
-      background-color: #FFFFFF;
-      padding: 14px 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #E9ECEF;
-      position: sticky;
-      top: 0;
-      z-index: 40;
-      width: 100%;
-      transition: transform 0.3s ease-in-out;
+    background: rgba(11, 11, 14, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 99;
+  width: 100%;
+
     }
 
     .brand-title { font-size: 20px; font-weight: 900; letter-spacing: 1.5px; color: #111827; display: flex; align-items: center; gap: 6px; user-select: none; }
