@@ -55,7 +55,20 @@ color: var(--text-color);
       justify-content: center;
       transition: background-color 0.6s ease;
     }
-.top-header {
+  .top-header {
+  background: var(--header-glass) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border-bottom: 1px solid var(--header-border) !important;
+  padding-top: max(14px, env(safe-area-inset-top)) !important;
+  height: auto !important;
+  }
+}
+  /* स्टेटस बार को ऊपर तक खींचकर मर्ज करने के लिए ये जोड़ दे: */
+  padding-top: max(14px, env(safe-area-inset-top)); 
+  height: auto;
+}
+
   background: var(--header-glass) !important;
   backdrop-filter: blur(20px) !important;
   -webkit-backdrop-filter: blur(20px) !important;
