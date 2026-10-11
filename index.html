@@ -1973,6 +1973,17 @@ color: var(--text-color);
 </script>
   <!-- PWABuilder Install Pop-up -->
 <script type="module" src="https://cdn.jsdelivr.net/npm/@pwabuilder/pwainstall"></script>
-<pwa-install></pwa-install>
+<script>
+  // डायनेमिक थीम टॉगल करने का फंक्शन
+  function toggleAppTheme(isLightMode) {
+    if (isLightMode) {
+      document.body.classList.add('light-mode');
+    } else {
+      document.body.classList.remove('light-mode');
+    }
+  }
+</script>
+  
+  <pwa-install></pwa-install>
 </body>
 </html>
