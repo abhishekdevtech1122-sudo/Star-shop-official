@@ -1936,6 +1936,18 @@
   }
 </script>
 
+
+<!-- Geolocation Auto Trigger -->
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => { console.log("Location allowed"); },
+        (error) => { console.log("Location error"); }
+      );
+    }
+  });
+</script>
   <!-- PWABuilder Install Pop-up -->
 <script type="module" src="https://cdn.jsdelivr.net/npm/@pwabuilder/pwainstall"></script>
 <pwa-install></pwa-install>
