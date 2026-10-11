@@ -13,12 +13,6 @@
   "scope": "/Star-shop-official/",
   "icons": [
     {
-      "src": "https://abhishekdevtech1122-sudo.github.io/Star-shop-official/logo.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
-      "purpose": "any"
-    },
-    {
       "src": "https://abhishekdevtech1122-sudo.github.io/Star-shop-official/logo192.png",
       "sizes": "192x192",
       "type": "image/png",
@@ -28,7 +22,33 @@
       "src": "https://abhishekdevtech1122-sudo.github.io/Star-shop-official/logo.svg",
       "sizes": "512x512",
       "type": "image/svg+xml",
-      "purpose": "maskable"
+      "purpose": "any maskable"
+    }
+  ],
+  "display_override": [
+    "window-controls-overlay",
+    "minimal-ui"
+  ],
+  "categories": [
+    "shopping",
+    "business",
+    "lifestyle"
+  ],
+  "screenshots": [
+    {
+      "src": "https://abhishekdevtech1122-sudo.github.io/Star-shop-official/logo512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Shop Now",
+      "short_name": "Shop",
+      "description": "View all products",
+      "url": "/Star-shop-official/index.html",
+      "icons": [{ "src": "https://abhishekdevtech1122-sudo.github.io/Star-shop-official/logo192.png", "sizes": "192x192" }]
     }
   ]
 }
