@@ -1960,16 +1960,6 @@
     openSuccessModal("सफलता! 📸", "आपकी प्रोफाइल फोटो सफलतापूर्वक सेट हो गई है।");
     if (rawConsumerFileEvt) rawConsumerFileEvt.target.value = "";
   }
-<script>
-  document.addEventListener('play', function(e) {
-    if (e.target.tagName === 'VIDEO' && 'mediaSession' in navigator) {
-      navigator.mediaSession.setActionHandler('play', null);
-      navigator.mediaSession.setActionHandler('pause', null);
-      navigator.mediaSession.setActionHandler('seekbackward', null);
-      navigator.mediaSession.setActionHandler('seekforward', null);
-    }
-  }, true);
 </script>
-  
 </body>
 </html>
