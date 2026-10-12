@@ -48,15 +48,26 @@
       background-image: none !important;
     }
     
-    .device-shell.high-discount-active .top-header,
-    .device-shell.high-discount-active .top-header,
+    /* जब डार्क/हाई-डिस्काउंट मोड एक्टिव हो */
+.device-shell.high-discount-active .top-header,
 .device-shell.high-discount-active .bottom-nav {
-  background: rgba(15, 15, 15, 0.75);!important
-  backdrop-filter: blur(20px);!important
-  -webkit-backdrop-filter: blur(20px);!important
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);!important
-  border-top: 1px solid rgba(255, 255, 255, 0.15);!important
+  background: rgba(15, 15, 15, 0.85) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
 }
+
+/* जब नॉर्मल व्हाइट मोड हो */
+.device-shell:not(.high-discount-active) .top-header,
+.device-shell:not(.high-discount-active) .bottom-nav {
+  background: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.1) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+    
     
     .device-shell.high-discount-active .brand-title { 
       background: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7);
