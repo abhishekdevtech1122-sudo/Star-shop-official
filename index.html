@@ -49,24 +49,24 @@
     }
     
     /* जब डार्क/हाई-डिस्काउंट मोड एक्टिव हो */
-.device-shell.high-discount-active .top-header,
-.device-shell.high-discount-active .bottom-nav {
-  background: rgba(15, 15, 15, 0.85) !important;
-  backdrop-filter: blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.15) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
-}
+    .device-shell.high-discount-active .top-header,
+    .device-shell.high-discount-active .bottom-nav {
+      background: rgba(15, 15, 15, 0.85) !important;
+      backdrop-filter: blur(20px) !important;
+      -webkit-backdrop-filter: blur(20px) !important;
+      border-top: 1px solid rgba(255, 255, 255, 0.15) !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+    }
 
-/* जब नॉर्मल व्हाइट मोड हो */
-.device-shell:not(.high-discount-active) .top-header,
-.device-shell:not(.high-discount-active) .bottom-nav {
-  background: rgba(255, 255, 255, 0.85) !important;
-  backdrop-filter: blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
-  border-top: 1px solid rgba(0, 0, 0, 0.1) !important;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
-}
+    /* जब नॉर्मल व्हाइट मोड हो */
+    .device-shell:not(.high-discount-active) .top-header,
+    .device-shell:not(.high-discount-active) .bottom-nav {
+      background: rgba(255, 255, 255, 0.85) !important;
+      backdrop-filter: blur(20px) !important;
+      -webkit-backdrop-filter: blur(20px) !important;
+      border-top: 1px solid rgba(0, 0, 0, 0.1) !important;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+    }
     
     
     .device-shell.high-discount-active .brand-title { 
@@ -297,15 +297,6 @@
     .shop-profile-card { background: #FFFFFF; width: 100%; max-width: 480px; border-radius: 24px 24px 0 0; padding: 24px 20px 30px 20px; box-shadow: 0 -10px 30px rgba(0,0,0,0.3); animation: slideUpModal 0.25s ease-out; }
     @keyframes slideUpModal { from { transform: translateY(100%); } to { transform: translateY(0); } }
 
-    /* POPUP HATA DIYA GAYA HAI - STYLE COMMENTED OUT 
-    .location-force-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 99999999; display: none; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(8px); }
-    .location-force-overlay.open { display: flex; }
-    .location-force-card { background: #FFFFFF; width: 100%; max-width: 320px; border-radius: 20px; padding: 30px 20px; text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.3); animation: slideUpModal 0.3s ease-out; position: relative; }
-    .device-shell.high-discount-active ~ .location-force-overlay .location-force-card, body.premium-mode-body .location-force-overlay .location-force-card { background: #0A0A0A !important; border: 1px solid rgba(212, 175, 55, 0.5) !important; }
-    body.premium-mode-body .location-force-overlay .location-force-card div { color: #FFFFFF !important; }
-    body.premium-mode-body .location-force-overlay .location-force-card button#retryLocBtn { background: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C) !important; color: #000000 !important; }
-    */
-
     .popup-action-btn { width: 100%; padding: 12px; border-radius: 12px; font-size: 14px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 10px; border: none; }
     .btn-like-action { background: #FEF2F2; color: #DC2626; border: 1px solid #FECACA; }
     .btn-save-action { background: #FFFBEB; color: #B45309; border: 1px solid #FDE68A; }
@@ -535,7 +526,6 @@
         </div>
       </div>
 
-      <!-- Hidden elements to ensure JS runs flawlessly without errors -->
       <div style="display:none;">
         <span id="liveTrackerTitle"></span>
         <span id="todayClaimSummaryCount"></span>
@@ -572,13 +562,11 @@
     </div>
   </main>
 
-  <!-- Auto-Refresh Scroll Loader -->
   <div class="infinite-scroll-loader" id="infiniteScrollLoader">
     <span class="spinner-blue"></span> नई अपडेट्स लोड हो रही हैं...
   </div>
 
   <nav class="bottom-nav" id="appBottomNav">
-    <!-- 3D मैटेलिक इफ़ेक्ट के लिए SVG डेफिनिशन्स -->
     <svg width="0" height="0" style="position:absolute; width:0; height:0;">
       <defs>
         <linearGradient id="metal3D" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -594,7 +582,6 @@
       </defs>
     </svg>
 
-    <!-- 1. होम (दुकानें) -->
     <div class="nav-item active" onclick="switchMainTab('home', this)">
       <div class="icon">
         <svg width="26" height="26" viewBox="0 0 100 100">
@@ -606,7 +593,6 @@
       <div id="navStoreText">दुकानें</div>
     </div>
     
-    <!-- 2. फीड (पोस्ट्स) -->
     <div class="nav-item" onclick="switchMainTab('posts', this)">
       <div class="icon">
         <svg width="26" height="26" viewBox="0 0 100 100">
@@ -618,7 +604,6 @@
       <div id="navPostsText">पोस्ट्स</div>
     </div>
     
-    <!-- 3. अलर्ट्स -->
     <div class="nav-item" onclick="switchMainTab('alerts', this)">
       <div class="icon">
         <svg width="26" height="26" viewBox="0 0 100 100">
@@ -631,7 +616,6 @@
       <div id="navAlertsText">अलर्ट्स</div>
     </div>
     
-    <!-- 4. प्रोफ़ाइल -->
     <div class="nav-item" onclick="switchMainTab('profile', this)">
       <div class="icon">
         <svg width="26" height="26" viewBox="0 0 100 100">
@@ -656,25 +640,6 @@
   </div>
 </div>
 
-<!-- POPUP HTML HATA DIYA GAYA HAI -->
-<!--
-<div class="location-force-overlay" id="locationForceOverlay">
-  <div class="location-force-card">
-    <div style="font-size: 40px; margin-bottom: 10px;">📍</div>
-    <div style="font-size: 18px; font-weight: 900; color: #111827; margin-bottom: 8px;">लोकेशन अनिवार्य है</div>
-    <div style="font-size: 13px; color: #4B5563; line-height: 1.5; margin-bottom: 20px;">
-      Star Shops के शानदार ऑफर्स देखने के लिए कृपया अपने फोन की <b>GPS / Location</b> चालू करें।
-    </div>
-    <button id="retryLocBtn" onclick="retryLiveLocation()" style="width: 100%; background: #059669; color: #fff; border: none; padding: 14px; border-radius: 12px; font-weight: 800; font-size: 14px; cursor: pointer; box-shadow: 0 4px 12px rgba(5,150,105,0.2); margin-bottom: 10px;">
-      मैंने लोकेशन ऑन कर ली है (Retry)
-    </button>
-    <button onclick="closeLocationForceModal()" style="width: 100%; background: #F3F4F6; color: #4B5563; border: none; padding: 12px; border-radius: 12px; font-weight: 800; font-size: 12px; cursor: pointer;">
-      बंद करें और मैनुअल डालें
-    </button>
-  </div>
-</div>
--->
-
 <div class="reel-popup-action-overlay" id="reelPopupActionOverlay">
   <div class="reel-popup-card">
     <div style="font-size: 16px; font-weight: 900; color: #111827; margin-bottom: 14px;">⚡ रील क्विक एक्शंस</div>
@@ -698,11 +663,9 @@
   </div>
 </div>
 
-<!-- 🚨 MODAL UPDATED: Click on background to close 🚨 -->
 <div class="success-modal-overlay" id="fullPostViewModal" onclick="if(event.target.id === 'fullPostViewModal') closeFullPostViewModal()">
   <div style="background: #FFFFFF; width: 100%; max-width: 380px; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; max-height: 85vh; box-shadow: 0 15px 35px rgba(0,0,0,0.3); position: relative;">
     <div style="position: relative; background: #000; width: 100%; display: flex; justify-content: center; align-items: center;" id="fullPostModalMediaContainer">
-      <!-- Media will load here dynamically -->
     </div>
     <div style="padding: 18px; overflow-y: auto; background: #fff; text-align: left;">
       <div style="font-size: 15px; font-weight: 900; color: #111827; margin-bottom: 8px;">📝 पोस्ट विवरण</div>
@@ -808,7 +771,6 @@
 </div>
 
 <script>
-  // 🚨 NEW FUNCTIONS ADDED AS REQUESTED 🚨
   function updateStatusBarTheme(isDark) {
     const metaThemeColor = document.getElementById('themeColorMeta');
     if (metaThemeColor) {
@@ -881,7 +843,7 @@
         currentShopperName = savedUser.name;
         currentUserPhone = savedUser.phone;
         document.getElementById('profileDisplayUserName').innerText = currentShopperName;
-        requestFirstTimeLocation(); // Ask for location if they are already registered but not asked
+        requestFirstTimeLocation();
     } else {
         document.getElementById('authModalOverlay').classList.add('open');
     }
@@ -902,9 +864,9 @@
       document.getElementById('appDeviceShell').classList.remove('high-discount-active');
       document.body.classList.remove('premium-mode-body');
       const chip = document.getElementById('chipHighDiscount'); if (chip) chip.style.display = 'none';
-      updateStatusBarTheme(false); // Reset Theme Color
+      updateStatusBarTheme(false);
     } else if (userStepsData.unlockedHighDiscount) {
-      activateHighDiscountZoneUIMode(); // Apply Theme Color automatically if already unlocked
+      activateHighDiscountZoneUIMode(); 
     }
 
     document.getElementById('headerLocationText').innerText = "सर्च हो रहा है...";
@@ -998,7 +960,6 @@
     document.getElementById('profileDisplayUserName').innerText = currentShopperName;
     document.getElementById('authModalOverlay').classList.remove('open');
     
-    // Ask for location immediately upon registering
     requestFirstTimeLocation();
   }
 
@@ -1006,19 +967,13 @@
     if (typeof AndroidNative !== 'undefined' && AndroidNative.turnOnGPS) {
         AndroidNative.turnOnGPS();
     }
-    // const btn = document.getElementById('retryLocBtn'); // Button is removed
-    // btn.innerText = "चेक हो रहा है...";
     initLiveLocation(); 
-    // setTimeout(() => { btn.innerText = "मैंने लोकेशन ऑन कर ली है (Retry)"; }, 2000);
   }
   
   window.closeLocationForceModal = function() {
-    // document.getElementById('locationForceOverlay').classList.remove('open'); // Element removed
   }
 
-  // JS HATA DIYA GAYA HAI - Function body cleared
   function showLocationOverlay() {
-     // document.getElementById('locationForceOverlay').classList.add('open');
      if (typeof AndroidNative !== 'undefined' && AndroidNative.turnOnGPS) {
         AndroidNative.turnOnGPS(); 
      }
@@ -1028,8 +983,6 @@
     const locText = document.getElementById('headerLocationText');
     if (navigator.geolocation) {
       navigator.geolocation.watchPosition(async (position) => {
-        // document.getElementById('locationForceOverlay').classList.remove('open'); // Element removed
-        
         let newLat = position.coords.latitude;
         let newLon = position.coords.longitude;
 
@@ -1201,7 +1154,6 @@
     return count;
   }
 
-  // --- 🚨 FIXED: CORRECT CAPTIONS FETCHED DIRECTLY 🚨 ---
   async function fetchLiveMerchantsFromSupabase(isSilent = false) {
     const container = document.getElementById('dynamicStoresContainer');
     
@@ -1300,12 +1252,10 @@
     }
   }
 
-  // --- 🚨 FIXED: ADDED CLOSE BUTTON (✕) TO REEL FEED MODAL 🚨 ---
   function openFullPostView(mediaUrl, encodedCaption, isVideo = false) {
     const caption = decodeURIComponent(encodedCaption);
     const container = document.getElementById('fullPostModalMediaContainer');
     
-    // Close button snippet
     const closeBtnHtml = `<button onclick="closeFullPostViewModal()" class="full-post-close-btn">✕</button>`;
     
     if(isVideo) {
@@ -1405,9 +1355,47 @@
     document.getElementById('appDeviceShell').classList.add('high-discount-active');
     document.body.classList.add('premium-mode-body');
     const chip = document.getElementById('chipHighDiscount'); if (chip) chip.style.display = 'inline-flex';
-    updateStatusBarTheme(true); // Apply Theme Color
+    updateStatusBarTheme(true); 
   }
 
+  // 🚨 UPDATED: Hyper-local default + Global Search Override
+  function fastSearchStores(query) {
+    const rawTerm = query.toLowerCase().trim();
+    const terms = rawTerm.split(/\s+/).filter(t => t.length > 0);
+    const isSearching = terms.length > 0 && rawTerm !== 'claimed' && rawTerm !== 'high' && rawTerm !== 'verified' && rawTerm !== 'क्लेम' && rawTerm !== 'हाई';
+
+    document.querySelectorAll('.store-item').forEach(card => {
+      const keywords = (card.getAttribute('data-keywords') || '').toLowerCase();
+      const title = (card.querySelector('.store-title').innerText || '').toLowerCase();
+      const address = (card.getAttribute('data-address') || '').toLowerCase();
+      
+      const claimCount = parseInt(card.getAttribute('data-claim-count') || '0');
+      const isHigh = card.getAttribute('data-high-discount') === 'true';
+      const isLocal = card.getAttribute('data-in-range') === 'true'; 
+      
+      const searchableText = title + " " + keywords + " " + address;
+
+      let match = false;
+      
+      if (terms.length === 0) {
+        match = true;
+      } else if (rawTerm === 'claimed' || rawTerm === 'क्लेम') {
+        match = claimCount > 0;
+      } else if (rawTerm === 'high' || rawTerm === 'हाई' || rawTerm === 'verified') {
+        match = isHigh;
+      } else {
+        match = terms.every(word => searchableText.includes(word));
+      }
+
+      if (match && !isSearching && !isLocal) {
+          card.style.display = 'none';
+      } else {
+          card.style.display = match ? 'block' : 'none';
+      }
+    });
+  }
+
+  // 🚨 UPDATED: Render Stores with Distance tracking flag
   function renderDynamicStores(storesArray) {
     const container = document.getElementById('dynamicStoresContainer');
     if (!storesArray || storesArray.length === 0) { container.innerHTML = `<div style="text-align:center; padding:30px; color:#6B7280;">कोई खुली हुई दुकान उपलब्ध नहीं है।</div>`; return; }
@@ -1438,10 +1426,13 @@
          sLon = parts[1].trim();
       }
 
+      let inRange = true; 
       if (homeLat !== null && homeLon !== null && sLat && sLon && !isNaN(parseFloat(sLat))) {
         let distMeters = calculateDistanceMeters(homeLat, homeLon, parseFloat(sLat), parseFloat(sLon));
         let distKm = (distMeters / 1000).toFixed(1);
         displayDistanceText = `📍 ${distKm} किमी दूर • ${address}`;
+        
+        if (distMeters > 6000) { inRange = false; }
       }
 
       let cardClassNames = "merchant-card store-item" + (isHighDiscountStore ? " high-discount-card" : "");
@@ -1451,7 +1442,7 @@
       else if (claimCount >= 2) { cardClassNames += " reclaimed-card"; btnText = "✓ स्टोर लिमिट पूरी"; }
 
       html += `
-        <div class="${cardClassNames}" id="storeCard_${cardId}" data-category="${dbCategory}" data-address="${address.toLowerCase()}" data-open-today="true" data-high-discount="${isHighDiscountStore}" data-claim-count="${claimCount}" data-keywords="${storeName.toLowerCase()} ${address.toLowerCase()} ${dbCategory.toLowerCase()} ${claimCount > 0 ? 'claimed' : ''} ${isHighDiscountStore ? 'high' : ''}" onclick='openMerchantPublicProfileById("${store.id}")'>
+        <div class="${cardClassNames}" id="storeCard_${cardId}" data-in-range="${inRange}" style="display: ${inRange ? 'block' : 'none'};" data-category="${dbCategory}" data-address="${address.toLowerCase()}" data-open-today="true" data-high-discount="${isHighDiscountStore}" data-claim-count="${claimCount}" data-keywords="${storeName.toLowerCase()} ${address.toLowerCase()} ${dbCategory.toLowerCase()} ${claimCount > 0 ? 'claimed' : ''} ${isHighDiscountStore ? 'high' : ''}" onclick='openMerchantPublicProfileById("${store.id}")'>
           <div class="card-banner"><img src="${bannerImg}" alt="${storeName}"><div class="banner-overlay"></div><div class="badge-fomo">⚡ लाइव डील</div><div class="badge-limit">${isHighDiscountStore ? '★ VERIFIED MERCHANT' : '★ VERIFIED PARTNER'}</div></div>
           <div class="card-body">
             <div class="store-meta"><div class="store-title">${storeName} <span style="color:#F59E0B;">★</span></div><div class="store-distance">${displayDistanceText}</div></div>
@@ -1640,36 +1631,6 @@
     const currentTodayStr = new Date().toDateString();
     todayClaimCount = userClaimHistory.filter(h => new Date(h.rawDate).toDateString() === currentTodayStr).length;
     if(document.getElementById('todayClaimSummaryCount')) document.getElementById('todayClaimSummaryCount').innerText = `${todayClaimCount} ऑफर आज`;
-  }
-
-  function fastSearchStores(query) {
-    const rawTerm = query.toLowerCase().trim();
-    const terms = rawTerm.split(/\s+/).filter(t => t.length > 0);
-
-    document.querySelectorAll('.store-item').forEach(card => {
-      const keywords = (card.getAttribute('data-keywords') || '').toLowerCase();
-      const title = (card.querySelector('.store-title').innerText || '').toLowerCase();
-      const address = (card.getAttribute('data-address') || '').toLowerCase();
-      
-      const claimCount = parseInt(card.getAttribute('data-claim-count') || '0');
-      const isHigh = card.getAttribute('data-high-discount') === 'true';
-      
-      const searchableText = title + " " + keywords + " " + address;
-
-      let match = false;
-      
-      if (terms.length === 0) {
-        match = true;
-      } else if (rawTerm === 'claimed' || rawTerm === 'क्लेम') {
-        match = claimCount > 0;
-      } else if (rawTerm === 'high' || rawTerm === 'हाई' || rawTerm === 'verified') {
-        match = isHigh;
-      } else {
-        match = terms.every(word => searchableText.includes(word));
-      }
-
-      card.style.display = match ? 'block' : 'none';
-    });
   }
 
   function filterCategory(category, chipEl) {
@@ -1960,6 +1921,19 @@
     openSuccessModal("सफलता! 📸", "आपकी प्रोफाइल फोटो सफलतापूर्वक सेट हो गई है।");
     if (rawConsumerFileEvt) rawConsumerFileEvt.target.value = "";
   }
+
+  // 🚨 NEW: Block Browser Default Media Notification Player 🚨
+  document.addEventListener('play', function(e) {
+    if (e.target.tagName === 'VIDEO' || e.target.tagName === 'AUDIO') {
+      if ('mediaSession' in navigator) {
+        navigator.mediaSession.metadata = new MediaMetadata({ title: '', artist: '', album: '' });
+        navigator.mediaSession.playbackState = 'none';
+        navigator.mediaSession.setActionHandler('play', function() {});
+        navigator.mediaSession.setActionHandler('pause', function() {});
+      }
+    }
+  }, true);
+
 </script>
 </body>
 </html>
