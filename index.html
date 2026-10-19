@@ -398,6 +398,96 @@
     .merch-title { font-size: 14px; font-weight: 900; color: #B45309; margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
     .merch-desc { font-size: 11px; color: #92400E; margin-bottom: 14px; line-height: 1.4; font-weight: 600; }
     .btn-merchant-join { background: #D97706; color: #FFF; border: none; width: 100%; padding: 11px; border-radius: 10px; font-size: 12px; font-weight: 900; cursor: pointer; box-shadow: 0 4px 10px rgba(217, 119, 6, 0.3); text-decoration: none; display: block; text-align: center; }
+
+
+    /* Scoped super merchant card UI */
+    .sc-merchant-card { border-radius: 18px !important; border: 1px solid #E5E7EB !important; background: #fff !important; box-shadow: 0 6px 20px rgba(17,24,39,.08) !important; }
+    .sc-merchant-card.high-discount-card { border: 2px solid #D4AF37 !important; animation: scGoldBlink 1.8s ease-in-out infinite; }
+    @keyframes scGoldBlink { 0%,100% { box-shadow: 0 5px 16px rgba(212,175,55,.16), 0 0 0 0 rgba(212,175,55,.12); } 50% { box-shadow: 0 8px 24px rgba(212,175,55,.38), 0 0 0 4px rgba(212,175,55,.12); } }
+    .sc-merchant-card .sc-card-banner { height: 150px; }
+    .sc-merchant-card .sc-card-banner > img { width: 100%; height: 100%; object-fit: cover; }
+    .sc-merchant-card .sc-fomo-badge { top: 10px; left: 10px; z-index: 2; padding: 6px 9px; border-radius: 7px; background: rgba(17,24,39,.9); color: #FDE68A; border: 1px solid #F59E0B; font-size: 10px; font-weight: 900; }
+    .sc-merchant-card .sc-verified-badge { top: 10px; right: 10px; z-index: 2; padding: 6px 9px; border-radius: 7px; background: rgba(5,150,105,.95); color: #fff; border: 1px solid rgba(255,255,255,.35); font-size: 9px; font-weight: 900; }
+    .sc-merchant-card .sc-card-body { padding: 15px; }
+    .sc-merchant-card .sc-store-meta { align-items: flex-start; gap: 9px; }
+    .sc-merchant-card .sc-store-title { min-width: 0; overflow-wrap: anywhere; line-height: 1.3; }
+    .sc-merchant-card .sc-distance { flex: 0 0 auto; max-width: 58%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 5px 8px; border: 1px solid #FDE68A; border-radius: 7px; }
+    .sc-merchant-card .sc-live-status { margin-top: 8px; }
+    .sc-merchant-card .sc-live-dot { flex: 0 0 8px; }
+    .sc-merchant-card .sc-progress { padding: 10px; border-radius: 11px; }
+    .sc-merchant-card .sc-progress-label { font-size: 10px !important; }
+    .sc-merchant-card .sc-progress-track { height: 7px; border-radius: 999px; }
+    .sc-merchant-card .sc-progress-fill { border-radius: inherit; }
+    .sc-merchant-card .sc-deal-row { gap: 10px; }
+    .sc-merchant-card .sc-savings { min-width: 0; font-size: 16px !important; overflow-wrap: anywhere; }
+    .sc-merchant-card .sc-info-btn { flex: 0 0 auto; min-height: 36px; }
+    .sc-merchant-card .sc-claim-btn { min-height: 44px; margin-top: 12px !important; border-radius: 11px; font-size: 12px; }
+    .device-shell.high-discount-active .sc-merchant-card { background: linear-gradient(145deg,#080808,#141414) !important; border-color: rgba(212,175,55,.45) !important; color: #F9FAFB; }
+    .device-shell.high-discount-active .sc-merchant-card .sc-store-title { color: #fff !important; }
+    .device-shell.high-discount-active .sc-merchant-card .sc-distance { color: #FCF6BA !important; background: #15130d !important; border-color: rgba(212,175,55,.4) !important; }
+    .device-shell.high-discount-active .sc-merchant-card .sc-progress { background: #11100b !important; border-color: rgba(212,175,55,.3) !important; }
+    .device-shell.high-discount-active .sc-merchant-card .sc-progress-label { color: #FCF6BA !important; }
+    .device-shell.high-discount-active .sc-merchant-card .sc-progress-track { background: #29251a !important; }
+    .device-shell.high-discount-active .sc-merchant-card .sc-progress-fill { background: linear-gradient(90deg,#BF953F,#FCF6BA,#AA771C) !important; }
+    .device-shell.high-discount-active .sc-merchant-card .sc-savings { color: #FCF6BA !important; }
+    .device-shell.high-discount-active .sc-merchant-card .sc-info-btn { color: #FCF6BA !important; background: #17140b !important; border-color: rgba(212,175,55,.4) !important; }
+    .device-shell.high-discount-active .sc-merchant-card .sc-claim-btn { color: #111 !important; background: linear-gradient(110deg,#BF953F,#FCF6BA,#B38728,#FBF5B7) !important; }
+    .device-shell.high-discount-active .sc-merchant-card .sc-verified-badge { color: #111; background: linear-gradient(120deg,#BF953F,#FCF6BA,#AA771C); border-color: #D4AF37; }
+    @media (max-width: 360px) { .sc-merchant-card .sc-card-body { padding: 12px; } .sc-merchant-card .sc-store-title { font-size: 15px; } .sc-merchant-card .sc-distance { max-width: 53%; font-size: 10px; } }
+    @media (prefers-reduced-motion: reduce) { .sc-merchant-card.high-discount-card { animation: none; } }
+
+    /* GPS overlay styling requested for the location-required flow */
+    .gps-force-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1000001;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    .gps-force-overlay.open { display: flex; }
+    .gps-force-card {
+      width: 100%;
+      max-width: 340px;
+      padding: 24px;
+      border-radius: 20px;
+      text-align: center;
+      color: #111827;
+      background: #FFFFFF;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+      border: 1px solid #E5E7EB;
+    }
+    .gps-scan-spinner {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 16px auto;
+      border: 4px solid #FEF3C7;
+      border-top-color: #F59E0B;
+      border-radius: 50%;
+      animation: gpsScanSpin 0.8s linear infinite;
+    }
+    @keyframes gpsScanSpin { to { transform: rotate(360deg); } }
+
+    /* Mobile interface lock: keep the app at phone width even when Chrome uses Desktop site. */
+    @media (min-width: 481px) {
+      .device-shell {
+        width: 480px;
+        max-width: 480px;
+        min-height: 100vh;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .bottom-nav {
+        left: 50% !important;
+        right: auto !important;
+        transform: translateX(-50%);
+      }
+    }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -630,6 +720,15 @@
 
 </div>
 
+<div class="gps-force-overlay" id="gpsForceOverlay">
+  <div class="gps-force-card">
+    <div class="gps-scan-spinner"></div>
+    <div style="font-size:16px; font-weight:900; color:#111827; margin-bottom:6px;">📍 GPS लोकेशन अनिवार्य है</div>
+    <div id="gpsForceMessage" style="font-size:12px; line-height:1.5; color:#4B5563; margin-bottom:18px;">सटीक लोकल डील्स और दुकानें देखने के लिए कृपया अपने फोन का GPS ऑन करें।</div>
+    <button type="button" onclick="retryGPSLocation()" style="width:100%; padding:12px; border:none; border-radius:12px; background:#111827; color:#FFF; font-weight:800; font-size:13px; cursor:pointer;">लोकेशन फिर से जाँचें 🔄</button>
+  </div>
+</div>
+
 <div class="auth-modal-overlay" id="authModalOverlay">
   <div class="auth-card">
     <div style="font-size:20px; font-weight:900; margin-bottom:8px; color:#111827;">वेलकम टू Star Shops ⭐</div>
@@ -794,6 +893,8 @@
   const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
   let homeLat = null, homeLon = null, userCurrentState = "", userCurrentCity = "";
+  let gpsLocationResolved = false;
+  let gpsForceIntervalId = null;
   let currentShopperName = ""; let currentUserPhone = "";
   let activeShopName = "", activeShopDiscount = 0, activeCardId = null, activeClaimTitle = "";
   let todayClaimCount = 0, totalClaimedCardsCount = 0;
@@ -837,6 +938,49 @@
     "https://images.unsplash.com/photo-1622286342621-4bd786c2447c?auto=format&fit=crop&w=700&q=80"
   ];
 
+  function keepGPSOverlayVisible() {
+    const overlay = document.getElementById('gpsForceOverlay');
+    if (!gpsLocationResolved && overlay) overlay.classList.add('open');
+  }
+
+  function startGPSForceLoop() {
+    keepGPSOverlayVisible();
+    if (gpsForceIntervalId) clearInterval(gpsForceIntervalId);
+    gpsForceIntervalId = setInterval(() => {
+      if (!gpsLocationResolved) keepGPSOverlayVisible();
+      else clearInterval(gpsForceIntervalId);
+    }, 3000);
+  }
+
+  function markGPSLocationResolved(latitude, longitude) {
+    gpsLocationResolved = true;
+    homeLat = latitude;
+    homeLon = longitude;
+    const overlay = document.getElementById('gpsForceOverlay');
+    if (overlay) overlay.classList.remove('open');
+    if (gpsForceIntervalId) { clearInterval(gpsForceIntervalId); gpsForceIntervalId = null; }
+    applyLocationFilter();
+  }
+
+  window.retryGPSLocation = function() {
+    if (!navigator.geolocation) {
+      document.getElementById('gpsForceMessage').innerText = 'इस browser में GPS/location उपलब्ध नहीं है। Location support वाले browser में HTTPS पर ऐप खोलें।';
+      return;
+    }
+    document.getElementById('gpsForceMessage').innerText = 'लोकेशन की अनुमति माँगी जा रही है। यदि पहले अनुमति block की थी, Chrome site settings में जाकर Location को Allow करें।';
+    navigator.geolocation.getCurrentPosition(
+      position => markGPSLocationResolved(position.coords.latitude, position.coords.longitude),
+      error => {
+        const msg = error && error.code === 1
+          ? 'Location permission block है। Chrome की site settings में Location को Allow करके फिर से जाँचें।'
+          : 'GPS location अभी नहीं मिली। फोन का Location/GPS चालू रखें और फिर से जाँचें।';
+        document.getElementById('gpsForceMessage').innerText = msg;
+        keepGPSOverlayVisible();
+      },
+      { enableHighAccuracy: true, maximumAge: 0, timeout: 15000 }
+    );
+  };
+
   window.addEventListener('DOMContentLoaded', async () => {
     const savedUser = JSON.parse(localStorage.getItem('starshops_consumer_user'));
     if(savedUser) {
@@ -872,6 +1016,7 @@
     document.getElementById('headerLocationText').innerText = "सर्च हो रहा है...";
     toggleRangeView('out-of-range'); 
 
+    startGPSForceLoop();
     initLiveLocation();
 
     const savedAvatar = localStorage.getItem('starshops_user_avatar');
@@ -985,6 +1130,7 @@
       navigator.geolocation.watchPosition(async (position) => {
         let newLat = position.coords.latitude;
         let newLon = position.coords.longitude;
+        markGPSLocationResolved(newLat, newLon);
 
         if (homeLat !== null && homeLon !== null && (homeLat !== newLat || homeLon !== newLon)) {
            let stepDist = calculateDistanceMeters(homeLat, homeLon, newLat, newLon);
@@ -1064,43 +1210,40 @@
 
   function applyLocationFilter() {
     const container = document.getElementById('dynamicStoresContainer');
-    
-    if (liveSupabaseStores.length === 0) {
-      container.innerHTML = `<div style="text-align:center; padding:30px; color:#6B7280;">कोई दुकान उपलब्ध नहीं है।</div>`;
-      return;
-    }
-    
-    let isWithinRange = false;
-    for (let store of liveSupabaseStores) {
-      let sLat = store.latitude || store.lat;
-      let sLon = store.longitude || store.lng || store.lon;
-      
-      if (!sLat && store.location && store.location.includes(',')) {
-         let parts = store.location.split(',');
-         sLat = parts[0].trim();
-         sLon = parts[1].trim();
-      }
 
-      if (homeLat !== null && homeLon !== null && sLat && sLon && !isNaN(parseFloat(sLat))) {
-        let distMeters = calculateDistanceMeters(homeLat, homeLon, parseFloat(sLat), parseFloat(sLon));
-        if ((distMeters / 1000) <= 6) {
-          isWithinRange = true;
-          break;
-        }
-      } else {
-        isWithinRange = true; 
-      }
-    }
-
-    if (isWithinRange) {
-      userIsOutOfRange = false;
-      toggleRangeView('in-range');
-      renderDynamicStores(liveSupabaseStores); 
-    } else {
+    if (!gpsLocationResolved || homeLat === null || homeLon === null) {
       userIsOutOfRange = true;
       toggleRangeView('out-of-range');
-      document.getElementById('headerLocationText').innerText = "आउट ऑफ एरिया";
+      return;
     }
+
+    if (!liveSupabaseStores || liveSupabaseStores.length === 0) {
+      userIsOutOfRange = true;
+      toggleRangeView('out-of-range');
+      if (container) container.innerHTML = `<div style="text-align:center;padding:30px;color:#6B7280;">इस समय इस area में कोई दुकान उपलब्ध नहीं है।</div>`;
+      return;
+    }
+
+    const distanceForStore = store => {
+      let lat = store.latitude || store.lat;
+      let lon = store.longitude || store.lng || store.lon;
+      if (!lat && store.location && store.location.includes(',')) {
+        const parts = store.location.split(',');
+        lat = parts[0].trim();
+        lon = parts[1].trim();
+      }
+      if (lat !== undefined && lon !== undefined && !isNaN(parseFloat(lat)) && !isNaN(parseFloat(lon))) {
+        return calculateDistanceMeters(homeLat, homeLon, parseFloat(lat), parseFloat(lon));
+      }
+      return Number.POSITIVE_INFINITY;
+    };
+
+    liveSupabaseStores.sort((a, b) => distanceForStore(a) - distanceForStore(b));
+    userIsOutOfRange = false;
+    toggleRangeView('in-range');
+    const locLabel = document.getElementById('headerLocationText');
+    if (locLabel && !userCurrentCity) locLabel.innerText = 'लोकेशन मिल गई';
+    renderDynamicStores(liveSupabaseStores);
   }
 
   function calculateDistanceMeters(lat1, lon1, lat2, lon2) {
@@ -1246,6 +1389,7 @@
       }
       renderDynamicAlerts(liveSupabaseStores);
       renderPostsFeed(dynamicPostsList);
+      if (gpsLocationResolved) applyLocationFilter();
 
     } catch (err) { 
         if(!isSilent && container) container.innerHTML = `<div style="font-size:13px; color:#DC2626; text-align:center; padding:30px;">नेटवर्क या Supabase कनेक्शन में समस्या है।</div>`; 
@@ -1432,26 +1576,26 @@
         let distKm = (distMeters / 1000).toFixed(1);
         displayDistanceText = `📍 ${distKm} किमी दूर • ${address}`;
         
-        if (distMeters > 6000) { inRange = false; }
+        /* No fixed 5/6 km cutoff: keep every database merchant visible and sort by distance. */
       }
 
-      let cardClassNames = "merchant-card store-item" + (isHighDiscountStore ? " high-discount-card" : "");
-      let btnText = "⚡ काउंटर पिन डालकर क्लेम करें"; let btnClass = "scan-action-btn";
+      let cardClassNames = "merchant-card store-item sc-merchant-card" + (isHighDiscountStore ? " high-discount-card" : "");
+      let btnText = "⚡ काउंटर पिन डालकर क्लेम करें"; let btnClass = "scan-action-btn sc-claim-btn";
 
       if (claimCount === 1) { cardClassNames += " claimed-card"; btnText = "🔄 रीक्लेम करें (Reclaim)"; btnClass += " reclaim-btn"; }
       else if (claimCount >= 2) { cardClassNames += " reclaimed-card"; btnText = "✓ स्टोर लिमिट पूरी"; }
 
       html += `
         <div class="${cardClassNames}" id="storeCard_${cardId}" data-in-range="${inRange}" style="display: ${inRange ? 'block' : 'none'};" data-category="${dbCategory}" data-address="${address.toLowerCase()}" data-open-today="true" data-high-discount="${isHighDiscountStore}" data-claim-count="${claimCount}" data-keywords="${storeName.toLowerCase()} ${address.toLowerCase()} ${dbCategory.toLowerCase()} ${claimCount > 0 ? 'claimed' : ''} ${isHighDiscountStore ? 'high' : ''}" onclick='openMerchantPublicProfileById("${store.id}")'>
-          <div class="card-banner"><img src="${bannerImg}" alt="${storeName}"><div class="banner-overlay"></div><div class="badge-fomo">⚡ लाइव डील</div><div class="badge-limit">${isHighDiscountStore ? '★ VERIFIED MERCHANT' : '★ VERIFIED PARTNER'}</div></div>
-          <div class="card-body">
-            <div class="store-meta"><div class="store-title">${storeName} <span style="color:#F59E0B;">★</span></div><div class="store-distance">${displayDistanceText}</div></div>
-            <div class="store-status-row"><div class="live-open-pill"><span class="blink-dot"></span> दुकान खुली है (आज)</div><div class="mini-reclaim-badge-pill" onclick="event.stopPropagation(); openPinModal('${storeName}', ${numericDiscount}, '${cardId}', '${storeName} - ${discountText}')">🔄 रीक्लेम करें</div></div>
+          <div class="card-banner sc-card-banner"><img src="${bannerImg}" alt="${storeName}"><div class="banner-overlay"></div><div class="badge-fomo sc-fomo-badge">⚡ लाइव डील</div><div class="badge-limit sc-verified-badge">${isHighDiscountStore ? '★ VERIFIED MERCHANT' : '★ VERIFIED PARTNER'}</div></div>
+          <div class="card-body sc-card-body">
+            <div class="store-meta sc-store-meta"><div class="store-title sc-store-title">${storeName} <span style="color:#F59E0B;">★</span></div><div class="store-distance sc-distance">${displayDistanceText}</div></div>
+            <div class="store-status-row sc-live-status"><div class="live-open-pill"><span class="blink-dot sc-live-dot"></span> दुकान खुली है (आज)</div><div class="mini-reclaim-badge-pill" onclick="event.stopPropagation(); openPinModal('${storeName}', ${numericDiscount}, '${cardId}', '${storeName} - ${discountText}')">🔄 रीक्लेम करें</div></div>
             
-            <div class="step-progress-wrapper"><div style="font-size: 11px; font-weight: 900; color: #1E40AF; display:flex; justify-content:space-between;"><span>🎯 2000 कदम लक्ष्य (ट्रैक हो रहा है)</span><span>${userStepsData.currentSteps}/2000 (${percent}%)</span></div><div class="step-progress-bar-bg"><div class="step-progress-bar-fill" style="width: ${percent}%;"></div></div></div>
+            <div class="step-progress-wrapper sc-progress"><div class="sc-progress-label" style="font-size: 11px; font-weight: 900; color: #1E40AF; display:flex; justify-content:space-between;"><span>🎯 2000 कदम लक्ष्य (ट्रैक हो रहा है)</span><span>${userStepsData.currentSteps}/2000 (${percent}%)</span></div><div class="step-progress-bar-bg sc-progress-track"><div class="step-progress-bar-fill sc-progress-fill" style="width: ${percent}%;"></div></div></div>
             <div class="line-sep"></div>
-            <div class="deal-action-box"><div><div class="cash-save" style="font-size: 15px;">${discountText}</div><div class="cash-sub">काउंटर पर विशेष छूट उपलब्ध</div></div><button class="info-btn-grocery" onclick="event.stopPropagation(); openShopInfoModalSafe('${storeName}', '${dbCategory}', '${address}', '${encodeURIComponent(conditionsText)}', '${encodeURIComponent(discountText)}')">ℹ डील देखें</button></div>
-            <div style="margin-top: 12px;"><button class="${btnClass}" id="cardBtn_${cardId}" ${claimCount >= 2 ? 'disabled style="background:#9CA3AF !important; cursor:not-allowed;"' : ''} onclick="event.stopPropagation(); openPinModal('${storeName}', ${numericDiscount}, '${cardId}', '${storeName} - ${discountText}')">${btnText}</button></div>
+            <div class="deal-action-box sc-deal-row"><div><div class="cash-save sc-savings" style="font-size: 15px;">${discountText}</div><div class="cash-sub">काउंटर पर विशेष छूट उपलब्ध</div></div><button class="info-btn-grocery sc-info-btn" onclick="event.stopPropagation(); openShopInfoModalSafe('${storeName}', '${dbCategory}', '${address}', '${encodeURIComponent(conditionsText)}', '${encodeURIComponent(discountText)}')">ℹ डील देखें</button></div>
+            <div><button class="${btnClass}" id="cardBtn_${cardId}" ${claimCount >= 2 ? 'disabled style="background:#9CA3AF !important; cursor:not-allowed;"' : ''} onclick="event.stopPropagation(); openPinModal('${storeName}', ${numericDiscount}, '${cardId}', '${storeName} - ${discountText}')">${btnText}</button></div>
           </div>
         </div>`;
     });
