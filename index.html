@@ -16,30 +16,36 @@
       touch-action: manipulation;
     }
 
+    /* 🔒 PERMANENT FULL-MODE DEVICE SHELL LOCK (डिफ़ॉल्ट और डेस्कटॉप मोड दोनों के लिए फिक्स) 🔒 */
     html, body {
-      width: 100%;
-      height: 100%;
-      background-color: #F8F9FA;
-      overflow-x: hidden;
-      display: flex;
-      justify-content: center;
-      transition: background-color 0.6s ease;
+      width: 100% !important;
+      height: 100% !important;
+      background-color: #050505 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow-x: hidden !important;
+      display: flex !important;
+      justify-content: center !important;
+      align-items: stretch !important;
     }
 
     /* Premium Body Background for Modals */
     body.premium-mode-body { background-color: #050505 !important; }
 
     .device-shell {
-      width: 100%;
-      max-width: 480px;
-      min-height: 100vh;
+      width: 100% !important;
+      max-width: 480px !important;
+      min-height: 100vh !important;
       background-color: #F8F9FA;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      padding-bottom: 70px; 
+      position: relative !important;
+      display: flex !important;
+      flex-direction: column !important;
+      padding-bottom: 70px !important;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      margin: 0 auto !important;
+      box-shadow: 0 0 30px rgba(0,0,0,0.15) !important;
       transition: background-color 0.6s ease, color 0.6s ease;
-      box-shadow: 0 0 20px rgba(0,0,0,0.05);
     }
 
     /* 👑 1% ELITE PREMIUM METALLIC GOLD THEME (Dynamic Update) 👑 */
@@ -399,13 +405,13 @@
     .merch-desc { font-size: 11px; color: #92400E; margin-bottom: 14px; line-height: 1.4; font-weight: 600; }
     .btn-merchant-join { background: #D97706; color: #FFF; border: none; width: 100%; padding: 11px; border-radius: 10px; font-size: 12px; font-weight: 900; cursor: pointer; box-shadow: 0 4px 10px rgba(217, 119, 6, 0.3); text-decoration: none; display: block; text-align: center; }
 
-    /* 🚨 NEW: GPS Force Scanning Blur Overlay & Card 🚨 */
+    /* 🚨 GPS Forced Scanning Blur Overlay & Card 🚨 */
     .gps-scan-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.55);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       z-index: 9999999;
       display: none;
       align-items: center;
@@ -435,6 +441,42 @@
       animation: spinGPS 0.8s linear infinite;
     }
     @keyframes spinGPS { to { transform: rotate(360deg); } }
+
+    /* 🔒 डेस्कटॉप स्क्रीन पर मोबाइल शेल लॉक (डेस्कटॉप मोड सुरक्षा) 🔒 */
+    @media (min-width: 481px) {
+      body {
+        background-color: #111 !important;
+      }
+      .device-shell {
+        border-left: 1px solid rgba(255,255,255,0.1) !important;
+        border-right: 1px solid rgba(255,255,255,0.1) !important;
+      }
+      .bottom-nav {
+        left: 50% !important;
+        right: auto !important;
+        transform: translateX(-50%) !important;
+        max-width: 480px !important;
+      }
+    }
+
+    /* टच डिवाइसेस के लिए व्यूपोर्ट फिक्स */
+    @media (pointer: coarse) and (hover: none) and (max-device-width: 600px) {
+      html, body {
+        width: 100vw !important;
+        max-width: 100vw !important;
+      }
+      .device-shell {
+        width: 100vw !important;
+        max-width: 100vw !important;
+      }
+      .bottom-nav {
+        left: 0 !important;
+        right: 0 !important;
+        width: 100vw !important;
+        max-width: 100vw !important;
+        transform: none !important;
+      }
+    }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -667,8 +709,8 @@
 
 </div>
 
-<!-- 🚨 GPS Forced Scanning Loader Overlay 🚨 -->
-<div class="gps-scan-overlay open" id="gpsScanOverlay">
+<!-- 🚨 GPS Forced Scanning Blur Overlay & Card 🚨 -->
+<div class="gps-scan-overlay" id="gpsScanOverlay">
   <div class="gps-scan-card">
     <div class="gps-spinner"></div>
     <div style="font-size: 16px; font-weight: 900; color: #111827; margin-bottom: 6px;">📍 GPS लोकेशन स्कैन हो रही है</div>
@@ -679,7 +721,7 @@
 
 <div class="auth-modal-overlay" id="authModalOverlay">
   <div class="auth-card">
-    <div style="font-size:20px; font-weight:900; margin-bottom:8px; color:#111827;">वेलकम टू Star Shops ⭐</div>
+    <div style="font-size:20px; font-weight:900; margin-bottom:8px; color:#111827;">वेलकम तू Star Shops ⭐</div>
     <div style="font-size:12px; color:#6B7280; margin-bottom:16px;">कृपया अपना नाम और मोबाइल नंबर दर्ज करें</div>
     <input type="text" id="authNameInput" class="pin-input-box" style="font-size:14px; letter-spacing:normal; text-align:left;" placeholder="आपका पूरा नाम (जैसे: अभिषेक)">
     <input type="tel" id="authPhoneInput" class="pin-input-box" style="font-size:14px; letter-spacing:normal; text-align:left; margin-top:10px;" placeholder="मोबाइल नंबर" maxlength="10">
@@ -847,7 +889,8 @@
   let liveSupabaseStores = [];
   
   let userIsOutOfRange = false; 
-  let gpsScanInterval = null; // 🚨 GPS 3-sec looping scanner timer
+  let gpsScanInterval = null; 
+  let gpsResolvedOnce = false; // 🚨 एक बार लोकेशन मिलने के बाद दोबारा स्कैन रोकने के लिए फ्लैग
 
   let userStepsData = JSON.parse(localStorage.getItem('star_user_steps_goal')) || { currentSteps: 0, targetSteps: 2000, unlockedHighDiscount: false };
   let userClaimHistory = [];
@@ -920,20 +963,23 @@
     document.getElementById('headerLocationText').innerText = "सर्च हो रहा है...";
     toggleRangeView('out-of-range'); 
 
-    // सबसे पहले डेटा लोड करें और फिर 3-सेकंड वाला GPS स्कैन लूप शुरू करें
+    // डेटाबेस से दुकानें लोड करें
     await syncUserClaimStatsFromSupabase();
     await fetchLiveMerchantsFromSupabase();
 
-    startContinuousGPSScan(); // 🚨 3 सेकंड स्कैन लूप स्टार्ट
+    // 🚨 यदि लोकेशन पहले से नहीं मिली है, तभी स्कैनिंग ओवरले दिखाएं और लूप शुरू करें
+    if (!gpsResolvedOnce && (homeLat === null || homeLon === null)) {
+      startContinuousGPSScan();
+    }
 
     if (userStepsData.unlockedHighDiscount) activateHighDiscountZoneUIMode();
     
     initInfiniteScrollLogic();
   });
 
-  // 🚨 3 सेकंड में लगातार लोकेशन स्कैन करने वाला फंक्शन (जब तक GPS ऑन न हो जाए या दुकानें न मिल जाएं)
+  // 🚨 3 सेकंड में केवल तब तक स्कैन करेगा जब तक लोकेशन एक बार भी नहीं मिल जाती
   function startContinuousGPSScan() {
-    if (homeLat !== null && homeLon !== null) return; // अगर लोकेशन मिल चुकी है तो लूप की जरूरत नहीं
+    if (gpsResolvedOnce || (homeLat !== null && homeLon !== null)) return;
     
     const overlay = document.getElementById('gpsScanOverlay');
     if (overlay) overlay.classList.add('open');
@@ -941,7 +987,7 @@
     if (gpsScanInterval) clearInterval(gpsScanInterval);
 
     gpsScanInterval = setInterval(() => {
-      if (homeLat !== null && homeLon !== null) {
+      if (gpsResolvedOnce || (homeLat !== null && homeLon !== null)) {
         clearInterval(gpsScanInterval);
         gpsScanInterval = null;
         if (overlay) overlay.classList.remove('open');
@@ -957,6 +1003,7 @@
           (position) => {
             homeLat = position.coords.latitude;
             homeLon = position.coords.longitude;
+            gpsResolvedOnce = true; // 🚨 फ्लैग सेट ताकि दोबारा स्कैन न हो
             if (overlay) overlay.classList.remove('open');
             if (gpsScanInterval) {
               clearInterval(gpsScanInterval);
@@ -965,7 +1012,6 @@
             applyLocationFilter();
           },
           (error) => {
-            // लोकेशन अभी तक नहीं मिली, कार्ड खुला रहेगा और हर 3 सेकंड में फिर कोशिश होगी
             const statusEl = document.getElementById('gpsScanStatusText');
             if (statusEl) {
               statusEl.innerText = "लोकेशन ऑन नहीं है या GPS सिग्नल नहीं मिल रहा। कृपया अपने फोन का GPS ऑन करें!";
@@ -974,7 +1020,7 @@
           { enableHighAccuracy: true, timeout: 2500, maximumAge: 0 }
         );
       }
-    }, 3000); // हर 3 सेकंड पर चेक
+    }, 3000);
   }
 
   window.forceRetryGPSScan = function() {
@@ -1012,6 +1058,7 @@
   }
 
   window.goToDemoLayout = function() {
+    gpsResolvedOnce = true;
     history.pushState({ isDemo: true }, "Demo", "#demo"); 
     document.getElementById('headerLocationText').innerText = "बेगमपुर, दिल्ली (डेमो)";
     toggleRangeView('in-range');
@@ -1024,6 +1071,7 @@
   window.promptManualLocation = function() {
     let chosenArea = prompt("अपना एरिया या शहर का नाम दर्ज करें (जैसे: Rohini Sector 7, Delhi):", "Rohini Delhi");
     if (chosenArea && chosenArea.trim().length > 0) {
+      gpsResolvedOnce = true;
       document.getElementById('headerLocationText').innerText = chosenArea.trim();
       userIsOutOfRange = false; 
       toggleRangeView('in-range');
@@ -1072,89 +1120,6 @@
     if (typeof AndroidNative !== 'undefined' && AndroidNative.turnOnGPS) {
         AndroidNative.turnOnGPS();
     }
-    initLiveLocation(); 
-  }
-
-  async function initLiveLocation() {
-    const locText = document.getElementById('headerLocationText');
-    if (navigator.geolocation) {
-      navigator.geolocation.watchPosition(async (position) => {
-        let newLat = position.coords.latitude;
-        let newLon = position.coords.longitude;
-
-        if (homeLat !== null && homeLon !== null && (homeLat !== newLat || homeLon !== newLon)) {
-           let stepDist = calculateDistanceMeters(homeLat, homeLon, newLat, newLon);
-           if (stepDist > 3) {
-              let walked = Math.round(stepDist / 0.762);
-              userStepsData.currentSteps += walked;
-              if (userStepsData.currentSteps >= userStepsData.targetSteps) {
-                userStepsData.currentSteps = userStepsData.targetSteps;
-                if (!userStepsData.unlockedHighDiscount) { 
-                    userStepsData.unlockedHighDiscount = true; 
-                    setTimeout(openHighDiscountUnlockModal, 800); 
-                }
-              }
-              localStorage.setItem('star_user_steps_goal', JSON.stringify(userStepsData)); 
-              updateAllStoreCardsStepsUI(); 
-              userFootprints += walked;
-              localStorage.setItem('starshops_total_footprints', userFootprints);
-              if(document.getElementById('statFootprintCount')) document.getElementById('statFootprintCount').innerText = userFootprints;
-           }
-        }
-
-        homeLat = newLat;
-        homeLon = newLon;
-
-        // लोकेशन मिलते ही स्कैनिंग ओवरले बंद करें
-        const overlay = document.getElementById('gpsScanOverlay');
-        if (overlay) overlay.classList.remove('open');
-        if (gpsScanInterval) { clearInterval(gpsScanInterval); gpsScanInterval = null; }
-
-        if (!userCurrentCity) {
-          try {
-            const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${homeLat}&lon=${homeLon}&accept-language=hi,en`);
-            const data = await res.json();
-            let area = data.address.suburb || data.address.neighbourhood || data.address.city_district || data.address.town || data.address.city || "लोकेशन";
-            let city = data.address.city || data.address.state || "इंडिया";
-            locText.innerText = `${area}, ${city}`;
-            userCurrentCity = data.address.city || data.address.state_district || data.address.town || "";
-            userCurrentState = data.address.state || "";
-            applyLocationFilter();
-          } catch (e) { 
-            locText.innerText = "लोकेशन मिल गई (Live)"; 
-            userIsOutOfRange = false;
-            applyLocationFilter();
-          }
-        }
-      }, () => { 
-         if(!userCurrentCity) {
-            locText.innerText = "GPS ऑन करें"; 
-         }
-      }, { enableHighAccuracy: true, maximumAge: 0 }); 
-    } else { 
-      locText.innerText = "GPS सपोर्ट नहीं है"; 
-    }
-  }
-
-  window.submitPinDemand = function() {
-    const area = document.getElementById('customerAreaName').value.trim();
-    const pincode = document.getElementById('customerPinCode').value.trim();
-    
-    if(pincode.length === 6 && area.length > 0) {
-      try {
-        supabaseClient.from('pin_demands').insert([{ area_name: area, pin_code: pincode }]);
-      } catch(e) {}
-      
-      document.getElementById('pinSuccessMsg').style.display = 'block';
-      document.getElementById('customerAreaName').value = '';
-      document.getElementById('customerPinCode').value = '';
-      
-      setTimeout(() => {
-        document.getElementById('pinSuccessMsg').style.display = 'none';
-      }, 3000);
-    } else {
-      alert("कृपया सही एरिया का नाम और 6-अंकों का पिन कोड दर्ज करें।");
-    }
   }
 
   function applyLocationFilter() {
@@ -1187,7 +1152,8 @@
       }
     }
 
-    // 🚨 जैसे ही दुकानें मिलेंगी, स्कैनिंग कार्ड स्वतः हट जाएगा और सीधी दुकानें या आउट-ऑफ-एरिया बॉक्स दिखेगा
+    // 🚨 लोकेशन मिलते ही स्कैनर तुरंत बंद और हमेशा के लिए गायब
+    gpsResolvedOnce = true;
     const overlay = document.getElementById('gpsScanOverlay');
     if (overlay) overlay.classList.remove('open');
     if (gpsScanInterval) { clearInterval(gpsScanInterval); gpsScanInterval = null; }
@@ -1458,7 +1424,6 @@
     updateStatusBarTheme(true); 
   }
 
-  // 🚨 UPDATED: Hyper-local default + Global Search Override
   function fastSearchStores(query) {
     const rawTerm = query.toLowerCase().trim();
     const terms = rawTerm.split(/\s+/).filter(t => t.length > 0);
@@ -1495,7 +1460,6 @@
     });
   }
 
-  // 🚨 UPDATED: Render Stores with Distance tracking flag
   function renderDynamicStores(storesArray) {
     const container = document.getElementById('dynamicStoresContainer');
     if (!storesArray || storesArray.length === 0) { container.innerHTML = `<div style="text-align:center; padding:30px; color:#6B7280;">कोई खुली हुई दुकान उपलब्ध नहीं है।</div>`; return; }
