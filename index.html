@@ -498,6 +498,25 @@
         max-width: 480px !important;
       }
     }
+
+    /* Touch phones: fill the actual phone viewport even if Chrome requests Desktop site. */
+    @media (pointer: coarse) and (hover: none) and (max-device-width: 600px) {
+      html, body {
+        width: 100vw !important;
+        max-width: 100vw !important;
+      }
+      .device-shell {
+        width: 100vw !important;
+        max-width: 100vw !important;
+      }
+      .bottom-nav {
+        left: 0 !important;
+        right: 0 !important;
+        width: 100vw !important;
+        max-width: 100vw !important;
+        transform: none !important;
+      }
+    }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
