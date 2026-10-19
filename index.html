@@ -446,6 +446,42 @@
     @media (max-width: 360px) { .sc-merchant-card .sc-card-body { padding: 12px; } .sc-merchant-card .sc-store-title { font-size: 15px; } .sc-merchant-card .sc-distance { max-width: 53%; font-size: 10px; } }
     @media (prefers-reduced-motion: reduce) { .sc-merchant-card.high-discount-card { animation: none; } }
 
+
+    /* Star Shops social feed: Instagram-inspired, branded, scoped only to the Posts tab */
+    .device-shell.social-feed-active { background: #0B0D12 !important; color: #F9FAFB !important; }
+    .device-shell.social-feed-active #appMainHeader { display: none !important; }
+    .device-shell.social-feed-active #tab-posts { padding: 0 0 12px !important; background: #0B0D12; color: #F9FAFB; }
+    .ss-feed-topbar { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; height: 58px; padding: 0 16px; color: #F9FAFB; background: rgba(11,13,18,.96); border-bottom: 1px solid rgba(255,255,255,.06); }
+    .ss-feed-icon-btn { width: 38px; height: 38px; display: grid; place-items: center; padding: 0; color: #F9FAFB; background: transparent; border: 0; font: inherit; font-size: 29px; line-height: 1; cursor: pointer; }
+    .ss-feed-logo { color: #fff; font-size: 21px; font-weight: 950; letter-spacing: -.7px; }
+    .ss-stories-strip { display: flex; gap: 14px; width: 100%; padding: 13px 12px 11px; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; background: #0B0D12; }
+    .ss-stories-strip::-webkit-scrollbar { display: none; }
+    .ss-story-item { display: flex; flex: 0 0 68px; flex-direction: column; align-items: center; gap: 5px; padding: 0; color: #F3F4F6; background: transparent; border: 0; font: inherit; cursor: pointer; }
+    .ss-story-ring { width: 66px; height: 66px; padding: 3px; border-radius: 50%; background: linear-gradient(135deg,#F59E0B,#EC4899,#8B5CF6); }
+    .ss-story-ring img { display: block; width: 100%; height: 100%; object-fit: cover; border: 2px solid #0B0D12; border-radius: 50%; background: #252833; }
+    .ss-story-item--own .ss-story-ring { background: #383B43; }
+    .ss-story-name { width: 68px; overflow: hidden; color: #E5E7EB; font-size: 10px; text-align: center; text-overflow: ellipsis; white-space: nowrap; }
+    .ss-story-plus { position: relative; }
+    .ss-story-plus::after { position: absolute; right: -1px; bottom: 0; display: grid; width: 23px; height: 23px; place-items: center; content: "+"; color: #fff; background: #2563EB; border: 2px solid #0B0D12; border-radius: 50%; font-size: 18px; font-weight: 800; }
+    .ss-post-card { margin: 0 0 15px !important; color: #F9FAFB !important; background: #0B0D12 !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; border-bottom: 1px solid #272A32 !important; }
+    .ss-post-card .post-header { padding: 10px 13px; background: #0B0D12; border: 0; }
+    .ss-post-card .post-header-left { min-width: 0; }
+    .ss-post-card .post-avatar-ring { width: 42px; height: 42px; flex: 0 0 42px; }
+    .ss-post-card .ss-post-name { color: #F9FAFB !important; font-size: 13px !important; }
+    .ss-post-card .ss-post-distance { color: #A1A1AA !important; font-size: 10px !important; }
+    .ss-post-card .post-more-info-text { color: #E5E7EB; text-decoration: none; }
+    .ss-post-media { width: 100%; aspect-ratio: 4 / 5; background: #050505; }
+    .ss-post-media img, .ss-post-media video { width: 100%; height: 100% !important; max-height: none !important; object-fit: cover; }
+    .ss-post-actions { display: flex; align-items: center; gap: 17px; min-height: 42px; padding: 5px 14px 0; color: #F9FAFB; }
+    .ss-post-action { display: inline-flex; align-items: center; justify-content: center; min-width: 24px; padding: 3px; color: inherit; background: transparent; border: 0; font: inherit; font-size: 23px; line-height: 1; cursor: pointer; }
+    .ss-post-action--save { margin-left: auto; }
+    .ss-post-caption { padding: 4px 14px 12px !important; color: #F3F4F6 !important; }
+    .ss-post-caption-text { color: #F3F4F6 !important; font-size: 12px !important; }
+    .device-shell.social-feed-active .bottom-nav { color: #F9FAFB !important; background: rgba(11,13,18,.97) !important; border-top: 1px solid #292B33 !important; box-shadow: 0 -3px 14px rgba(0,0,0,.35) !important; }
+    .device-shell.social-feed-active .bottom-nav .nav-item { color: #9CA3AF; }
+    .device-shell.social-feed-active .bottom-nav .nav-item.active { color: #fff !important; }
+    @media (max-width: 360px) { .ss-stories-strip { gap: 10px; } .ss-story-item { flex-basis: 62px; } .ss-story-ring { width: 60px; height: 60px; } }
+
     /* GPS overlay styling requested for the location-required flow */
     .gps-force-overlay {
       position: fixed;
@@ -604,10 +640,17 @@
     </div>
   </main>
 
-  <main id="tab-posts" class="tab-screen">
-    <div style="font-size:16px; font-weight:900; color:#111827; margin-bottom: 12px;">📰 मर्चेंट फीड</div>
+  <main id="tab-posts" class="tab-screen ss-social-screen">
+    <div class="ss-feed-topbar">
+      <button class="ss-feed-icon-btn" type="button" aria-label="दुकानों पर जाएँ" onclick="switchMainTab('home', document.querySelector('.bottom-nav .nav-item'))">＋</button>
+      <div class="ss-feed-logo">STAR SHOPS</div>
+      <button class="ss-feed-icon-btn" type="button" aria-label="लाइव अलर्ट्स" onclick="switchMainTab('alerts', document.querySelectorAll('.bottom-nav .nav-item')[2])">♡</button>
+    </div>
+    <div class="ss-stories-strip" id="storiesFeedContainer" aria-label="मर्चेंट स्टोरीज़">
+      <div style="color:#9CA3AF;font-size:11px;padding:20px 8px;">स्टोरीज़ लोड हो रही हैं…</div>
+    </div>
     <div id="postsFeedContainer">
-      <div style="font-size:13px; color:#6B7280; text-align:center; padding:30px;">पोस्ट्स लोड हो रही हैं...</div>
+      <div style="font-size:13px; color:#9CA3AF; text-align:center; padding:30px;">पोस्ट्स लोड हो रही हैं...</div>
     </div>
   </main>
 
@@ -1448,9 +1491,24 @@
 
   function renderPostsFeed(postsArray) {
     const container = document.getElementById('postsFeedContainer');
-    if (!postsArray || postsArray.length === 0) { container.innerHTML = `<div style="text-align:center; padding:30px; color:#6B7280;">कोई पोस्ट उपलब्ध नहीं है।</div>`; return; }
+    const storiesContainer = document.getElementById('storiesFeedContainer');
+    const posts = Array.isArray(postsArray) ? postsArray : [];
+
+    if (storiesContainer) {
+      const uniqueStories = [];
+      const storyNames = new Set();
+      posts.forEach(post => {
+        const name = post.storeName || 'Star Shop';
+        if (!storyNames.has(name)) { storyNames.add(name); uniqueStories.push(post); }
+      });
+      const ownStory = `<button class="ss-story-item ss-story-item--own" type="button" onclick="switchMainTab('profile', document.querySelectorAll('.bottom-nav .nav-item')[3])"><span class="ss-story-ring ss-story-plus"><img src="${localStorage.getItem('starshops_avatar') || 'https://via.placeholder.com/96?text=You'}" alt="आपकी प्रोफाइल"></span><span class="ss-story-name">आपकी स्टोरी</span></button>`;
+      const storyItems = uniqueStories.map(post => `<button class="ss-story-item" type="button" aria-label="${post.storeName || 'Merchant'} की पोस्ट देखें" onclick="openFullPostView('${post.post_image}', '${encodeURIComponent(post.caption || '')}', ${!!post.isVideo})"><span class="ss-story-ring"><img src="${post.avatar || 'https://via.placeholder.com/96'}" alt=""></span><span class="ss-story-name">${post.storeName || 'Star Shop'}</span></button>`).join('');
+      storiesContainer.innerHTML = ownStory + storyItems;
+    }
+
+    if (!posts.length) { container.innerHTML = `<div style="text-align:center; padding:30px; color:#9CA3AF;">अभी कोई पोस्ट उपलब्ध नहीं है।</div>`; return; }
     let html = '';
-    postsArray.forEach(post => {
+    posts.forEach(post => {
       let reelsPreviewHtml = '';
       if (post.reels && post.reels.length > 0) {
         let miniList = post.reels.slice(0, 3);
@@ -1473,20 +1531,26 @@
         : `<img src="${post.post_image}" style="width:100%; height:100%; max-height:360px; object-fit:cover; display:block;" alt="Post Image">`;
 
       html += `
-        <div class="post-card">
+        <div class="post-card ss-post-card">
           <div class="post-header">
             <div class="post-header-left" onclick="openMerchantPublicProfileById('${post.id}')">
               <div class="post-avatar-ring"><img src="${post.avatar}" class="post-avatar" alt="Store"></div>
-              <div><div style="font-size:14px; font-weight:800; color:#111827;">${post.storeName}</div><div style="font-size:11px; color:#B45309; font-weight:700;">📍 ${post.distance}</div></div>
+              <div><div class="ss-post-name" style="font-size:14px; font-weight:800; color:#111827;">${post.storeName}</div><div class="ss-post-distance" style="font-size:11px; color:#B45309; font-weight:700;">📍 ${post.distance}</div></div>
             </div>
             <div class="post-more-info-text" onclick="openShopInfoModalSafe('${post.storeName}', '${post.category}', '${post.address}', '${encodeURIComponent(post.caption)}', '${encodeURIComponent(post.caption)}')">More Info</div>
           </div>
           
-          <div class="post-media-box" style="position:relative;" onclick="openFullPostView('${post.post_image}', '${encodeURIComponent(post.caption)}', ${post.isVideo})">
+          <div class="post-media-box ss-post-media" style="position:relative;" onclick="openFullPostView('${post.post_image}', '${encodeURIComponent(post.caption)}', ${post.isVideo})">
             ${mediaHtml}
           </div>
-          <div class="post-content-body" onclick="openFullPostView('${post.post_image}', '${encodeURIComponent(post.caption)}', ${post.isVideo})">
-            <div style="font-size:13px; font-weight:700; color:#1F2937; word-break:break-word; white-space:pre-wrap; line-height:1.4;">${post.caption}</div>
+          <div class="ss-post-actions" aria-label="पोस्ट actions">
+            <button class="ss-post-action" type="button" aria-label="पोस्ट खोलें" onclick="openFullPostView('${post.post_image}', '${encodeURIComponent(post.caption)}', ${post.isVideo})">♡</button>
+            <button class="ss-post-action" type="button" aria-label="पोस्ट विवरण" onclick="openShopInfoModalSafe('${post.storeName}', '${post.category}', '${post.address}', '${encodeURIComponent(post.caption)}', '${encodeURIComponent(post.caption)}')">◯</button>
+            <button class="ss-post-action" type="button" aria-label="पोस्ट details" onclick="openMerchantPublicProfileById('${post.id}')">➤</button>
+            <button class="ss-post-action ss-post-action--save" type="button" aria-label="दुकान profile खोलें" onclick="openMerchantPublicProfileById('${post.id}')">▱</button>
+          </div>
+          <div class="post-content-body ss-post-caption" onclick="openFullPostView('${post.post_image}', '${encodeURIComponent(post.caption)}', ${post.isVideo})">
+            <div class="ss-post-caption-text" style="font-size:13px; font-weight:700; color:#1F2937; word-break:break-word; white-space:pre-wrap; line-height:1.4;">${post.caption}</div>
           </div>
           
           ${reelsPreviewHtml}
@@ -1783,6 +1847,8 @@
   function switchMainTab(tabName, clickedNavItem) {
     document.querySelectorAll('.tab-screen').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    const appShell = document.getElementById('appDeviceShell');
+    if (appShell) appShell.classList.toggle('social-feed-active', tabName === 'posts');
     
     if (tabName === 'outOfRangeView') {
       document.getElementById('outOfRangeContent').style.display = 'block';
