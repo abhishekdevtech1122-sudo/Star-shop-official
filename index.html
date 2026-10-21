@@ -15,12 +15,14 @@
       -webkit-tap-highlight-color: transparent;
       touch-action: manipulation;
     }
+    html, body, .device-shell { -webkit-user-select: none !important; user-select: none !important; -webkit-touch-callout: none !important; }
+    input, textarea, select, [contenteditable="true"] { -webkit-user-select: text !important; user-select: text !important; -webkit-touch-callout: default !important; }
 
     /* 🔒 PERMANENT FULL-MODE DEVICE SHELL LOCK (डिफ़ॉल्ट और डेस्कटॉप मोड दोनों के लिए फिक्स) 🔒 */
     html, body {
       width: 100% !important;
       height: 100% !important;
-      background-color: #050505 !important;
+      background-color: #F8F9FA !important;
       margin: 0 !important;
       padding: 0 !important;
       overflow-x: hidden !important;
@@ -28,14 +30,16 @@
       justify-content: center !important;
       align-items: stretch !important;
     }
+    body { flex-direction: column !important; justify-content: flex-start !important; }
 
-    /* Premium Body Background for Modals */
-    body.premium-mode-body { background-color: #050505 !important; }
+    /* Root canvas follows the same light/dark theme as the app shell. */
+    body.premium-mode-body, html.premium-mode-html { background-color: #050505 !important; }
 
     .device-shell {
       width: 100% !important;
       max-width: 480px !important;
       min-height: 100vh !important;
+      flex: 0 0 auto !important;
       background-color: #F8F9FA;
       position: relative !important;
       display: flex !important;
@@ -53,6 +57,8 @@
       background-color: #050505 !important;
       background-image: none !important;
     }
+    .device-shell:not(.high-discount-active) .tab-screen { background-color: #F8F9FA; }
+    .device-shell.high-discount-active .tab-screen { background-color: #050505; }
     
     /* जब डार्क/हाई-डिस्काउंट मोड एक्टिव हो */
     .device-shell.high-discount-active .top-header,
@@ -223,6 +229,26 @@
     .category-chip.chip-open-today.active { background: #059669; color: #FFFFFF; border-color: #059669; }
     .category-chip.chip-high-discount { background: linear-gradient(135deg, #FEF3C7, #FDE68A); color: #B45309; border-color: #F59E0B; font-weight: 900; animation: pulseGlow 1.5s infinite; }
     .category-chip.chip-high-discount.active { background: #D97706; color: #FFFFFF; border-color: #D97706; }
+
+    @media (max-width: 480px) {
+      .categories-bar { gap: 8px; padding-left: 12px; padding-right: 12px; }
+      .category-chip {
+        flex: 0 0 calc((100% - 16px) / 3);
+        min-width: 0;
+        padding: 0 6px;
+        font-size: 9px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .card-banner { height: 120px; }
+      .card-body { padding: 12px; }
+      .store-meta { flex-direction: column; align-items: stretch; gap: 8px; }
+      .store-title { width: 100%; font-size: 16px; line-height: 1.25; align-items: flex-start; }
+      .store-title span { flex: 0 0 auto; }
+      .store-distance { width: 100%; line-height: 1.35; text-align: left; white-space: normal; overflow-wrap: anywhere; padding: 6px 8px; }
+      .step-progress-wrapper { padding: 9px; margin: 8px 0; }
+      .scan-action-btn { padding: 10px 12px; font-size: 12px; }
+    }
     
     @keyframes pulseGlow { 0%, 100% { box-shadow: 0 0 5px rgba(245, 158, 11, 0.4); } 50% { box-shadow: 0 0 12px rgba(245, 158, 11, 0.8); } }
 
@@ -264,7 +290,8 @@
     .scan-action-btn.reclaim-btn { background: linear-gradient(135deg, #D97706, #B45309) !important; }
     .info-btn-grocery { background: #FFFBEB; border: 1px solid #FDE68A; color: #B45309; padding: 6px 10px; border-radius: 8px; font-size: 12px; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 4px; }
 
-    .post-card { background: #FFFFFF; border-radius: 16px; border: 1px solid #E5E7EB; margin-bottom: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+    .post-card { background: #FFFFFF; border-radius: 16px; border: 1px solid #E5E7EB; margin-bottom: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.03); touch-action: pan-y; }
+    .device-shell.high-discount-active .post-card { background: #0A0A0A !important; border-color: rgba(212,175,55,0.28) !important; }
     .post-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid #F3F4F6; }
     .post-header-left { display: flex; align-items: center; gap: 10px; cursor: pointer; }
     .post-avatar-ring { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #F59E0B, #EC4899, #8B5CF6); padding: 2px; display: flex; align-items: center; justify-content: center; }
@@ -310,6 +337,25 @@
 
     .pin-input-box { width: 100%; padding: 12px; border: 2px solid #E5E7EB; border-radius: 12px; font-size: 18px; text-align: center; letter-spacing: 8px; font-weight: 800; outline: none; margin-top: 8px; }
     .pin-input-box:focus { border-color: #F59E0B; }
+    .app-prompt-overlay { position: fixed; inset: 0; z-index: 10000000; display: none; align-items: center; justify-content: center; padding: 22px; background: rgba(0,0,0,0.78); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+    .app-prompt-overlay.open { display: flex; }
+    .app-prompt-card { width: 100%; max-width: 360px; padding: 24px 20px 18px; border-radius: 22px; border: 1px solid rgba(212,175,55,0.65); background: radial-gradient(ellipse at top, #252016 0%, #0A0A0A 72%); color: #FFFFFF; box-shadow: 0 20px 60px rgba(0,0,0,0.55), 0 0 24px rgba(212,175,55,0.12); }
+    .app-prompt-icon { width: 44px; height: 44px; margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; border-radius: 50%; color: #FCF6BA; border: 1px solid rgba(212,175,55,0.55); background: rgba(212,175,55,0.12); font-size: 22px; }
+    .app-prompt-title { color: #FCF6BA; font-size: 18px; line-height: 1.3; font-weight: 900; text-align: center; }
+    .app-prompt-message { margin-top: 8px; color: #D1D5DB; font-size: 13px; line-height: 1.5; text-align: center; }
+    .app-prompt-input { width: 100%; margin-top: 18px; padding: 13px 14px; border: 1px solid rgba(212,175,55,0.5); border-radius: 12px; outline: none; background: #111111; color: #FFFFFF; font-size: 15px; }
+    .app-prompt-input:focus { border-color: #FCF6BA; box-shadow: 0 0 0 3px rgba(212,175,55,0.14); }
+    .app-prompt-actions { display: flex; gap: 10px; margin-top: 18px; }
+    .app-prompt-button { flex: 1; min-height: 44px; padding: 10px 12px; border-radius: 12px; font-size: 13px; font-weight: 900; cursor: pointer; }
+    .app-prompt-cancel { color: #E5E7EB; background: #171717; border: 1px solid #3F3F46; }
+    .app-prompt-confirm { color: #15110A; background: linear-gradient(120deg, #BF953F, #FCF6BA, #B38728); border: 0; box-shadow: 0 5px 16px rgba(212,175,55,0.2); }
+    .app-prompt-card.location-prompt { background: #FFFFFF; border: 1px solid #E5E7EB; color: #111827; box-shadow: 0 20px 45px rgba(0,0,0,0.24); }
+    .location-prompt .app-prompt-icon { color: #B45309; background: #FFFBEB; border-color: #FDE68A; }
+    .location-prompt .app-prompt-title { color: #111827; }
+    .location-prompt .app-prompt-message { color: #4B5563; }
+    .location-prompt .app-prompt-input { background: #FFFFFF; color: #111827; border-color: #D1D5DB; }
+    .location-prompt .app-prompt-cancel { color: #111827; background: #FFFFFF; border-color: #D1D5DB; }
+    .location-prompt .app-prompt-confirm { color: #FFFFFF; background: #111827; border: 0; box-shadow: none; }
 
     .profile-card { background: #FFFFFF; border-radius: 16px; border: 1px solid #E5E7EB; padding: 24px 20px; margin-top: 14px; text-align: center; position: relative; }
     .profile-burger-btn { position: absolute; top: 16px; right: 16px; background: #F3F4F6; border: 1px solid #E5E7EB; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; cursor: pointer; color: #111827; }
@@ -340,7 +386,9 @@
     .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 10px; color: #6B7280; cursor: pointer; user-select: none; height: 100%; transition: color 0.3s ease; }
     .nav-item.active { color: #111827; font-weight: 800; }
     
-    .nav-item .icon { display: flex; align-items: center; justify-content: center; height: 30px; margin-bottom: 2px; }
+    .nav-item .icon { display: flex; align-items: center; justify-content: center; height: 30px; margin-bottom: 2px; position: relative; }
+    .alerts-count-badge { position: absolute; top: -4px; right: -12px; min-width: 18px; height: 18px; padding: 0 4px; border-radius: 999px; display: none; align-items: center; justify-content: center; background: #DC2626; color: #FFFFFF; border: 2px solid #FFFFFF; font-size: 9px; font-weight: 900; line-height: 1; z-index: 2; }
+    .device-shell.high-discount-active .alerts-count-badge { background: linear-gradient(135deg, #FCF6BA, #B38728); color: #111111; border-color: #111111; }
     .nav-item .icon svg { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
     
     /* NORMAL MODE (Silver) */
@@ -377,52 +425,47 @@
     .infinite-scroll-loader.active { display: flex; align-items: center; justify-content: center; gap: 8px; }
     @keyframes spinInfinite { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     .spinner-blue { display: inline-block; width: 16px; height: 16px; border: 3px solid rgba(37,99,235,0.2); border-radius: 50%; border-top-color: #2563EB; animation: spinInfinite 0.8s ease-in-out infinite; }
+    .pull-refresh-indicator { height: 0; overflow: hidden; opacity: 0; transition: height 0.22s ease, opacity 0.22s ease; display: flex; align-items: center; justify-content: center; }
+    .pull-refresh-indicator.pulling { opacity: 1; }
+    .pull-refresh-indicator.active { height: 58px; opacity: 1; }
+    .pull-refresh-card { width: calc(100% - 32px); min-height: 44px; margin: 7px 16px; display: flex; align-items: center; justify-content: center; gap: 10px; border: 1px solid #E5E7EB; border-radius: 14px; background: #FFFFFF; color: #374151; font-size: 12px; font-weight: 800; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+    .pull-refresh-spinner { width: 20px; height: 20px; flex: 0 0 auto; border: 3px solid rgba(212,175,55,0.22); border-top-color: #B38728; border-radius: 50%; animation: spinInfinite 0.8s linear infinite; }
+    .device-shell.high-discount-active .pull-refresh-card { background: #101010; border-color: rgba(212,175,55,0.55); color: #FCF6BA; box-shadow: 0 4px 16px rgba(212,175,55,0.12); }
+    .device-shell.high-discount-active .pull-refresh-spinner { border-color: rgba(252,246,186,0.18); border-top-color: #D4AF37; }
     
-    /* Out of Service Area Screen Styles */
-    .out-of-area-screen { display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 10px 0 90px 0; text-align: center; }
-    .location-icon-box { width: 75px; height: 75px; background: #FEF2F2; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 36px; margin-bottom: 14px; box-shadow: 0 10px 25px rgba(220, 38, 38, 0.15); }
-    .out-title { font-size: 20px; font-weight: 900; color: #111827; margin-bottom: 6px; }
-    .out-desc { font-size: 12px; color: #4B5563; margin-bottom: 20px; line-height: 1.5; padding: 0 10px;}
-
-    .choice-action-box { width: 100%; max-width: 360px; display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
-    .btn-choice-demo { background: linear-gradient(135deg, #2563EB, #1D4ED8); color: #FFF; border: none; padding: 13px; border-radius: 12px; font-size: 13px; font-weight: 900; cursor: pointer; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2); }
-    .btn-choice-manual { background: #FFFFFF; color: #111827; border: 1.5px solid #D1D5DB; padding: 12px; border-radius: 12px; font-size: 13px; font-weight: 800; cursor: pointer; }
-
-    .demand-card { background: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 16px; padding: 18px; width: 100%; max-width: 360px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); margin-bottom: 16px; text-align: left; transition: transform 0.3s ease, border 0.3s ease; }
-    .demand-card h3 { font-size: 13px; font-weight: 800; color: #111827; margin-bottom: 4px; }
-    .demand-card p { font-size: 11px; color: #6B7280; margin-bottom: 12px; line-height: 1.4; }
-    
-    .pin-input-group { display: flex; flex-direction: column; gap: 8px; }
-    .pin-input-group input { width: 100%; padding: 11px; border: 1px solid #D1D5DB; border-radius: 10px; font-size: 13px; font-weight: 700; outline: none; background: #F9FAFB; }
-    .btn-submit-pin { background: #111827; color: #FFF; border: none; padding: 11px; border-radius: 10px; font-size: 12px; font-weight: 800; cursor: pointer; margin-top: 2px; }
-
-    .divider-box { display: flex; align-items: center; width: 100%; max-width: 360px; margin: 4px 0 14px 0; }
-    .divider-line { flex: 1; height: 1px; background: #E5E7EB; }
-    .divider-text { padding: 0 10px; font-size: 11px; font-weight: 800; color: #9CA3AF; }
-
-    .merchant-recruit-card { background: linear-gradient(135deg, #FFFBEB, #FEF3C7); border: 1px solid #FDE68A; border-radius: 16px; padding: 18px; width: 100%; max-width: 360px; text-align: left; box-shadow: 0 8px 20px rgba(245, 158, 11, 0.1); }
-    .merch-title { font-size: 14px; font-weight: 900; color: #B45309; margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
-    .merch-desc { font-size: 11px; color: #92400E; margin-bottom: 14px; line-height: 1.4; font-weight: 600; }
-    .btn-merchant-join { background: #D97706; color: #FFF; border: none; width: 100%; padding: 11px; border-radius: 10px; font-size: 12px; font-weight: 900; cursor: pointer; box-shadow: 0 4px 10px rgba(217, 119, 6, 0.3); text-decoration: none; display: block; text-align: center; }
-
     /* 🚨 GPS Forced Scanning Blur Overlay & Card 🚨 */
     .gps-scan-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.65);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      background: rgba(248, 249, 250, 0.76);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       z-index: 9999999;
       display: none;
       align-items: center;
       justify-content: center;
       padding: 20px;
+      overflow: hidden;
+    }
+    .gps-scan-overlay::before {
+      content: "Welcome to Star Shops";
+      position: absolute;
+      inset: 18% 12% auto;
+      color: rgba(17, 24, 39, 0.52);
+      font-size: clamp(22px, 6vw, 30px);
+      font-weight: 900;
+      letter-spacing: 0.4px;
+      text-align: center;
+      z-index: 0;
+      pointer-events: none;
     }
     .gps-scan-overlay.open {
       display: flex;
     }
     .gps-scan-card {
-      background: #FFFFFF;
+      position: relative;
+      z-index: 1;
+      background: rgba(255, 255, 255, 0.97);
       width: 100%;
       max-width: 340px;
       border-radius: 20px;
@@ -444,7 +487,8 @@
 
     /* 🔒 डेस्कटॉप स्क्रीन पर मोबाइल शेल लॉक (डेस्कटॉप मोड सुरक्षा) 🔒 */
     @media (min-width: 481px) {
-      body {
+      html:not(.premium-mode-html) { background-color: #111 !important; }
+      body:not(.premium-mode-body) {
         background-color: #111 !important;
       }
       .device-shell {
@@ -457,6 +501,12 @@
         transform: translateX(-50%) !important;
         max-width: 480px !important;
       }
+    }
+
+    @media print {
+      html, body { display: block !important; width: auto !important; height: auto !important; background: #FFFFFF !important; }
+      body > * { visibility: hidden !important; }
+      body::after { content: "Star Shops app content is not available for printing."; display: block !important; visibility: visible !important; color: #111827 !important; padding: 32px !important; font: 16px sans-serif !important; }
     }
 
     /* टच डिवाइसेस के लिए व्यूपोर्ट फिक्स */
@@ -489,20 +539,19 @@
       <span class="star-badge">★</span> <span id="appBrandTitleText">STAR SHOPS</span>
     </div>
     <div class="header-right-box">
-      <div class="step-pill" onclick="promptManualLocation()" title="क्लिक करके मैन्युअल एरिया बदलें" id="headerLocationPill">
+      <div class="step-pill" onclick="openLocationSearch()" title="लोकेशन खोजें या बदलें" id="headerLocationPill">
         📍 <span id="headerLocationText">सर्च हो रहा है...</span> 
       </div>
     </div>
   </header>
 
+  <div id="pullRefreshIndicator" class="pull-refresh-indicator" aria-live="polite" aria-hidden="true">
+    <div class="pull-refresh-card"><span class="pull-refresh-spinner"></span><span id="pullRefreshText">दुकानें अपडेट हो रही हैं...</span></div>
+  </div>
+
   <main id="tab-home" class="tab-screen active">
     <!-- 1. LIVE STORES VIEW (IN-RANGE) -->
     <div id="inRangeContent" style="display:block;">
-      <div class="search-box">
-        <span>🔍</span>
-        <input type="text" id="storeSearchInput" placeholder="दुकान, लोकेशन, 'high' या 'claimed' खोजें..." oninput="fastSearchStores(this.value)">
-      </div>
-
       <div class="categories-bar" id="appCategoriesBar">
         <div class="category-chip active" onclick="filterCategory('ALL', this)" id="chipAll">ALL</div>
         <div class="category-chip chip-open-today" onclick="filterCategory('OPENTODAY', this)">⚡ OPEN TODAY</div>
@@ -516,52 +565,6 @@
       </div>
     </div>
 
-    <!-- 2. OUT OF AREA VIEW -->
-    <div id="outOfRangeContent" style="display:none;">
-      <div class="out-of-area-screen">
-        <div class="location-icon-box">📍</div>
-        <div class="out-title">हम अभी आपके एरिया में नहीं हैं!</div>
-        <div class="out-desc">माफ़ करें! Star Shops की सर्विस अभी इस लोकेशन पर उपलब्ध नहीं है। लेकिन आप नीचे दिए गए विकल्पों से ऐप का लेआउट देख सकते हैं या अपना एरिया चुन सकते हैं:</div>
-
-        <div class="choice-action-box">
-          <button class="btn-choice-demo" onclick="goToDemoLayout()">
-            👀 क्या आप इस ऐप का लेआउट देखना चाहते हैं?<br>(बेगमपुर दुकानें देखें)
-          </button>
-          <button class="btn-choice-manual" onclick="promptManualLocation()">
-            📍 अपना एरिया / पिन कोड सेलेक्ट करें
-          </button>
-        </div>
-
-        <div class="demand-card" id="demandBoxAnim">
-          <h3>अपने एरिया में सर्विस चाहते हैं?</h3>
-          <p>अपना एरिया का नाम और पिन कोड दर्ज करें। डिमांड बढ़ते ही हम आपके एरिया में भी सर्विस शुरू करेंगे!</p>
-          <div class="pin-input-group">
-            <input type="text" id="customerAreaName" placeholder="एरिया का नाम (जैसे: रोहिणी, पीतमपुरा)">
-            <input type="tel" id="customerPinCode" placeholder="6-अंकों का पिन कोड" maxlength="6">
-            <button class="btn-submit-pin" onclick="submitPinDemand()">वोट करें (डेटा भेजें)</button>
-          </div>
-          <div id="pinSuccessMsg" style="color:#059669; font-size:11px; font-weight:700; margin-top:10px; display:none;">
-            ✅ धन्यवाद! हमने आपका एरिया नोट कर लिया है।
-          </div>
-        </div>
-
-        <div class="divider-box">
-          <div class="divider-line"></div>
-          <div class="divider-text">दुकानदारों के लिए</div>
-          <div class="divider-line"></div>
-        </div>
-
-        <div class="merchant-recruit-card">
-          <div class="merch-title">⭐ क्या आप एक दुकानदार हैं?</div>
-          <div class="merch-desc">
-            अपने एरिया में Star Shops शुरू करें और अपनी दुकान पर ग्राहकों की भीड़ बढ़ाएं!
-          </div>
-          <a href="https://marchent-form2.netlify.app/" target="_blank" class="btn-merchant-join">
-            ➕ अपनी दुकान रजिस्टर करें (Free)
-          </a>
-        </div>
-      </div>
-    </div>
   </main>
 
   <main id="tab-posts" class="tab-screen">
@@ -688,9 +691,8 @@
         <svg width="26" height="26" viewBox="0 0 100 100">
           <path d="M 50 15 C 25 15, 20 40, 20 55 L 10 75 L 90 75 L 80 55 C 80 40, 75 15, 50 15 Z" fill="url(#metal3D)" filter="url(#dropShadow)"/>
           <circle cx="50" cy="85" r="10" fill="url(#metal3D)" filter="url(#dropShadow)"/>
-          <circle cx="75" cy="25" r="18" fill="#DC2626" filter="url(#dropShadow)"/>
-          <text x="75" y="31" fill="white" font-size="16" font-family="sans-serif" font-weight="900" text-anchor="middle">+1</text>
         </svg>
+        <span id="alertsCountBadge" class="alerts-count-badge" aria-label="अलर्ट्स की संख्या">0</span>
       </div>
       <div id="navAlertsText">अलर्ट्स</div>
     </div>
@@ -716,6 +718,20 @@
     <div style="font-size: 16px; font-weight: 900; color: #111827; margin-bottom: 6px;">📍 GPS लोकेशन स्कैन हो रही है</div>
     <div style="font-size: 12px; color: #4B5563; line-height: 1.5; margin-bottom: 16px;" id="gpsScanStatusText">आपके आसपास की दुकानें खोजने के लिए कृपया GPS/लोकेशन ऑन रखें...</div>
     <button onclick="forceRetryGPSScan()" style="width: 100%; padding: 11px; background: #111827; color: #FFF; border: none; border-radius: 10px; font-weight: 800; font-size: 13px; cursor: pointer;">लोकेशन ऑन करें / रिफ्रेश करें 🔄</button>
+    <button onclick="promptManualLocation()" style="width: 100%; padding: 10px; margin-top: 8px; background: #FFFFFF; color: #111827; border: 1px solid #D1D5DB; border-radius: 10px; font-weight: 800; font-size: 12px; cursor: pointer;">या एरिया मैन्युअली चुनें</button>
+  </div>
+</div>
+
+<div class="app-prompt-overlay" id="appPromptOverlay" aria-hidden="true">
+  <div class="app-prompt-card" role="dialog" aria-modal="true" aria-labelledby="appPromptTitle">
+    <div class="app-prompt-icon" id="appPromptIcon">★</div>
+    <div class="app-prompt-title" id="appPromptTitle"></div>
+    <div class="app-prompt-message" id="appPromptMessage"></div>
+    <input class="app-prompt-input" id="appPromptInput" type="text" autocomplete="off">
+    <div class="app-prompt-actions">
+      <button type="button" class="app-prompt-button app-prompt-cancel" id="appPromptCancel">रद्द करें</button>
+      <button type="button" class="app-prompt-button app-prompt-confirm" id="appPromptConfirm">खोजें</button>
+    </div>
   </div>
 </div>
 
@@ -887,6 +903,11 @@
   let activeShopName = "", activeShopDiscount = 0, activeCardId = null, activeClaimTitle = "";
   let todayClaimCount = 0, totalClaimedCardsCount = 0;
   let liveSupabaseStores = [];
+  let lastStoresRenderFingerprint = '';
+  let lastPostsRenderFingerprint = '';
+  let realtimeSyncChannel = null;
+  let realtimeRefreshTimeout = null;
+  let backgroundRefreshPending = false;
   
   let userIsOutOfRange = false; 
   let gpsScanInterval = null; 
@@ -898,6 +919,10 @@
   let dynamicPostsList = [];
   
   let isFetchingMore = false;
+  let backgroundAutoSearchTimer = null;
+  let isBackgroundAutoSearchRunning = false;
+  let manualLocationSelected = false;
+  let manualAreaQuery = '';
 
   let userFootprints = parseInt(localStorage.getItem('starshops_total_footprints'));
   if (isNaN(userFootprints)) {
@@ -928,6 +953,79 @@
     "https://images.unsplash.com/photo-1622286342621-4bd786c2447c?auto=format&fit=crop&w=700&q=80"
   ];
 
+  let isPullRefreshActive = false;
+  let pullGestureStartY = 0;
+  let isTrackingPullGesture = false;
+  let pullDistance = 0;
+
+  function initPullToRefresh() {
+    const indicator = document.getElementById('pullRefreshIndicator');
+    const indicatorText = document.getElementById('pullRefreshText');
+    const isPageAtTop = () => (document.scrollingElement?.scrollTop || window.scrollY || 0) <= 2;
+    const canRefreshCurrentTab = () => ['tab-home', 'tab-alerts', 'tab-posts'].some(id => document.getElementById(id)?.classList.contains('active'));
+
+    document.addEventListener('touchstart', event => {
+      if (isPullRefreshActive || !canRefreshCurrentTab() || !isPageAtTop() || !event.touches.length) return;
+      pullGestureStartY = event.touches[0].clientY;
+      pullDistance = 0;
+      isTrackingPullGesture = true;
+    }, { passive: true });
+
+    document.addEventListener('touchmove', event => {
+      if (!isTrackingPullGesture || !event.touches.length) return;
+      pullDistance = event.touches[0].clientY - pullGestureStartY;
+      if (pullDistance <= 0) { isTrackingPullGesture = false; return; }
+      if (pullDistance > 10) event.preventDefault();
+      if (pullDistance > 18) {
+        indicator.classList.add('pulling');
+        indicator.style.height = `${Math.min(58, pullDistance * 0.65)}px`;
+        indicator.setAttribute('aria-hidden', 'false');
+      }
+    }, { passive: false });
+
+    const finishGesture = () => {
+      if (!isTrackingPullGesture) return;
+      isTrackingPullGesture = false;
+      if (pullDistance >= 72) runPullToRefresh();
+      else {
+        indicator.classList.remove('pulling');
+        indicator.style.height = '';
+        indicator.setAttribute('aria-hidden', 'true');
+      }
+      pullDistance = 0;
+    };
+    document.addEventListener('touchend', finishGesture, { passive: true });
+    document.addEventListener('touchcancel', finishGesture, { passive: true });
+  }
+
+  async function runPullToRefresh() {
+    if (isPullRefreshActive) return;
+    isPullRefreshActive = true;
+    const indicator = document.getElementById('pullRefreshIndicator');
+    const indicatorText = document.getElementById('pullRefreshText');
+    indicator.classList.remove('pulling');
+    indicator.style.height = '';
+    indicator.classList.add('active');
+    indicator.setAttribute('aria-hidden', 'false');
+    indicatorText.textContent = 'दुकानें अपडेट हो रही हैं...';
+    try {
+      await Promise.all([
+        fetchLiveMerchantsFromSupabase(true),
+        new Promise(resolve => setTimeout(resolve, 2000))
+      ]);
+    } finally {
+      isPullRefreshActive = false;
+      renderDynamicStores(liveSupabaseStores);
+      renderDynamicAlerts(liveSupabaseStores);
+      renderPostsFeed(dynamicPostsList);
+      const allChip = document.getElementById('chipAll');
+      if (allChip) filterCategory('ALL', allChip);
+      indicator.classList.remove('active');
+      indicator.style.height = '';
+      indicator.setAttribute('aria-hidden', 'true');
+    }
+  }
+
   window.addEventListener('DOMContentLoaded', async () => {
     const savedUser = JSON.parse(localStorage.getItem('starshops_consumer_user'));
     if(savedUser) {
@@ -954,6 +1052,7 @@
       localStorage.setItem('star_user_steps_date', todayDateStr);
       document.getElementById('appDeviceShell').classList.remove('high-discount-active');
       document.body.classList.remove('premium-mode-body');
+      document.documentElement.classList.remove('premium-mode-html');
       const chip = document.getElementById('chipHighDiscount'); if (chip) chip.style.display = 'none';
       updateStatusBarTheme(false);
     } else if (userStepsData.unlockedHighDiscount) {
@@ -961,11 +1060,12 @@
     }
 
     document.getElementById('headerLocationText').innerText = "सर्च हो रहा है...";
-    toggleRangeView('out-of-range'); 
+    toggleRangeView('in-range');
 
     // डेटाबेस से दुकानें लोड करें
     await syncUserClaimStatsFromSupabase();
     await fetchLiveMerchantsFromSupabase();
+    startBackgroundAutoSearch();
 
     // 🚨 यदि लोकेशन पहले से नहीं मिली है, तभी स्कैनिंग ओवरले दिखाएं और लूप शुरू करें
     if (!gpsResolvedOnce && (homeLat === null || homeLon === null)) {
@@ -975,6 +1075,7 @@
     if (userStepsData.unlockedHighDiscount) activateHighDiscountZoneUIMode();
     
     initInfiniteScrollLogic();
+    initPullToRefresh();
   });
 
   // 🚨 3 सेकंड में केवल तब तक स्कैन करेगा जब तक लोकेशन एक बार भी नहीं मिल जाती
@@ -1003,7 +1104,10 @@
           (position) => {
             homeLat = position.coords.latitude;
             homeLon = position.coords.longitude;
+            manualLocationSelected = false;
             gpsResolvedOnce = true; // 🚨 फ्लैग सेट ताकि दोबारा स्कैन न हो
+            const headerLocation = document.getElementById('headerLocationText');
+            if (headerLocation) headerLocation.innerText = 'आपकी लोकेशन';
             if (overlay) overlay.classList.remove('open');
             if (gpsScanInterval) {
               clearInterval(gpsScanInterval);
@@ -1030,31 +1134,19 @@
     startContinuousGPSScan();
   };
 
-  window.addEventListener('popstate', function(event) {
+  window.addEventListener('popstate', function() {
     const isHomeTabActive = document.getElementById('tab-home').classList.contains('active');
     if (isHomeTabActive) {
+      toggleRangeView('in-range');
       if (location.hash === '#demo') {
-         toggleRangeView('in-range');
-         document.getElementById('headerLocationText').innerText = "बेगमपुर, दिल्ली (डेमो)";
-      } else {
-         if (userIsOutOfRange) {
-            toggleRangeView('out-of-range');
-            document.getElementById('headerLocationText').innerText = "आउट ऑफ एरिया";
-         } else {
-            toggleRangeView('in-range');
-         }
+        document.getElementById('headerLocationText').innerText = "बेगमपुर, दिल्ली (डेमो)";
       }
     }
   });
 
-  function toggleRangeView(mode) {
-    if (mode === 'in-range') {
-      document.getElementById('inRangeContent').style.display = 'block';
-      document.getElementById('outOfRangeContent').style.display = 'none';
-    } else {
-      document.getElementById('inRangeContent').style.display = 'none';
-      document.getElementById('outOfRangeContent').style.display = 'block';
-    }
+  function toggleRangeView() {
+    const content = document.getElementById('inRangeContent');
+    if (content) content.style.display = 'block';
   }
 
   window.goToDemoLayout = function() {
@@ -1068,17 +1160,144 @@
     fetchLiveMerchantsFromSupabase(true);
   }
 
-  window.promptManualLocation = function() {
-    let chosenArea = prompt("अपना एरिया या शहर का नाम दर्ज करें (जैसे: Rohini Sector 7, Delhi):", "Rohini Delhi");
-    if (chosenArea && chosenArea.trim().length > 0) {
-      gpsResolvedOnce = true;
-      document.getElementById('headerLocationText').innerText = chosenArea.trim();
-      userIsOutOfRange = false; 
-      toggleRangeView('in-range');
-      const overlay = document.getElementById('gpsScanOverlay');
-      if (overlay) overlay.classList.remove('open');
-      if (gpsScanInterval) { clearInterval(gpsScanInterval); gpsScanInterval = null; }
-      fetchLiveMerchantsFromSupabase(true);
+  let activeAppPromptResolver = null;
+
+  function closeAppPrompt(value = null) {
+    const overlay = document.getElementById('appPromptOverlay');
+    if (overlay) {
+      overlay.classList.remove('open');
+      overlay.setAttribute('aria-hidden', 'true');
+    }
+    const resolver = activeAppPromptResolver;
+    activeAppPromptResolver = null;
+    if (resolver) resolver(value);
+  }
+
+  function openAppPrompt(options = {}) {
+    return new Promise(resolve => {
+      if (activeAppPromptResolver) closeAppPrompt(null);
+      const overlay = document.getElementById('appPromptOverlay');
+      const card = overlay.querySelector('.app-prompt-card');
+      card.classList.toggle('location-prompt', options.theme === 'location');
+      const input = document.getElementById('appPromptInput');
+      const cancel = document.getElementById('appPromptCancel');
+      const confirm = document.getElementById('appPromptConfirm');
+      document.getElementById('appPromptIcon').textContent = options.icon || '★';
+      document.getElementById('appPromptTitle').textContent = options.title || 'Star Shops';
+      document.getElementById('appPromptMessage').textContent = options.message || '';
+      input.value = options.value || '';
+      input.placeholder = options.placeholder || '';
+      input.style.display = options.input === false ? 'none' : 'block';
+      cancel.style.display = options.cancel === false ? 'none' : 'block';
+      cancel.textContent = options.cancelText || 'रद्द करें';
+      confirm.textContent = options.confirmText || 'ठीक है';
+      activeAppPromptResolver = resolve;
+      cancel.onclick = () => closeAppPrompt(null);
+      confirm.onclick = () => closeAppPrompt(options.input === false ? true : input.value.trim());
+      overlay.onclick = event => { if (event.target === overlay) closeAppPrompt(null); };
+      overlay.onkeydown = event => {
+        if (event.key === 'Escape') { event.preventDefault(); closeAppPrompt(null); }
+        if (event.key === 'Enter' && options.input === false) { event.preventDefault(); closeAppPrompt(true); }
+      };
+      input.onkeydown = event => {
+        if (event.key === 'Enter') { event.preventDefault(); closeAppPrompt(input.value.trim()); }
+        if (event.key === 'Escape') { event.preventDefault(); closeAppPrompt(null); }
+      };
+      overlay.classList.add('open');
+      overlay.setAttribute('aria-hidden', 'false');
+      setTimeout(() => { if (options.input === false) confirm.focus(); else { input.focus(); input.select(); } }, 80);
+    });
+  }
+
+  function showAppNotice(message, title = 'ध्यान दें') {
+    return openAppPrompt({ title, message, input: false, cancel: false, confirmText: 'ठीक है', icon: '!' });
+  }
+
+  window.openLocationSearch = function() {
+    window.promptManualLocation();
+  };
+
+  window.promptManualLocation = async function() {
+    const chosenArea = await openAppPrompt({
+      title: 'अपना area चुनें',
+      message: 'आपके चुने हुए इलाके के offers खोजेंगे।',
+      value: 'Rohini Delhi',
+      placeholder: 'जैसे: Rohini Sector 7, Delhi',
+      confirmText: 'Area खोजें',
+      icon: '📍',
+      theme: 'location'
+    });
+    if (!chosenArea || !chosenArea.trim()) return;
+
+    const normalizedArea = chosenArea.trim();
+    gpsResolvedOnce = true;
+    manualLocationSelected = true;
+    manualAreaQuery = normalizedArea;
+    homeLat = null;
+    homeLon = null;
+    document.getElementById('headerLocationText').innerText = normalizedArea;
+    toggleRangeView('in-range');
+    const overlay = document.getElementById('gpsScanOverlay');
+    if (overlay) overlay.classList.remove('open');
+    if (gpsScanInterval) { clearInterval(gpsScanInterval); gpsScanInterval = null; }
+
+    await fetchLiveMerchantsFromSupabase(true);
+    renderDynamicStores(liveSupabaseStores);
+    renderDynamicAlerts(liveSupabaseStores);
+    renderPostsFeed(dynamicPostsList);
+    const allChip = document.getElementById('chipAll');
+    if (allChip) filterCategory('ALL', allChip);
+  }
+
+  function startBackgroundAutoSearch() {
+    if (realtimeSyncChannel) return;
+
+    // Realtime delivers new/changed cards immediately; polling is only a low-frequency fallback.
+    if (backgroundAutoSearchTimer) clearInterval(backgroundAutoSearchTimer);
+    backgroundAutoSearchTimer = setInterval(runBackgroundAutoSearch, 30000);
+
+    realtimeSyncChannel = supabaseClient.channel('star-shops-live-cards')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'merchants' }, queueBackgroundAutoSearch)
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'reels' }, queueBackgroundAutoSearch)
+      .subscribe();
+  }
+
+  function queueBackgroundAutoSearch() {
+    if (realtimeRefreshTimeout) clearTimeout(realtimeRefreshTimeout);
+    realtimeRefreshTimeout = setTimeout(() => {
+      realtimeRefreshTimeout = null;
+      runBackgroundAutoSearch();
+    }, 600);
+  }
+
+  async function runBackgroundAutoSearch() {
+    if (isBackgroundAutoSearchRunning) {
+      backgroundRefreshPending = true;
+      return;
+    }
+    isBackgroundAutoSearchRunning = true;
+    try {
+      await fetchLiveMerchantsFromSupabase(true);
+
+      // Refresh location quietly; the GPS overlay is not reopened for background checks.
+      if (!manualLocationSelected && navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          homeLat = position.coords.latitude;
+          homeLon = position.coords.longitude;
+          gpsResolvedOnce = true;
+          const locationText = document.getElementById('headerLocationText');
+          if (locationText && (locationText.innerText.includes('सर्च') || locationText.innerText.includes('लोकेशन'))) {
+            locationText.innerText = 'आपकी लोकेशन';
+          }
+          applyLocationFilter();
+        }, () => {}, { enableHighAccuracy: false, timeout: 4000, maximumAge: 15000 });
+      }
+    } finally {
+      isBackgroundAutoSearchRunning = false;
+      if (backgroundRefreshPending) {
+        backgroundRefreshPending = false;
+        setTimeout(runBackgroundAutoSearch, 300);
+      }
     }
   }
 
@@ -1105,7 +1324,7 @@
   function registerConsumerUser() {
     const n = document.getElementById('authNameInput').value.trim();
     const p = document.getElementById('authPhoneInput').value.trim();
-    if(n.length < 2 || p.length < 10) { alert("कृपया सही नाम और 10-अंकों का मोबाइल नंबर दर्ज करें!"); return; }
+    if(n.length < 2 || p.length < 10) { showAppNotice("कृपया सही नाम और 10-अंकों का मोबाइल नंबर दर्ज करें!", "जानकारी जाँचें"); return; }
     
     const userData = {name: n, phone: p};
     localStorage.setItem('starshops_consumer_user', JSON.stringify(userData));
@@ -1158,15 +1377,14 @@
     if (overlay) overlay.classList.remove('open');
     if (gpsScanInterval) { clearInterval(gpsScanInterval); gpsScanInterval = null; }
 
-    if (isWithinRange) {
-      userIsOutOfRange = false;
-      toggleRangeView('in-range');
-      renderDynamicStores(liveSupabaseStores); 
-    } else {
-      userIsOutOfRange = true;
-      toggleRangeView('out-of-range');
-      document.getElementById('headerLocationText').innerText = "आउट ऑफ एरिया";
+    // लोकेशन से दूरी के अनुसार कार्ड्स फ़िल्टर करें, पर Out of the area स्क्रीन न दिखाएँ।
+    userIsOutOfRange = false;
+    toggleRangeView('in-range');
+    const locationText = document.getElementById('headerLocationText');
+    if (homeLat !== null && homeLon !== null && locationText && locationText.innerText.includes('सर्च')) {
+      locationText.innerText = 'आपकी लोकेशन';
     }
+    renderDynamicStores(liveSupabaseStores);
   }
 
   function calculateDistanceMeters(lat1, lon1, lat2, lon2) {
@@ -1271,7 +1489,8 @@
               distance: store.address || "दिल्ली",
               address: store.address || "दिल्ली",
               reels: storeVideos,
-              isVideo: isVideo 
+              isVideo: isVideo,
+              isHighDiscount: isHighDiscountMerchant(store)
             });
           });
         } else if (store.display_image) {
@@ -1286,7 +1505,8 @@
               distance: store.address || "दिल्ली",
               address: store.address || "दिल्ली",
               reels: storeVideos,
-              isVideo: false
+              isVideo: false,
+              isHighDiscount: isHighDiscountMerchant(store)
           });
         }
       });
@@ -1307,11 +1527,22 @@
         return numB - numA; 
       });
 
-      if(document.getElementById('inRangeContent').style.display === 'block') {
+      const storesFingerprint = JSON.stringify(liveSupabaseStores.map(({ reels, ...store }) => store));
+      const postsFingerprint = JSON.stringify(dynamicPostsList);
+      const storesChanged = storesFingerprint !== lastStoresRenderFingerprint;
+      const postsChanged = postsFingerprint !== lastPostsRenderFingerprint;
+
+      if (!isPullRefreshActive) {
+        if (document.getElementById('inRangeContent').style.display === 'block' &&
+            (storesChanged || !container.querySelector('.store-item'))) {
           renderDynamicStores(liveSupabaseStores);
+        }
+        if (storesChanged) renderDynamicAlerts(liveSupabaseStores);
+        if (postsChanged) renderPostsFeed(dynamicPostsList);
       }
-      renderDynamicAlerts(liveSupabaseStores);
-      renderPostsFeed(dynamicPostsList);
+
+      lastStoresRenderFingerprint = storesFingerprint;
+      lastPostsRenderFingerprint = postsFingerprint;
 
     } catch (err) { 
         if(!isSilent && container) container.innerHTML = `<div style="font-size:13px; color:#DC2626; text-align:center; padding:30px;">नेटवर्क या Supabase कनेक्शन में समस्या है।</div>`; 
@@ -1339,8 +1570,26 @@
     document.getElementById('fullPostViewModal').classList.remove('open');
   }
 
+  function matchesSelectedArea(item) {
+    if (!manualLocationSelected || !manualAreaQuery) return true;
+    const normalize = value => String(value || '').toLowerCase().replace(/[^a-z0-9\u0900-\u097f]+/g, ' ').trim();
+    const addressText = normalize([item.address, item.distance, item.location, item.city, item.area, item.pincode].filter(Boolean).join(' '));
+    const queryTokens = normalize(manualAreaQuery).split(/\s+/).filter(token => token.length > 1);
+    const localTokens = queryTokens.filter(token => !['delhi', 'new', 'india', 'ncr'].includes(token));
+    const tokensToMatch = localTokens.length ? localTokens : queryTokens;
+    return tokensToMatch.length === 0 || tokensToMatch.some(token => addressText.includes(token));
+  }
+
+  function isHighDiscountMerchant(store) {
+    const discountText = (store?.offer_details?.discount || '').toLowerCase();
+    const numericDiscount = parseInt(discountText.match(/(\d+)/)?.[1] || 0);
+    return numericDiscount >= 150 || discountText.includes('200') || discountText.includes('flat');
+  }
+
   function renderPostsFeed(postsArray) {
     const container = document.getElementById('postsFeedContainer');
+    postsArray = (postsArray || []).filter(post =>
+      matchesSelectedArea(post) && (userStepsData.unlockedHighDiscount || !post.isHighDiscount));
     if (!postsArray || postsArray.length === 0) { container.innerHTML = `<div style="text-align:center; padding:30px; color:#6B7280;">कोई पोस्ट उपलब्ध नहीं है।</div>`; return; }
     let html = '';
     postsArray.forEach(post => {
@@ -1386,10 +1635,100 @@
         </div>`;
     });
     container.innerHTML = html;
+    attachFeedLongPressSaveActions(container, postsArray);
+  }
+
+  function attachFeedLongPressSaveActions(container, postsArray) {
+    const cards = Array.from(container.querySelectorAll('.post-card'));
+    cards.forEach((card, index) => {
+      const post = postsArray[index];
+      let pressTimer = null;
+      let startX = 0;
+      let startY = 0;
+      let longPressTriggered = false;
+      const clearPressTimer = () => { if (pressTimer) { clearTimeout(pressTimer); pressTimer = null; } };
+      const startPress = event => {
+        if (event.button !== undefined && event.button !== 0) return;
+        const point = event.touches?.[0] || event;
+        startX = point.clientX;
+        startY = point.clientY;
+        longPressTriggered = false;
+        clearPressTimer();
+        pressTimer = setTimeout(() => {
+          longPressTriggered = true;
+          const actionId = `feed_${post.id || index}_${index}`;
+          const stats = JSON.parse(localStorage.getItem('reel_stats_' + actionId) || 'null') || { likes: 0, shares: 0 };
+          activeSelectedReelData = {
+            id: actionId,
+            store: post.storeName || 'Star Shops',
+            caption: post.caption || '✨ बेहतरीन ऑफर',
+            url: post.post_image || '',
+            likes: stats.likes || 0,
+            shares: stats.shares || 0
+          };
+          document.getElementById('popupLikeText').innerText = `लाइक करें (${activeSelectedReelData.likes})`;
+          document.getElementById('popupShareText').innerText = `शेयर करें - ${activeSelectedReelData.shares} बार`;
+          document.getElementById('reelPopupActionOverlay').classList.add('open');
+        }, 5000);
+      };
+      const movePress = event => {
+        if (!pressTimer) return;
+        const point = event.touches?.[0] || event;
+        if (Math.abs(point.clientX - startX) > 14 || Math.abs(point.clientY - startY) > 14) clearPressTimer();
+      };
+      card.addEventListener('pointerdown', startPress, { passive: true });
+      card.addEventListener('pointermove', movePress, { passive: true });
+      card.addEventListener('pointerup', clearPressTimer, { passive: true });
+      card.addEventListener('pointercancel', clearPressTimer, { passive: true });
+      card.addEventListener('pointerleave', clearPressTimer, { passive: true });
+      card.addEventListener('click', event => {
+        if (longPressTriggered) {
+          event.preventDefault();
+          event.stopPropagation();
+          longPressTriggered = false;
+        }
+      }, true);
+    });
+  }
+
+  let currentVisibleAlertKeys = [];
+
+  function getSeenAlertKeys() {
+    try { return new Set(JSON.parse(localStorage.getItem('starshops_seen_alert_ids') || '[]')); }
+    catch (e) { return new Set(); }
+  }
+
+  function getAlertKey(store) {
+    const offer = store.offer_details?.discount || '';
+    return `${store.id || store.store_name || ''}|${store.updated_at || ''}|${offer}`;
+  }
+
+  function markVisibleAlertsAsSeen() {
+    const seen = getSeenAlertKeys();
+    currentVisibleAlertKeys.forEach(key => seen.add(key));
+    localStorage.setItem('starshops_seen_alert_ids', JSON.stringify(Array.from(seen).slice(-500)));
+    updateAlertsCountBadge(0);
+  }
+
+  function updateAlertsCountBadge(count) {
+    const badge = document.getElementById('alertsCountBadge');
+    if (!badge) return;
+    badge.textContent = count > 99 ? '99+' : String(count);
+    badge.style.display = count > 0 ? 'flex' : 'none';
+    badge.setAttribute('aria-label', `${count} नए अलर्ट्स`);
   }
 
   function renderDynamicAlerts(storesArray) {
     const container = document.getElementById('liveAlertsContainer');
+    storesArray = (storesArray || []).filter(store =>
+      matchesSelectedArea(store) && (userStepsData.unlockedHighDiscount || !isHighDiscountMerchant(store)));
+    currentVisibleAlertKeys = storesArray.map(getAlertKey);
+    if (document.getElementById('tab-alerts')?.classList.contains('active')) {
+      markVisibleAlertsAsSeen();
+    } else {
+      const seen = getSeenAlertKeys();
+      updateAlertsCountBadge(currentVisibleAlertKeys.filter(key => !seen.has(key)).length);
+    }
     if (!storesArray || storesArray.length === 0) { container.innerHTML = `<div style="text-align:center; padding:20px; color:#6B7280;">कोई नया अलर्ट नहीं है।</div>`; return; }
     container.innerHTML = storesArray.map(store => {
       let safeOffer = store.offer_details?.discount || "✨ बेहतरीन सर्विस";
@@ -1409,17 +1748,26 @@
 
   function openHighDiscountUnlockModal() {
     document.getElementById('successModalEmoji').innerText = "👑";
-    document.getElementById('successModalTitle').innerText = "VVIP ज़ोन अनलॉक!";
-    document.getElementById('successModalDesc').innerText = "बधाई हो! आपने 2000 कदम (4 क्लेम) पूरे कर लिए हैं। आपका ऐप अब '1% Elite Velvet Black' थीम में बदल गया है और VIP डील्स सोने की तरह चमक रही हैं!";
+    document.getElementById('successModalTitle').innerText = "आपका खास surprise खुल गया!";
+    document.getElementById('successModalDesc').innerText = "शानदार! आपने 2000 कदम पूरे कर लिए। अब आपके लिए खास high-discount offers खुल गए हैं।";
     const btn = document.getElementById('successModalBtn');
-    btn.innerText = "★ प्रीमियम ऐप देखें";
-    btn.onclick = () => { closeSuccessModal(); activateHighDiscountZoneUIMode(); const highChip = document.getElementById('chipHighDiscount'); if (highChip) filterCategory('HIGHDISCOUNT', highChip); };
+    btn.innerText = "★ मेरे खास offers देखें";
+    btn.onclick = () => {
+      closeSuccessModal();
+      activateHighDiscountZoneUIMode();
+      renderDynamicStores(liveSupabaseStores);
+      renderDynamicAlerts(liveSupabaseStores);
+      renderPostsFeed(dynamicPostsList);
+      const highChip = document.getElementById('chipHighDiscount');
+      if (highChip) filterCategory('HIGHDISCOUNT', highChip);
+    };
     document.getElementById('successModalOverlay').classList.add('open');
   }
 
   function activateHighDiscountZoneUIMode() {
     document.getElementById('appDeviceShell').classList.add('high-discount-active');
     document.body.classList.add('premium-mode-body');
+    document.documentElement.classList.add('premium-mode-html');
     const chip = document.getElementById('chipHighDiscount'); if (chip) chip.style.display = 'inline-flex';
     updateStatusBarTheme(true); 
   }
@@ -1462,6 +1810,39 @@
 
   function renderDynamicStores(storesArray) {
     const container = document.getElementById('dynamicStoresContainer');
+    storesArray = (storesArray || []).filter(store =>
+      matchesSelectedArea(store) && (userStepsData.unlockedHighDiscount || !isHighDiscountMerchant(store)));
+    if (!container.dataset.merchantClickHandlersAttached) {
+      container.addEventListener('click', (event) => {
+        const actionElement = event.target.closest('[data-card-action]');
+        const cardElement = event.target.closest('.store-item');
+        if (!cardElement || !container.contains(cardElement)) return;
+
+        if (actionElement && cardElement.contains(actionElement)) {
+          event.stopPropagation();
+          const storeId = decodeURIComponent(cardElement.dataset.storeId || '');
+          const store = liveSupabaseStores.find(item => String(item.id) === storeId);
+          if (!store) return;
+          const storeName = store.store_name || 'स्टार मर्चेंट स्टोर';
+          const address = store.address || store.location || 'दिल्ली';
+          const discountText = store.offer_details?.discount || '✨ बेहतरीन सर्विस';
+          const numericDiscount = parseInt(discountText.match(/(\d+)/)?.[1] || 0);
+          const claimTitle = `${storeName} - ${discountText}`;
+
+          if (actionElement.dataset.cardAction === 'claim' || actionElement.dataset.cardAction === 'reclaim') {
+            openPinModal(storeName, numericDiscount, store.id, claimTitle);
+          } else if (actionElement.dataset.cardAction === 'info') {
+            const conditionsText = store.offer_details?.conditions || store.description || 'सबसे सही दाम और शानदार काम';
+            openShopInfoModalSafe(storeName, (store.category || 'SALON').toUpperCase(), address,
+              encodeURIComponent(conditionsText), encodeURIComponent(discountText));
+          }
+          return;
+        }
+
+        openMerchantPublicProfileById(decodeURIComponent(cardElement.dataset.storeId || ''));
+      });
+      container.dataset.merchantClickHandlersAttached = 'true';
+    }
     if (!storesArray || storesArray.length === 0) { container.innerHTML = `<div style="text-align:center; padding:30px; color:#6B7280;">कोई खुली हुई दुकान उपलब्ध नहीं है।</div>`; return; }
 
     let html = '';
@@ -1476,7 +1857,7 @@
       
       let numericDiscount = parseInt(discountText.match(/(\d+)/)?.[1] || 0);
       const percent = Math.min(100, Math.round((userStepsData.currentSteps / userStepsData.targetSteps) * 100));
-      const isHighDiscountStore = numericDiscount >= 150 || discountText.toLowerCase().includes('200') || discountText.toLowerCase().includes('flat');
+      const isHighDiscountStore = isHighDiscountMerchant(store);
       
       const claimCount = getDailyClaimCount(storeName);
 
@@ -1506,20 +1887,48 @@
       else if (claimCount >= 2) { cardClassNames += " reclaimed-card"; btnText = "✓ स्टोर लिमिट पूरी"; }
 
       html += `
-        <div class="${cardClassNames}" id="storeCard_${cardId}" data-in-range="${inRange}" style="display: ${inRange ? 'block' : 'none'};" data-category="${dbCategory}" data-address="${address.toLowerCase()}" data-open-today="true" data-high-discount="${isHighDiscountStore}" data-claim-count="${claimCount}" data-keywords="${storeName.toLowerCase()} ${address.toLowerCase()} ${dbCategory.toLowerCase()} ${claimCount > 0 ? 'claimed' : ''} ${isHighDiscountStore ? 'high' : ''}" onclick='openMerchantPublicProfileById("${store.id}")'>
+        <div class="${cardClassNames}" id="storeCard_${cardId}" data-in-range="${inRange}" style="display: ${inRange ? 'block' : 'none'};" data-category="${dbCategory}" data-address="${address.toLowerCase()}" data-open-today="true" data-high-discount="${isHighDiscountStore}" data-claim-count="${claimCount}" data-keywords="${storeName.toLowerCase()} ${address.toLowerCase()} ${dbCategory.toLowerCase()} ${claimCount > 0 ? 'claimed' : ''} ${isHighDiscountStore ? 'high' : ''}" data-store-id="${encodeURIComponent(String(store.id))}">
           <div class="card-banner"><img src="${bannerImg}" alt="${storeName}"><div class="banner-overlay"></div><div class="badge-fomo">⚡ लाइव डील</div><div class="badge-limit">${isHighDiscountStore ? '★ VERIFIED MERCHANT' : '★ VERIFIED PARTNER'}</div></div>
           <div class="card-body">
             <div class="store-meta"><div class="store-title">${storeName} <span style="color:#F59E0B;">★</span></div><div class="store-distance">${displayDistanceText}</div></div>
-            <div class="store-status-row"><div class="live-open-pill"><span class="blink-dot"></span> दुकान खुली है (आज)</div><div class="mini-reclaim-badge-pill" onclick="event.stopPropagation(); openPinModal('${storeName}', ${numericDiscount}, '${cardId}', '${storeName} - ${discountText}')">🔄 रीक्लेम करें</div></div>
+            <div class="store-status-row"><div class="live-open-pill"><span class="blink-dot"></span> दुकान खुली है (आज)</div><div class="mini-reclaim-badge-pill" data-card-action="reclaim">🔄 रीक्लेम करें</div></div>
             
             <div class="step-progress-wrapper"><div style="font-size: 11px; font-weight: 900; color: #1E40AF; display:flex; justify-content:space-between;"><span>🎯 2000 कदम लक्ष्य (ट्रैक हो रहा है)</span><span>${userStepsData.currentSteps}/2000 (${percent}%)</span></div><div class="step-progress-bar-bg"><div class="step-progress-bar-fill" style="width: ${percent}%;"></div></div></div>
             <div class="line-sep"></div>
-            <div class="deal-action-box"><div><div class="cash-save" style="font-size: 15px;">${discountText}</div><div class="cash-sub">काउंटर पर विशेष छूट उपलब्ध</div></div><button class="info-btn-grocery" onclick="event.stopPropagation(); openShopInfoModalSafe('${storeName}', '${dbCategory}', '${address}', '${encodeURIComponent(conditionsText)}', '${encodeURIComponent(discountText)}')">ℹ डील देखें</button></div>
-            <div style="margin-top: 12px;"><button class="${btnClass}" id="cardBtn_${cardId}" ${claimCount >= 2 ? 'disabled style="background:#9CA3AF !important; cursor:not-allowed;"' : ''} onclick="event.stopPropagation(); openPinModal('${storeName}', ${numericDiscount}, '${cardId}', '${storeName} - ${discountText}')">${btnText}</button></div>
+            <div class="deal-action-box"><div><div class="cash-save" style="font-size: 15px;">${discountText}</div><div class="cash-sub">काउंटर पर विशेष छूट उपलब्ध</div></div><button type="button" class="info-btn-grocery" data-card-action="info">ℹ डील देखें</button></div>
+            <div style="margin-top: 12px;"><button type="button" class="${btnClass}" id="cardBtn_${cardId}" data-card-action="claim" ${claimCount >= 2 ? 'disabled style="background:#9CA3AF !important; cursor:not-allowed;"' : ''}>${btnText}</button></div>
           </div>
         </div>`;
     });
-    container.innerHTML = html;
+    const staging = document.createElement('div');
+    staging.innerHTML = html;
+    const nextCards = Array.from(staging.children);
+    const existingCards = Array.from(container.querySelectorAll('.store-item'));
+    const existingById = new Map(existingCards.map(card => [card.id, card]));
+    const retainedCards = new Set();
+
+    nextCards.forEach((nextCard, index) => {
+      const currentCard = existingById.get(nextCard.id);
+      let cardToKeep = nextCard;
+      if (currentCard && currentCard.outerHTML === nextCard.outerHTML) {
+        cardToKeep = currentCard;
+      } else if (currentCard) {
+        currentCard.replaceWith(nextCard);
+      }
+
+      const currentAtPosition = container.children[index];
+      if (currentAtPosition !== cardToKeep) {
+        container.insertBefore(cardToKeep, currentAtPosition || null);
+      }
+      retainedCards.add(cardToKeep);
+    });
+
+    existingCards.forEach(card => {
+      if (!retainedCards.has(card)) card.remove();
+    });
+    Array.from(container.children).forEach(child => {
+      if (!child.classList.contains('store-item')) child.remove();
+    });
   }
 
   async function openMerchantPublicProfileById(merchantId) {
@@ -1675,14 +2084,9 @@
     document.querySelectorAll('.tab-screen').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
     
-    if (tabName === 'outOfRangeView') {
-      document.getElementById('outOfRangeContent').style.display = 'block';
-      document.getElementById('inRangeContent').style.display = 'none';
-      document.getElementById('tab-home').classList.add('active'); 
-    } else {
-      document.getElementById(`tab-${tabName}`).classList.add('active');
-      if (clickedNavItem) clickedNavItem.classList.add('active');
-    }
+    document.getElementById(`tab-${tabName}`).classList.add('active');
+    if (clickedNavItem) clickedNavItem.classList.add('active');
+    if (tabName === 'alerts') markVisibleAlertsAsSeen();
     window.scrollTo(0, 0);
   }
 
@@ -1765,6 +2169,7 @@
     }
     
     const store = liveSupabaseStores.find(s => s.id == cardId);
+    if (store && isHighDiscountMerchant(store) && !userStepsData.unlockedHighDiscount) return;
     if (store) {
       let sLat = store.latitude || store.lat; 
       let sLon = store.longitude || store.lng || store.lon;
@@ -1897,9 +2302,20 @@
     }
   }
 
-  function promptChangeName() {
-    const newName = prompt("नया नाम दर्ज करें:", currentShopperName);
-    if (newName && newName.trim().length > 0) { currentShopperName = newName.trim(); document.getElementById('profileDisplayUserName').innerText = currentShopperName; localStorage.setItem('starshops_consumer_user', JSON.stringify({name: currentShopperName, phone: currentUserPhone})); }
+  async function promptChangeName() {
+    const newName = await openAppPrompt({
+      title: 'नाम बदलें',
+      message: 'अपने profile के लिए नया नाम लिखें।',
+      value: currentShopperName || '',
+      placeholder: 'आपका नाम',
+      confirmText: 'सेव करें',
+      icon: '✎'
+    });
+    if (newName && newName.trim().length > 0) {
+      currentShopperName = newName.trim();
+      document.getElementById('profileDisplayUserName').innerText = currentShopperName;
+      localStorage.setItem('starshops_consumer_user', JSON.stringify({name: currentShopperName, phone: currentUserPhone}));
+    }
   }
 
   let calcVal = '0';
@@ -1985,6 +2401,40 @@
     openSuccessModal("सफलता! 📸", "आपकी प्रोफाइल फोटो सफलतापूर्वक सेट हो गई है।");
     if (rawConsumerFileEvt) rawConsumerFileEvt.target.value = "";
   }
+
+  function isEditableTarget(target) {
+    return !!(target && target.closest && target.closest('input, textarea, select, [contenteditable="true"], [data-allow-copy]'));
+  }
+
+  document.addEventListener('contextmenu', event => {
+    if (!isEditableTarget(event.target)) event.preventDefault();
+  }, true);
+  document.addEventListener('copy', event => {
+    if (!isEditableTarget(event.target)) event.preventDefault();
+  }, true);
+  document.addEventListener('cut', event => {
+    if (!isEditableTarget(event.target)) event.preventDefault();
+  }, true);
+  document.addEventListener('selectstart', event => {
+    if (!isEditableTarget(event.target)) event.preventDefault();
+  }, true);
+  document.addEventListener('keydown', event => {
+    const key = (event.key || '').toLowerCase();
+    const modified = event.ctrlKey || event.metaKey;
+    if (modified && key === 'p') {
+      event.preventDefault();
+      event.stopPropagation();
+      return;
+    }
+    if (isEditableTarget(event.target)) return;
+    if (modified && ['a', 'c', 'x', 's', 'u'].includes(key)) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+  window.addEventListener('beforeprint', () => document.documentElement.classList.add('print-blocked'));
+  window.addEventListener('afterprint', () => document.documentElement.classList.remove('print-blocked'));
+  try { window.print = () => {}; } catch (e) {}
 
   // 🚨 NEW: Block Browser Default Media Notification Player 🚨
   document.addEventListener('play', function(e) {
