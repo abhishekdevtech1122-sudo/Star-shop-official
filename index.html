@@ -15,8 +15,8 @@
       -webkit-tap-highlight-color: transparent;
       touch-action: manipulation;
     }
-    html, body, .device-shell { -webkit-user-select: none !important; user-select: none !important; -webkit-touch-callout: none !important; }
-    input, textarea, select, [contenteditable="true"] { -webkit-user-select: text !important; user-select: text !important; -webkit-touch-callout: default !important; }
+    html, body, .device-shell { -webkit-user-select: text; user-select: text; -webkit-touch-callout: default; }
+    input, textarea, select, [contenteditable="true"] { -webkit-user-select: text; user-select: text; -webkit-touch-callout: default; }
 
     /* 🔒 PERMANENT FULL-MODE DEVICE SHELL LOCK (डिफ़ॉल्ट और डेस्कटॉप मोड दोनों के लिए फिक्स) 🔒 */
     html, body {
@@ -212,7 +212,7 @@
       transition: transform 0.3s ease-in-out;
     }
 
-    .brand-title { font-size: 20px; font-weight: 900; letter-spacing: 1.5px; color: #111827; display: flex; align-items: center; gap: 6px; user-select: none; }
+    .brand-title { font-size: 20px; font-weight: 900; letter-spacing: 1.5px; color: #111827; display: flex; align-items: center; gap: 6px; }
     .brand-title .star-badge { color: #F59E0B; font-size: 16px; }
     .header-right-box { display: flex; align-items: center; gap: 8px; }
     .step-pill { background: #FFFBEB; border: 1px solid #FDE68A; padding: 6px 14px; border-radius: 20px; color: #B45309; font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 5px; cursor: pointer; }
@@ -223,7 +223,7 @@
     .categories-bar { display: flex; align-items: center; gap: 10px; padding: 10px 16px 14px 16px; width: 100%; overflow-x: auto; scrollbar-width: none; z-index: 30; }
     .categories-bar::-webkit-scrollbar { display: none; }
     
-    .category-chip { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; height: 34px; background: #FFFFFF; border: 1px solid #E5E7EB; padding: 0 16px; border-radius: 20px; font-size: 12px; font-weight: 700; color: #4B5563; cursor: pointer; white-space: nowrap; user-select: none; transition: all 0.2s ease; }
+    .category-chip { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; height: 34px; background: #FFFFFF; border: 1px solid #E5E7EB; padding: 0 16px; border-radius: 20px; font-size: 12px; font-weight: 700; color: #4B5563; cursor: pointer; white-space: nowrap; transition: all 0.2s ease; }
     .category-chip.active { background: #111827; color: #FFFFFF; border-color: #111827; }
     .category-chip.chip-open-today { background: #ECFDF5; color: #047857; border-color: #A7F3D0; }
     .category-chip.chip-open-today.active { background: #059669; color: #FFFFFF; border-color: #059669; }
@@ -290,7 +290,90 @@
     .scan-action-btn.reclaim-btn { background: linear-gradient(135deg, #D97706, #B45309) !important; }
     .info-btn-grocery { background: #FFFBEB; border: 1px solid #FDE68A; color: #B45309; padding: 6px 10px; border-radius: 8px; font-size: 12px; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 4px; }
 
-    .post-card { background: #FFFFFF; border-radius: 16px; border: 1px solid #E5E7EB; margin-bottom: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.03); touch-action: pan-y; }
+    .post-card { background: #FFFFFF; border-radius: 16px; border: 1px solid #E5E7EB; margin: 0 0 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.03); touch-action: pan-y; width: 100%; }
+    .post-media-box { aspect-ratio: 4 / 5; min-height: 240px; max-height: 360px; }
+    .post-media-box > img, .post-media-box > video { width: 100%; height: 100% !important; object-fit: cover; }
+    /* 🌟 प्रीमियम ग्लासमॉर्फिज्म एक्शन कैप्सूल */
+    .post-action-cluster {
+      position: absolute;
+      right: 12px;
+      bottom: 12px;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(10, 10, 12, 0.75);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      padding: 5px 10px;
+      border-radius: 999px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+    }
+
+    .inline-save-btn, .inline-share-btn {
+      position: static;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      height: 30px;
+      padding: 0 10px;
+      border: none;
+      border-radius: 999px;
+      background: transparent;
+      cursor: pointer;
+      transition: transform 0.15s ease, background 0.15s ease;
+    }
+
+    .inline-save-btn:active, .inline-share-btn:active {
+      transform: scale(0.92);
+    }
+
+    /* सेव बटन (स्टार और टेक्स्ट) */
+    .inline-save-btn {
+      color: #FCF6BA;
+      font-size: 13px;
+      font-weight: 900;
+    }
+    .inline-save-btn::before {
+      content: "★";
+      font-size: 15px;
+      color: #D4AF37;
+    }
+
+    /* शेयर बटन (प्लेन आइकॉन और टेक्स्ट) */
+    .inline-share-btn {
+      color: #E5E7EB;
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .share-plane-icon {
+      width: 15px;
+      height: 15px;
+      fill: currentColor;
+      transform: rotate(-10deg);
+    }
+
+    /* मिनी रील्स थंबनेल के अंदर कॉम्पैक्ट साइज */
+    .mini-reel-thumb .post-action-cluster {
+      right: 4px;
+      bottom: 4px;
+      padding: 3px 6px;
+      gap: 4px;
+    }
+    .mini-reel-thumb .inline-save-btn,
+    .mini-reel-thumb .inline-share-btn {
+      font-size: 0;
+      padding: 0;
+      height: 24px;
+      width: 24px;
+    }
+    .mini-reel-thumb .share-plane-icon {
+      width: 13px;
+      height: 13px;
+    }
+    .post-content-body { min-height: 64px; }
     .device-shell.high-discount-active .post-card { background: #0A0A0A !important; border-color: rgba(212,175,55,0.28) !important; }
     .post-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid #F3F4F6; }
     .post-header-left { display: flex; align-items: center; gap: 10px; cursor: pointer; }
@@ -337,6 +420,19 @@
 
     .pin-input-box { width: 100%; padding: 12px; border: 2px solid #E5E7EB; border-radius: 12px; font-size: 18px; text-align: center; letter-spacing: 8px; font-weight: 800; outline: none; margin-top: 8px; }
     .pin-input-box:focus { border-color: #F59E0B; }
+    #offlineFallbackBanner { position: fixed; top: 0; left: 50%; transform: translate(-50%, -120%); width: min(100%, 480px); z-index: 10000002; padding: 10px 14px; background: linear-gradient(135deg, #111111, #2a2110); color: #FCF6BA; border-bottom: 1px solid #D4AF37; box-shadow: 0 5px 18px rgba(0,0,0,.3); text-align: center; font-size: 12px; font-weight: 800; transition: transform .25s ease; }
+    #offlineFallbackBanner.visible { transform: translate(-50%, 0); }
+    #customLocationWizardOverlay { position: fixed; inset: 0; z-index: 10000001; display: none; align-items: center; justify-content: center; padding: 22px; background: rgba(0,0,0,.82); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+    #customLocationWizardOverlay.open { display: flex; }
+    .location-wizard-card { width: 100%; max-width: 370px; padding: 26px 20px 20px; border-radius: 24px; border: 1px solid rgba(212,175,55,.75); background: radial-gradient(ellipse at top, #2a2417 0%, #090909 72%); color: #fff; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,.6), 0 0 28px rgba(212,175,55,.16); }
+    .location-wizard-radar { width: 70px; height: 70px; margin: 0 auto 14px; border: 2px solid #D4AF37; border-radius: 50%; display: grid; place-items: center; color: #FCF6BA; font-size: 32px; box-shadow: 0 0 0 8px rgba(212,175,55,.08), 0 0 25px rgba(212,175,55,.28); }
+    .location-wizard-card h2 { color: #FCF6BA; font-size: 19px; margin-bottom: 8px; }
+    .location-wizard-card p { color: #D1D5DB; font-size: 13px; line-height: 1.55; margin-bottom: 18px; }
+    .location-wizard-actions { display: flex; gap: 9px; }
+    .location-wizard-actions button { flex: 1; min-height: 44px; border-radius: 12px; font-size: 13px; font-weight: 900; cursor: pointer; }
+    .location-wizard-primary { border: 0; color: #15110A; background: linear-gradient(120deg, #BF953F, #FCF6BA, #B38728); }
+    .location-wizard-secondary { color: #E5E7EB; background: #171717; border: 1px solid #3F3F46; }
+
     .app-prompt-overlay { position: fixed; inset: 0; z-index: 10000000; display: none; align-items: center; justify-content: center; padding: 22px; background: rgba(0,0,0,0.78); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
     .app-prompt-overlay.open { display: flex; }
     .app-prompt-card { width: 100%; max-width: 360px; padding: 24px 20px 18px; border-radius: 22px; border: 1px solid rgba(212,175,55,0.65); background: radial-gradient(ellipse at top, #252016 0%, #0A0A0A 72%); color: #FFFFFF; box-shadow: 0 20px 60px rgba(0,0,0,0.55), 0 0 24px rgba(212,175,55,0.12); }
@@ -383,7 +479,7 @@
 
     /* --- SYNCED BOTTOM NAV CSS --- */
     .bottom-nav { position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important; width: 100% !important; max-width: 480px !important; margin: 0 auto !important; height: 60px !important; background: #FFFFFF !important; border-top: 1px solid #E5E7EB !important; display: flex !important; justify-content: space-around !important; align-items: center !important; z-index: 9999 !important; box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05); transition: transform 0.3s ease-in-out; }
-    .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 10px; color: #6B7280; cursor: pointer; user-select: none; height: 100%; transition: color 0.3s ease; }
+    .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 10px; color: #6B7280; cursor: pointer; height: 100%; transition: color 0.3s ease; }
     .nav-item.active { color: #111827; font-weight: 800; }
     
     .nav-item .icon { display: flex; align-items: center; justify-content: center; height: 30px; margin-bottom: 2px; position: relative; }
@@ -711,6 +807,21 @@
 
 </div>
 
+<div id="offlineFallbackBanner" role="status" aria-live="polite">ऑफ़लाइन मोड: पिछला डेटा दिखाया जा रहा है</div>
+
+<div id="customLocationWizardOverlay" aria-hidden="true">
+  <div class="location-wizard-card" role="dialog" aria-modal="true" aria-labelledby="locationWizardTitle">
+    <div class="location-wizard-radar">📍</div>
+    <h2 id="locationWizardTitle">आपके पास की दुकानें खोजें</h2>
+    <p id="locationWizardMessage">लोकेशन ऑन करने पर हम आपके आसपास के Star Shops और ऑफर्स दिखाएंगे। आपकी अनुमति के बिना GPS शुरू नहीं होगा।</p>
+    <div class="location-wizard-actions">
+      <button class="location-wizard-secondary" type="button" onclick="useDefaultLocationFallback()">अभी नहीं</button>
+      <button class="location-wizard-primary" type="button" onclick="startLocationPermissionFlow()">लोकेशन ऑन करें 🚀</button>
+    </div>
+    <button type="button" onclick="promptManualLocation(); closeLocationWizard();" style="width:100%;margin-top:10px;background:transparent;color:#FCF6BA;border:0;padding:8px;font-size:12px;font-weight:800;cursor:pointer;">या एरिया मैन्युअली चुनें</button>
+  </div>
+</div>
+
 <!-- 🚨 GPS Forced Scanning Blur Overlay & Card 🚨 -->
 <div class="gps-scan-overlay" id="gpsScanOverlay">
   <div class="gps-scan-card">
@@ -883,15 +994,54 @@
     }
   }
 
+  const DEFAULT_LOCATION = { lat: 28.7241, lon: 77.0638, label: 'बेगमपुर/रोहिणी, दिल्ली' };
+  let locationPermissionRequested = localStorage.getItem('starshops_location_permission_requested') === 'true';
+  let locationWizardFallbackTimer = null;
+
+  function closeLocationWizard() {
+    const overlay = document.getElementById('customLocationWizardOverlay');
+    if (overlay) { overlay.classList.remove('open'); overlay.setAttribute('aria-hidden', 'true'); }
+  }
+  function openLocationWizard() {
+    const overlay = document.getElementById('customLocationWizardOverlay');
+    if (overlay) { overlay.classList.add('open'); overlay.setAttribute('aria-hidden', 'false'); }
+  }
+  function setFallbackLocation() {
+    homeLat = DEFAULT_LOCATION.lat; homeLon = DEFAULT_LOCATION.lon;
+    manualLocationSelected = false; gpsResolvedOnce = true;
+    const locationText = document.getElementById('headerLocationText');
+    if (locationText) locationText.innerText = DEFAULT_LOCATION.label;
+    closeLocationWizard();
+    const oldOverlay = document.getElementById('gpsScanOverlay');
+    if (oldOverlay) oldOverlay.classList.remove('open');
+    if (gpsScanInterval) { clearInterval(gpsScanInterval); gpsScanInterval = null; }
+    applyLocationFilter();
+  }
+  function useDefaultLocationFallback() { setFallbackLocation(); }
+  function startLocationPermissionFlow() {
+    locationPermissionRequested = true;
+    localStorage.setItem('starshops_location_permission_requested', 'true');
+    const wizardTitle = document.getElementById('locationWizardTitle');
+    const wizardMessage = document.getElementById('locationWizardMessage');
+    if (wizardTitle) wizardTitle.innerText = 'लोकेशन सिग्नल खोजा जा रहा है';
+    if (wizardMessage) wizardMessage.innerText = 'कृपया कुछ सेकंड प्रतीक्षा करें। सिग्नल न मिलने पर बेगमपुर/रोहिणी का डिफ़ॉल्ट ज़ोन अपने-आप लोड हो जाएगा।';
+    if (typeof AndroidNative !== 'undefined' && AndroidNative.turnOnGPS) { try { AndroidNative.turnOnGPS(); } catch (e) {} }
+    if (!navigator.geolocation) { setFallbackLocation(); return; }
+    const status = document.getElementById('gpsScanStatusText');
+    if (status) status.innerText = 'लोकेशन सिग्नल खोजा जा रहा है...';
+    if (locationWizardFallbackTimer) clearTimeout(locationWizardFallbackTimer);
+    locationWizardFallbackTimer = setTimeout(() => setFallbackLocation(), 7500);
+    navigator.geolocation.getCurrentPosition(position => {
+      clearTimeout(locationWizardFallbackTimer); locationWizardFallbackTimer = null;
+      homeLat = position.coords.latitude; homeLon = position.coords.longitude;
+      manualLocationSelected = false; gpsResolvedOnce = true;
+      const locationText = document.getElementById('headerLocationText');
+      if (locationText) locationText.innerText = 'आपकी लोकेशन';
+      applyLocationFilter();
+    }, () => { setFallbackLocation(); }, { enableHighAccuracy: true, timeout: 7000, maximumAge: 30000 });
+  }
   function requestFirstTimeLocation() {
-    if (!localStorage.getItem('starshops_loc_permission_asked')) {
-      localStorage.setItem('starshops_loc_permission_asked', 'true');
-      if (typeof AndroidNative !== 'undefined' && AndroidNative.turnOnGPS) {
-        AndroidNative.turnOnGPS();
-      } else if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(){}, function(){});
-      }
-    }
+    if (!gpsResolvedOnce && homeLat === null && !manualLocationSelected) openLocationWizard();
   }
 
   const SUPABASE_URL = "https://gejrzpflcuvlbpedliwq.supabase.co";
@@ -903,6 +1053,10 @@
   let activeShopName = "", activeShopDiscount = 0, activeCardId = null, activeClaimTitle = "";
   let todayClaimCount = 0, totalClaimedCardsCount = 0;
   let liveSupabaseStores = [];
+  const FEED_PAGE_SIZE = 12;
+  let feedMerchantOffset = 0;
+  let feedHasMore = true;
+  const MERCHANT_CACHE_KEY = 'starshops_cached_feed_v1';
   let lastStoresRenderFingerprint = '';
   let lastPostsRenderFingerprint = '';
   let realtimeSyncChannel = null;
@@ -957,15 +1111,19 @@
   let pullGestureStartY = 0;
   let isTrackingPullGesture = false;
   let pullDistance = 0;
+  let pullGestureMode = 'top';
 
   function initPullToRefresh() {
     const indicator = document.getElementById('pullRefreshIndicator');
     const indicatorText = document.getElementById('pullRefreshText');
     const isPageAtTop = () => (document.scrollingElement?.scrollTop || window.scrollY || 0) <= 2;
+    const isPageAtBottom = () => (window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 8);
     const canRefreshCurrentTab = () => ['tab-home', 'tab-alerts', 'tab-posts'].some(id => document.getElementById(id)?.classList.contains('active'));
 
     document.addEventListener('touchstart', event => {
-      if (isPullRefreshActive || !canRefreshCurrentTab() || !isPageAtTop() || !event.touches.length) return;
+      if (isPullRefreshActive || !canRefreshCurrentTab() || !event.touches.length) return;
+      if (!isPageAtTop() && !isPageAtBottom()) return;
+      pullGestureMode = isPageAtBottom() ? 'bottom' : 'top';
       pullGestureStartY = event.touches[0].clientY;
       pullDistance = 0;
       isTrackingPullGesture = true;
@@ -973,7 +1131,8 @@
 
     document.addEventListener('touchmove', event => {
       if (!isTrackingPullGesture || !event.touches.length) return;
-      pullDistance = event.touches[0].clientY - pullGestureStartY;
+      const deltaY = event.touches[0].clientY - pullGestureStartY;
+      pullDistance = pullGestureMode === 'bottom' ? -deltaY : deltaY;
       if (pullDistance <= 0) { isTrackingPullGesture = false; return; }
       if (pullDistance > 10) event.preventDefault();
       if (pullDistance > 18) {
@@ -986,7 +1145,7 @@
     const finishGesture = () => {
       if (!isTrackingPullGesture) return;
       isTrackingPullGesture = false;
-      if (pullDistance >= 72) runPullToRefresh();
+      if (pullDistance >= 72) runPullToRefresh(pullGestureMode);
       else {
         indicator.classList.remove('pulling');
         indicator.style.height = '';
@@ -998,7 +1157,21 @@
     document.addEventListener('touchcancel', finishGesture, { passive: true });
   }
 
-  async function runPullToRefresh() {
+  function initAppendFeedObserver() {
+    const postFeed = document.getElementById('postsFeedContainer');
+    if (!postFeed || !('IntersectionObserver' in window)) return;
+    const observer = new IntersectionObserver(entries => {
+      if (entries.some(entry => entry.isIntersecting) && feedHasMore && !isFetchingMore && navigator.onLine) {
+        isFetchingMore = true;
+        fetchLiveMerchantsFromSupabase(true, { append: true }).finally(() => { isFetchingMore = false; });
+      }
+    }, { rootMargin: '0px 0px 30% 0px' });
+    const watchLast = () => { const last = postFeed.querySelector('.post-card:last-child'); if (last) observer.observe(last); };
+    watchLast();
+    new MutationObserver(watchLast).observe(postFeed, { childList: true });
+  }
+
+  async function runPullToRefresh(mode = 'top') {
     if (isPullRefreshActive) return;
     isPullRefreshActive = true;
     const indicator = document.getElementById('pullRefreshIndicator');
@@ -1007,10 +1180,10 @@
     indicator.style.height = '';
     indicator.classList.add('active');
     indicator.setAttribute('aria-hidden', 'false');
-    indicatorText.textContent = 'दुकानें अपडेट हो रही हैं...';
+    indicatorText.textContent = mode === 'bottom' ? 'नई पोस्ट नीचे जोड़ी जा रही हैं...' : 'दुकानें अपडेट हो रही हैं...';
     try {
       await Promise.all([
-        fetchLiveMerchantsFromSupabase(true),
+        fetchLiveMerchantsFromSupabase(true, { append: mode === 'bottom' }),
         new Promise(resolve => setTimeout(resolve, 2000))
       ]);
     } finally {
@@ -1027,6 +1200,10 @@
   }
 
   window.addEventListener('DOMContentLoaded', async () => {
+    cleanupServiceWorkers();
+    window.addEventListener('offline', () => { setOfflineBanner(true); loadCachedFeed(); });
+    window.addEventListener('online', () => { setOfflineBanner(false); });
+    if (!navigator.onLine) { setOfflineBanner(true); loadCachedFeed(); }
     const savedUser = JSON.parse(localStorage.getItem('starshops_consumer_user'));
     if(savedUser) {
         currentShopperName = savedUser.name;
@@ -1075,64 +1252,16 @@
     if (userStepsData.unlockedHighDiscount) activateHighDiscountZoneUIMode();
     
     initInfiniteScrollLogic();
+    initAppendFeedObserver();
     initPullToRefresh();
   });
 
-  // 🚨 3 सेकंड में केवल तब तक स्कैन करेगा जब तक लोकेशन एक बार भी नहीं मिल जाती
+  // Location permission is requested only after the branded wizard action.
   function startContinuousGPSScan() {
     if (gpsResolvedOnce || (homeLat !== null && homeLon !== null)) return;
-    
-    const overlay = document.getElementById('gpsScanOverlay');
-    if (overlay) overlay.classList.add('open');
-
-    if (gpsScanInterval) clearInterval(gpsScanInterval);
-
-    gpsScanInterval = setInterval(() => {
-      if (gpsResolvedOnce || (homeLat !== null && homeLon !== null)) {
-        clearInterval(gpsScanInterval);
-        gpsScanInterval = null;
-        if (overlay) overlay.classList.remove('open');
-        return;
-      }
-      
-      if (typeof AndroidNative !== 'undefined' && AndroidNative.turnOnGPS) {
-        AndroidNative.turnOnGPS();
-      }
-
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            homeLat = position.coords.latitude;
-            homeLon = position.coords.longitude;
-            manualLocationSelected = false;
-            gpsResolvedOnce = true; // 🚨 फ्लैग सेट ताकि दोबारा स्कैन न हो
-            const headerLocation = document.getElementById('headerLocationText');
-            if (headerLocation) headerLocation.innerText = 'आपकी लोकेशन';
-            if (overlay) overlay.classList.remove('open');
-            if (gpsScanInterval) {
-              clearInterval(gpsScanInterval);
-              gpsScanInterval = null;
-            }
-            applyLocationFilter();
-          },
-          (error) => {
-            const statusEl = document.getElementById('gpsScanStatusText');
-            if (statusEl) {
-              statusEl.innerText = "लोकेशन ऑन नहीं है या GPS सिग्नल नहीं मिल रहा। कृपया अपने फोन का GPS ऑन करें!";
-            }
-          },
-          { enableHighAccuracy: true, timeout: 2500, maximumAge: 0 }
-        );
-      }
-    }, 3000);
+    openLocationWizard();
   }
-
-  window.forceRetryGPSScan = function() {
-    if (typeof AndroidNative !== 'undefined' && AndroidNative.turnOnGPS) {
-      AndroidNative.turnOnGPS();
-    }
-    startContinuousGPSScan();
-  };
+  window.forceRetryGPSScan = function() { startLocationPermissionFlow(); };
 
   window.addEventListener('popstate', function() {
     const isHomeTabActive = document.getElementById('tab-home').classList.contains('active');
@@ -1250,16 +1379,12 @@
   }
 
   function startBackgroundAutoSearch() {
-    if (realtimeSyncChannel) return;
-
-    // Realtime delivers new/changed cards immediately; polling is only a low-frequency fallback.
-    if (backgroundAutoSearchTimer) clearInterval(backgroundAutoSearchTimer);
-    backgroundAutoSearchTimer = setInterval(runBackgroundAutoSearch, 30000);
-
-    realtimeSyncChannel = supabaseClient.channel('star-shops-live-cards')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'merchants' }, queueBackgroundAutoSearch)
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'reels' }, queueBackgroundAutoSearch)
-      .subscribe();
+    // Deliberately disabled: after the initial load, merchants/posts change only on pull-to-refresh.
+    if (backgroundAutoSearchTimer) { clearInterval(backgroundAutoSearchTimer); backgroundAutoSearchTimer = null; }
+    if (realtimeSyncChannel) {
+      try { supabaseClient.removeChannel(realtimeSyncChannel); } catch (e) {}
+      realtimeSyncChannel = null;
+    }
   }
 
   function queueBackgroundAutoSearch() {
@@ -1280,7 +1405,7 @@
       await fetchLiveMerchantsFromSupabase(true);
 
       // Refresh location quietly; the GPS overlay is not reopened for background checks.
-      if (!manualLocationSelected && navigator.geolocation) {
+      if (locationPermissionRequested && !manualLocationSelected && navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
           homeLat = position.coords.latitude;
           homeLon = position.coords.longitude;
@@ -1290,7 +1415,7 @@
             locationText.innerText = 'आपकी लोकेशन';
           }
           applyLocationFilter();
-        }, () => {}, { enableHighAccuracy: false, timeout: 4000, maximumAge: 15000 });
+        }, () => {}, { enableHighAccuracy: false, timeout: 7000, maximumAge: 30000 });
       }
     } finally {
       isBackgroundAutoSearchRunning = false;
@@ -1309,13 +1434,14 @@
         
         if ((homeTabActive || postsTabActive) && !isFetchingMore) {
           isFetchingMore = true;
-          document.getElementById('infiniteScrollLoader').classList.add('active');
-          
-          setTimeout(async () => {
-            await fetchLiveMerchantsFromSupabase(true); 
-            document.getElementById('infiniteScrollLoader').classList.remove('active');
-            isFetchingMore = false;
-          }, 1200); 
+          const loader = document.getElementById('infiniteScrollLoader');
+          if (loader) {
+            loader.classList.add('active');
+            const label = loader.querySelector('div, span');
+            if (label) label.textContent = feedHasMore ? 'नीचे से pull करके और posts लाएँ।' : 'और posts उपलब्ध नहीं हैं। नीचे से pull करके फिर जाँचें।';
+            setTimeout(() => loader.classList.remove('active'), 900);
+          }
+          setTimeout(() => { isFetchingMore = false; }, 900); 
         }
       }
     });
@@ -1438,7 +1564,33 @@
     return count;
   }
 
-  async function fetchLiveMerchantsFromSupabase(isSilent = false) {
+  function cacheCurrentFeed() {
+    try {
+      localStorage.setItem(MERCHANT_CACHE_KEY, JSON.stringify({ stores: liveSupabaseStores, posts: dynamicPostsList, savedAt: Date.now() }));
+    } catch (e) {}
+  }
+  function loadCachedFeed() {
+    try {
+      const cached = JSON.parse(localStorage.getItem(MERCHANT_CACHE_KEY) || 'null');
+      if (!cached || !Array.isArray(cached.stores)) return false;
+      liveSupabaseStores = cached.stores; dynamicPostsList = Array.isArray(cached.posts) ? cached.posts : [];
+      renderDynamicStores(liveSupabaseStores); renderDynamicAlerts(liveSupabaseStores); renderPostsFeed(dynamicPostsList);
+      return true;
+    } catch (e) { return false; }
+  }
+  function setOfflineBanner(isOffline) {
+    const banner = document.getElementById('offlineFallbackBanner');
+    if (banner) { banner.classList.toggle('visible', isOffline); banner.textContent = isOffline ? 'ऑफ़लाइन मोड: पिछला डेटा दिखाया जा रहा है' : 'कनेक्शन वापस आ गया है'; }
+    if (!isOffline) setTimeout(() => banner && banner.classList.remove('visible'), 1800);
+  }
+  function cleanupServiceWorkers() {
+    if ('serviceWorker' in navigator) navigator.serviceWorker.getRegistrations().then(regs => regs.forEach(reg => reg.unregister())).catch(() => {});
+  }
+
+  async function fetchLiveMerchantsFromSupabase(isSilent = false, options = {}) {
+    const append = options.append === true;
+    if (!append) { feedMerchantOffset = 0; feedHasMore = true; }
+    if (append && !feedHasMore) return;
     const container = document.getElementById('dynamicStoresContainer');
     
     if (!isSilent) {
@@ -1446,14 +1598,17 @@
     }
     
     try {
-      const [merchantsRes, reelsRes] = await Promise.all([ supabaseClient.from('merchants').select('*'), supabaseClient.from('reels').select('*') ]);
+      const [merchantsRes, reelsRes] = await Promise.all([
+        supabaseClient.from('merchants').select('*').range(feedMerchantOffset, feedMerchantOffset + FEED_PAGE_SIZE - 1),
+        supabaseClient.from('reels').select('*')
+      ]);
       if (merchantsRes.error) throw merchantsRes.error;
 
       const allStores = merchantsRes.data || [];
       const allReels = reelsRes.data || [];
       const openStores = allStores.filter(s => (s.status || '').toLowerCase() !== 'closed' && (s.status || '').toLowerCase() !== 'false');
 
-      dynamicPostsList = []; liveSupabaseStores = [];
+      if (!append) { dynamicPostsList = []; liveSupabaseStores = []; }
 
       openStores.forEach((store, index) => {
         const storeId = store.id;
@@ -1461,13 +1616,13 @@
 
         const storeVideos = merchantMedia.filter(m => m.media_type === 'video' || (!m.media_type && (m.video_url?.includes('.mp4') || m.video_url?.includes('reel'))));
 
-        store.display_image = (store.image_url && store.image_url.trim() !== '') ? store.image_url : fallbackSalonImages[index % fallbackSalonImages.length];
-        
-        store.reels = storeVideos; 
+        store.display_image = (store.image_url && store.image_url.trim() !== '') ? store.image_url : '';
+        store.reels = Array.isArray(storeVideos) ? storeVideos : [];
+        store.post_count = Array.isArray(merchantMedia) ? merchantMedia.length : 0;
+        store.video_count = Array.isArray(storeVideos) ? storeVideos.length : 0;
 
-        if (merchantMedia.length > 0 || store.display_image) {
-          liveSupabaseStores.push(store);
-        }
+        // A merchant remains a merchant, but no post/reel is fabricated when media is missing.
+        liveSupabaseStores.push(store);
 
         if (merchantMedia.length > 0) {
           merchantMedia.forEach(media => {
@@ -1493,26 +1648,20 @@
               isHighDiscount: isHighDiscountMerchant(store)
             });
           });
-        } else if (store.display_image) {
-          let pCap = store.offer_details?.discount || store.description || "✨ बेहतरीन सर्विस, सबसे सही दाम";
-          dynamicPostsList.push({
-              id: storeId,
-              storeName: store.store_name || 'स्टोर',
-              category: store.category || 'जनरल स्टोर',
-              avatar: store.display_image,
-              post_image: store.display_image,
-              caption: pCap,
-              distance: store.address || "दिल्ली",
-              address: store.address || "दिल्ली",
-              reels: storeVideos,
-              isVideo: false,
-              isHighDiscount: isHighDiscountMerchant(store)
-          });
+        } else {
+          // Zero media stays zero: no generated image/post is added to the feed.
+          store.post_count = 0;
+          store.video_count = 0;
         }
       });
 
+      feedMerchantOffset += openStores.length;
+      feedHasMore = openStores.length >= FEED_PAGE_SIZE;
+      dynamicPostsList.post_count = dynamicPostsList.length || 0;
+      dynamicPostsList.video_count = dynamicPostsList.filter(post => post.isVideo).length || 0;
+
       if (dynamicPostsList.length === 0) {
-        if(!isSilent && container) container.innerHTML = `<div style="font-size:13px; color:#6B7280; text-align:center; padding:30px;">फिलहाल किसी भी मर्चेंट ने पोस्ट या रील अपलोड नहीं की है।</div>`;
+        if(!isSilent && container) container.innerHTML = `<div style="font-size:13px; color:#6B7280; text-align:center; padding:30px;">अभी कोई पोस्ट या रील उपलब्ध नहीं है (0)। pull करके refresh करें।</div>`;
         return;
       }
 
@@ -1532,7 +1681,7 @@
       const storesChanged = storesFingerprint !== lastStoresRenderFingerprint;
       const postsChanged = postsFingerprint !== lastPostsRenderFingerprint;
 
-      if (!isPullRefreshActive) {
+      if (!isPullRefreshActive || append) {
         if (document.getElementById('inRangeContent').style.display === 'block' &&
             (storesChanged || !container.querySelector('.store-item'))) {
           renderDynamicStores(liveSupabaseStores);
@@ -1543,9 +1692,12 @@
 
       lastStoresRenderFingerprint = storesFingerprint;
       lastPostsRenderFingerprint = postsFingerprint;
+      cacheCurrentFeed();
 
-    } catch (err) { 
-        if(!isSilent && container) container.innerHTML = `<div style="font-size:13px; color:#DC2626; text-align:center; padding:30px;">नेटवर्क या Supabase कनेक्शन में समस्या है।</div>`; 
+    } catch (err) {
+        const restored = loadCachedFeed();
+        if (!restored && !isSilent && container) container.innerHTML = `<div style="font-size:13px; color:#6B7280; text-align:center; padding:30px;">कनेक्शन उपलब्ध नहीं है। कृपया बाद में फिर कोशिश करें।</div>`;
+        setOfflineBanner(true);
     }
   }
 
@@ -1586,20 +1738,22 @@
     return numericDiscount >= 150 || discountText.includes('200') || discountText.includes('flat');
   }
 
-  function renderPostsFeed(postsArray) {
+  function renderPostsFeed(postsArray, append = false) {
     const container = document.getElementById('postsFeedContainer');
     postsArray = (postsArray || []).filter(post =>
       matchesSelectedArea(post) && (userStepsData.unlockedHighDiscount || !post.isHighDiscount));
     if (!postsArray || postsArray.length === 0) { container.innerHTML = `<div style="text-align:center; padding:30px; color:#6B7280;">कोई पोस्ट उपलब्ध नहीं है।</div>`; return; }
+    const existingNodes = append ? Array.from(container.querySelectorAll('.post-card')) : [];
+    const existingKeys = new Set(existingNodes.map(node => node.dataset.postKey));
     let html = '';
-    postsArray.forEach(post => {
+    postsArray.forEach((post, postIndex) => {
       let reelsPreviewHtml = '';
       if (post.reels && post.reels.length > 0) {
         let miniList = post.reels.slice(0, 3);
         let thumbItems = miniList.map(reel => {
           let vUrl = reel.video_url || reel.url || reel.image_url || '';
           let mediaElement = `<video src="${vUrl}#t=0.1" preload="metadata" muted playsinline style="width:100%; height:100%; object-fit:cover; display:block; pointer-events:none;"></video>`;
-          return `<div class="mini-reel-thumb" onclick="openMerchantPublicProfileById('${post.id}')">${mediaElement}</div>`;
+          return `<div class="mini-reel-thumb" onclick="openMerchantPublicProfileById('${post.id}')">${mediaElement}<div class="post-action-cluster"><button type="button" class="inline-share-btn" data-share-post-index="${postIndex}" data-share-reel-index="${miniList.indexOf(reel)}" aria-label="रील शेयर करें"><svg class="share-plane-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.7 2.3 3.1 9.5c-.8.3-.8 1.4 0 1.7l7.1 2.7 2.7 7.1c.3.8 1.4.8 1.7 0l7.2-18.6c.3-.8-.3-1.4-1.1-1.1ZM12 12.9 5.8 10.5l11.8-4.6L12 12.9Zm2.2 4.6-1.7-4.5 4.5-4.6-2.8 9.1Z"/></svg><span>Share</span></button><button type="button" class="inline-save-btn" data-save-post-index="${postIndex}" data-save-reel-index="${miniList.indexOf(reel)}" aria-label="रील सेव करें">Save</button></div></div>`;
         }).join('');
         
         reelsPreviewHtml = `
@@ -1615,7 +1769,7 @@
         : `<img src="${post.post_image}" style="width:100%; height:100%; max-height:360px; object-fit:cover; display:block;" alt="Post Image">`;
 
       html += `
-        <div class="post-card">
+        <div class="post-card" data-post-key="${encodeURIComponent(String(post.id || '') + '|' + String(post.post_image || ''))}">
           <div class="post-header">
             <div class="post-header-left" onclick="openMerchantPublicProfileById('${post.id}')">
               <div class="post-avatar-ring"><img src="${post.avatar}" class="post-avatar" alt="Store"></div>
@@ -1626,6 +1780,7 @@
           
           <div class="post-media-box" style="position:relative;" onclick="openFullPostView('${post.post_image}', '${encodeURIComponent(post.caption)}', ${post.isVideo})">
             ${mediaHtml}
+            <div class="post-action-cluster"><button type="button" class="inline-share-btn" data-share-post-index="${postIndex}" data-share-reel-index="-1" aria-label="पोस्ट शेयर करें"><svg class="share-plane-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.7 2.3 3.1 9.5c-.8.3-.8 1.4 0 1.7l7.1 2.7 2.7 7.1c.3.8 1.4.8 1.7 0l7.2-18.6c.3-.8-.3-1.4-1.1-1.1ZM12 12.9 5.8 10.5l11.8-4.6L12 12.9Zm2.2 4.6-1.7-4.5 4.5-4.6-2.8 9.1Z"/></svg><span>Share</span></button><button type="button" class="inline-save-btn" data-save-post-index="${postIndex}" data-save-reel-index="-1" aria-label="पोस्ट सेव करें">Save</button></div>
           </div>
           <div class="post-content-body" onclick="openFullPostView('${post.post_image}', '${encodeURIComponent(post.caption)}', ${post.isVideo})">
             <div style="font-size:13px; font-weight:700; color:#1F2937; word-break:break-word; white-space:pre-wrap; line-height:1.4;">${post.caption}</div>
@@ -1635,7 +1790,81 @@
         </div>`;
     });
     container.innerHTML = html;
-    attachFeedLongPressSaveActions(container, postsArray);
+    if (append && existingNodes.length > 0) {
+      const renderedNodes = Array.from(container.querySelectorAll('.post-card'));
+      const freshNodes = renderedNodes.filter(node => !existingKeys.has(node.dataset.postKey));
+      const freshPosts = postsArray.filter(post => !existingKeys.has(encodeURIComponent(String(post.id || '') + '|' + String(post.post_image || ''))));
+      container.replaceChildren(...existingNodes);
+      const staging = document.createElement('div');
+      freshNodes.forEach(node => staging.appendChild(node));
+      attachFeedLongPressSaveActions(staging, freshPosts);
+      attachInlineSaveButtons(staging, freshPosts);
+      freshNodes.forEach(node => container.appendChild(node));
+    } else {
+      attachFeedLongPressSaveActions(container, postsArray);
+      attachInlineSaveButtons(container, postsArray);
+    }
+  }
+
+  async function shareInlineFeedItem(post, reel = null) {
+    const source = reel || post || {};
+    const title = post.storeName || post.store_name || 'Star Shops';
+    const text = source.caption || source.description || post.caption || 'Star Shops post';
+    const mediaUrl = source.video_url || source.url || source.image_url || source.post_image || window.location.href;
+    const shareData = { title, text, url: mediaUrl || window.location.href };
+    try {
+      if (navigator.share) await navigator.share(shareData);
+      else if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(`${text} ${mediaUrl}`);
+        showAppNotice('Post link copied.', 'Share');
+      } else showAppNotice('Sharing is not available on this device.', 'Share');
+    } catch (e) {
+      if (e?.name !== 'AbortError') showAppNotice('Sharing could not be completed.', 'Share');
+    }
+  }
+
+  async function saveInlineFeedItem(post, reel = null) {
+    const source = reel || post || {};
+    const mediaUrl = source.video_url || source.url || source.image_url || source.post_image || '';
+    const storeName = post.storeName || post.store_name || 'Star Shops';
+    const offerText = source.caption || source.description || post.caption || '✨ बेहतरीन ऑफर';
+    const uniqueKey = `${post.id || storeName}|${mediaUrl}|${offerText}`;
+    const alreadySaved = savedReelsList.some(item => item.key === uniqueKey);
+    if (alreadySaved) { await showAppNotice('यह पोस्ट पहले से सेव है।', 'पहले से सेव'); return false; }
+    const confirmed = await openAppPrompt({
+      title: 'Star Shops में सेव करें',
+      message: 'यह reel रात के 12 बजे आपकी feed से गायब हो जाएगी। क्या आप इसे अभी सेव करना चाहते हैं?',
+      icon: '★', input: false, confirmText: 'सेव करें', cancelText: 'रद्द करें'
+    });
+    if (!confirmed) return false;
+    savedReelsList.unshift({ key: uniqueKey, store: storeName, location: post.address || post.distance || 'दिल्ली', offer: offerText, mediaUrl, expires: 'आज रात 12:00 बजे' });
+    localStorage.setItem('starshops_saved_deals', JSON.stringify(savedReelsList));
+    await showAppNotice('पोस्ट आपके सेव्ड डील्स में जोड़ दी गई।', 'सेव हो गया');
+    return true;
+  }
+
+  function attachInlineSaveButtons(container, postsArray) {
+    container.querySelectorAll('.inline-share-btn').forEach(button => {
+      button.addEventListener('pointerdown', event => event.stopPropagation(), { passive: true });
+      button.addEventListener('click', event => {
+        event.preventDefault(); event.stopPropagation();
+        const post = postsArray[Number(button.dataset.sharePostIndex)];
+        const reelIndex = Number(button.dataset.shareReelIndex);
+        const reel = reelIndex >= 0 ? post?.reels?.slice(0, 3)?.[reelIndex] : null;
+        shareInlineFeedItem(post, reel);
+      });
+    });
+    container.querySelectorAll('.inline-save-btn').forEach(button => {
+      button.addEventListener('pointerdown', event => event.stopPropagation(), { passive: true });
+      button.addEventListener('click', async event => {
+        event.preventDefault(); event.stopPropagation();
+        const post = postsArray[Number(button.dataset.savePostIndex)];
+        const reelIndex = Number(button.dataset.saveReelIndex);
+        const reel = reelIndex >= 0 ? post?.reels?.slice(0, 3)?.[reelIndex] : null;
+        const saved = await saveInlineFeedItem(post, reel);
+        if (saved) button.innerHTML = 'Save';
+      });
+    });
   }
 
   function attachFeedLongPressSaveActions(container, postsArray) {
@@ -1656,6 +1885,11 @@
         clearPressTimer();
         pressTimer = setTimeout(() => {
           longPressTriggered = true;
+          if (post.isStaticTestPost && localStorage.getItem('starshops_static_test_post_deleted_v1') !== 'true') {
+            card.remove();
+            showAppNotice('Post removed from this view.', 'Removed');
+            return;
+          }
           const actionId = `feed_${post.id || index}_${index}`;
           const stats = JSON.parse(localStorage.getItem('reel_stats_' + actionId) || 'null') || { likes: 0, shares: 0 };
           activeSelectedReelData = {
@@ -1692,6 +1926,32 @@
   }
 
   let currentVisibleAlertKeys = [];
+  let currentVisibleAlertItems = [];
+
+  // Seen notification timestamps: an alert remains available for 24 hours after first view.
+  function markNotificationAsSeen(itemKey) {
+    try {
+      const seenMap = JSON.parse(localStorage.getItem('star_seen_timestamps') || '{}');
+      if (!seenMap[itemKey]) {
+        seenMap[itemKey] = Date.now();
+        localStorage.setItem('star_seen_timestamps', JSON.stringify(seenMap));
+      }
+    } catch (e) {}
+  }
+
+  function getActiveUnexpiredNotifications(rawList) {
+    const list = Array.isArray(rawList) ? rawList : [];
+    const TWENTY_FOUR_HOURS = 24 * 60 * 60 * 1000;
+    const currentTime = Date.now();
+    let seenMap = {};
+    try { seenMap = JSON.parse(localStorage.getItem('star_seen_timestamps') || '{}'); } catch (e) { seenMap = {}; }
+
+    return list.filter(item => {
+      const key = `noti_${item.id || item.key}`;
+      const seenAt = Number(seenMap[key] || 0);
+      return !seenAt || (currentTime - seenAt) <= TWENTY_FOUR_HOURS;
+    });
+  }
 
   function getSeenAlertKeys() {
     try { return new Set(JSON.parse(localStorage.getItem('starshops_seen_alert_ids') || '[]')); }
@@ -1706,6 +1966,7 @@
   function markVisibleAlertsAsSeen() {
     const seen = getSeenAlertKeys();
     currentVisibleAlertKeys.forEach(key => seen.add(key));
+    currentVisibleAlertItems.forEach(item => markNotificationAsSeen(`noti_${item.id || item.key}`));
     localStorage.setItem('starshops_seen_alert_ids', JSON.stringify(Array.from(seen).slice(-500)));
     updateAlertsCountBadge(0);
   }
@@ -1722,6 +1983,8 @@
     const container = document.getElementById('liveAlertsContainer');
     storesArray = (storesArray || []).filter(store =>
       matchesSelectedArea(store) && (userStepsData.unlockedHighDiscount || !isHighDiscountMerchant(store)));
+    storesArray = getActiveUnexpiredNotifications(storesArray);
+    currentVisibleAlertItems = storesArray;
     currentVisibleAlertKeys = storesArray.map(getAlertKey);
     if (document.getElementById('tab-alerts')?.classList.contains('active')) {
       markVisibleAlertsAsSeen();
@@ -2402,39 +2665,7 @@
     if (rawConsumerFileEvt) rawConsumerFileEvt.target.value = "";
   }
 
-  function isEditableTarget(target) {
-    return !!(target && target.closest && target.closest('input, textarea, select, [contenteditable="true"], [data-allow-copy]'));
-  }
-
-  document.addEventListener('contextmenu', event => {
-    if (!isEditableTarget(event.target)) event.preventDefault();
-  }, true);
-  document.addEventListener('copy', event => {
-    if (!isEditableTarget(event.target)) event.preventDefault();
-  }, true);
-  document.addEventListener('cut', event => {
-    if (!isEditableTarget(event.target)) event.preventDefault();
-  }, true);
-  document.addEventListener('selectstart', event => {
-    if (!isEditableTarget(event.target)) event.preventDefault();
-  }, true);
-  document.addEventListener('keydown', event => {
-    const key = (event.key || '').toLowerCase();
-    const modified = event.ctrlKey || event.metaKey;
-    if (modified && key === 'p') {
-      event.preventDefault();
-      event.stopPropagation();
-      return;
-    }
-    if (isEditableTarget(event.target)) return;
-    if (modified && ['a', 'c', 'x', 's', 'u'].includes(key)) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-  }, true);
-  window.addEventListener('beforeprint', () => document.documentElement.classList.add('print-blocked'));
-  window.addEventListener('afterprint', () => document.documentElement.classList.remove('print-blocked'));
-  try { window.print = () => {}; } catch (e) {}
+  // Copy, text selection, context menu and print remain available for a frictionless consumer experience.
 
   // 🚨 NEW: Block Browser Default Media Notification Player 🚨
   document.addEventListener('play', function(e) {
