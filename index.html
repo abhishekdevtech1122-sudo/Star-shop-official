@@ -293,87 +293,126 @@
     .post-card { background: #FFFFFF; border-radius: 16px; border: 1px solid #E5E7EB; margin: 0 0 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.03); touch-action: pan-y; width: 100%; }
     .post-media-box { aspect-ratio: 4 / 5; min-height: 240px; max-height: 360px; }
     .post-media-box > img, .post-media-box > video { width: 100%; height: 100% !important; object-fit: cover; }
-    /* 🌟 प्रीमियम ग्लासमॉर्फिज्म एक्शन कैप्सूल */
-    .post-action-cluster {
-      position: absolute;
-      right: 12px;
-      bottom: 12px;
-      z-index: 10;
+    /* 🌟 स्केच के अनुसार कैप्शन के बगल में मिनिमलिस्ट एक्शन बार और डिवाइडर लाइन */
+    .post-footer-row {
       display: flex;
       align-items: center;
-      gap: 6px;
-      background: rgba(10, 10, 12, 0.75);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(212, 175, 55, 0.35);
-      padding: 5px 10px;
-      border-radius: 999px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+      justify-content: space-between;
+      padding: 10px 14px;
+      background: #FFFFFF;
+      border-top: 1px solid #E5E7EB;
     }
 
-    .inline-save-btn, .inline-share-btn {
-      position: static;
-      display: inline-flex;
+    .device-shell.high-discount-active .post-footer-row {
+      background: #0A0A0A !important;
+      border-top-color: rgba(212, 175, 55, 0.2) !important;
+    }
+
+    .post-caption-text {
+      font-size: 13px;
+      font-weight: 700;
+      color: #1F2937;
+      flex: 1;
+      word-break: break-word;
+      white-space: pre-wrap;
+      line-height: 1.4;
+      padding-right: 10px;
+    }
+
+    .device-shell.high-discount-active .post-caption-text {
+      color: #D1D5DB !important;
+    }
+
+    /* स्केच-स्टाइल एक्शन बार (शेयर | लाइन | सेव) */
+    .sketch-action-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #F8F9FA;
+      border: 1px solid #D1D5DB;
+      border-radius: 8px;
+      padding: 4px 8px;
+      flex-shrink: 0;
+    }
+
+    .device-shell.high-discount-active .sketch-action-bar {
+      background: #141414 !important;
+      border-color: rgba(212, 175, 55, 0.3) !important;
+    }
+
+    .sketch-btn {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      display: flex;
       align-items: center;
       justify-content: center;
-      gap: 5px;
-      height: 30px;
-      padding: 0 10px;
-      border: none;
-      border-radius: 999px;
-      background: transparent;
-      cursor: pointer;
-      transition: transform 0.15s ease, background 0.15s ease;
+      padding: 2px;
+      color: #111827;
+      transition: transform 0.1s ease;
     }
 
-    .inline-save-btn:active, .inline-share-btn:active {
-      transform: scale(0.92);
+    .device-shell.high-discount-active .sketch-btn {
+      color: #FCF6BA !important;
     }
 
-    /* सेव बटन (स्टार और टेक्स्ट) */
-    .inline-save-btn {
-      color: #FCF6BA;
-      font-size: 13px;
-      font-weight: 900;
-    }
-    .inline-save-btn::before {
-      content: "★";
-      font-size: 15px;
-      color: #D4AF37;
+    .sketch-btn:active {
+      transform: scale(0.9);
     }
 
-    /* शेयर बटन (प्लेन आइकॉन और टेक्स्ट) */
-    .inline-share-btn {
-      color: #E5E7EB;
-      font-size: 12px;
-      font-weight: 800;
+    /* बीच की पतली वर्टिकल डिवाइडर लाइन */
+    .sketch-divider {
+      width: 1px;
+      height: 16px;
+      background: #D1D5DB;
     }
+
+    .device-shell.high-discount-active .sketch-divider {
+      background: rgba(212, 175, 55, 0.3) !important;
+    }
+
     .share-plane-icon {
-      width: 15px;
-      height: 15px;
-      fill: currentColor;
-      transform: rotate(-10deg);
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
+    .sketch-icon {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .inline-save-btn.is-saved { color: #D4AF37; }
+    .inline-save-btn.is-saved .sketch-icon { fill: currentColor; }
 
     /* मिनी रील्स थंबनेल के अंदर कॉम्पैक्ट साइज */
-    .mini-reel-thumb .post-action-cluster {
+    .mini-reel-thumb .sketch-action-bar {
+      position: absolute;
       right: 4px;
       bottom: 4px;
       padding: 3px 6px;
       gap: 4px;
     }
-    .mini-reel-thumb .inline-save-btn,
-    .mini-reel-thumb .inline-share-btn {
+    .mini-reel-thumb .sketch-btn {
       font-size: 0;
       padding: 0;
       height: 24px;
       width: 24px;
+      border-radius: 50%;
     }
     .mini-reel-thumb .share-plane-icon {
       width: 13px;
       height: 13px;
     }
     .post-content-body { min-height: 64px; }
+    .post-bottom-bar .post-content-body { flex: 1; min-width: 0; min-height: 0; padding: 0; }
     .device-shell.high-discount-active .post-card { background: #0A0A0A !important; border-color: rgba(212,175,55,0.28) !important; }
     .post-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid #F3F4F6; }
     .post-header-left { display: flex; align-items: center; gap: 10px; cursor: pointer; }
@@ -1598,8 +1637,10 @@
     }
     
     try {
+      const merchantsQuery = supabaseClient.from('merchants').select('*');
+      if (append) merchantsQuery.range(feedMerchantOffset, feedMerchantOffset + FEED_PAGE_SIZE - 1);
       const [merchantsRes, reelsRes] = await Promise.all([
-        supabaseClient.from('merchants').select('*').range(feedMerchantOffset, feedMerchantOffset + FEED_PAGE_SIZE - 1),
+        merchantsQuery,
         supabaseClient.from('reels').select('*')
       ]);
       if (merchantsRes.error) throw merchantsRes.error;
@@ -1612,9 +1653,17 @@
 
       openStores.forEach((store, index) => {
         const storeId = store.id;
-        const merchantMedia = allReels.filter(r => r.merchant_id == storeId);
-
-        const storeVideos = merchantMedia.filter(m => m.media_type === 'video' || (!m.media_type && (m.video_url?.includes('.mp4') || m.video_url?.includes('reel'))));
+        const merchantMedia = allReels.filter(r => {
+          const reelMerchantId = r.merchant_id ?? r.merchantId ?? r.store_id ?? r.storeId;
+          return reelMerchantId != null && String(reelMerchantId) === String(storeId);
+        });
+        const getMediaUrl = media => media.video_url || media.video || media.media_url || media.url || media.image_url || media.post_image || '';
+        const isVideoMedia = media => {
+          const type = String(media.media_type || media.type || '').toLowerCase();
+          const url = String(getMediaUrl(media)).toLowerCase();
+          return type === 'video' || type === 'reel' || /\.(mp4|webm|mov|m4v|m3u8)(\?|#|$)/i.test(url) || url.includes('/video') || url.includes('reel');
+        };
+        const storeVideos = merchantMedia.filter(isVideoMedia);
 
         store.display_image = (store.image_url && store.image_url.trim() !== '') ? store.image_url : '';
         store.reels = Array.isArray(storeVideos) ? storeVideos : [];
@@ -1626,8 +1675,9 @@
 
         if (merchantMedia.length > 0) {
           merchantMedia.forEach(media => {
-            let pUrl = media.video_url || media.url || media.image_url;
-            let isVideo = media.media_type === 'video' || (!media.media_type && (pUrl?.includes('.mp4') || pUrl?.includes('reel')));
+            let pUrl = getMediaUrl(media);
+            let isVideo = isVideoMedia(media);
+            if (!pUrl) return;
             
             let pCap = media.caption || media.description;
             if (!pCap || pCap.trim() === '') {
@@ -1751,9 +1801,9 @@
       if (post.reels && post.reels.length > 0) {
         let miniList = post.reels.slice(0, 3);
         let thumbItems = miniList.map(reel => {
-          let vUrl = reel.video_url || reel.url || reel.image_url || '';
+          let vUrl = reel.video_url || reel.video || reel.media_url || reel.url || reel.image_url || reel.post_image || '';
           let mediaElement = `<video src="${vUrl}#t=0.1" preload="metadata" muted playsinline style="width:100%; height:100%; object-fit:cover; display:block; pointer-events:none;"></video>`;
-          return `<div class="mini-reel-thumb" onclick="openMerchantPublicProfileById('${post.id}')">${mediaElement}<div class="post-action-cluster"><button type="button" class="inline-share-btn" data-share-post-index="${postIndex}" data-share-reel-index="${miniList.indexOf(reel)}" aria-label="रील शेयर करें"><svg class="share-plane-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.7 2.3 3.1 9.5c-.8.3-.8 1.4 0 1.7l7.1 2.7 2.7 7.1c.3.8 1.4.8 1.7 0l7.2-18.6c.3-.8-.3-1.4-1.1-1.1ZM12 12.9 5.8 10.5l11.8-4.6L12 12.9Zm2.2 4.6-1.7-4.5 4.5-4.6-2.8 9.1Z"/></svg><span>Share</span></button><button type="button" class="inline-save-btn" data-save-post-index="${postIndex}" data-save-reel-index="${miniList.indexOf(reel)}" aria-label="रील सेव करें">Save</button></div></div>`;
+          return `<div class="mini-reel-thumb" onclick="openMerchantPublicProfileById('${post.id}')">${mediaElement}<div class="sketch-action-bar"><button type="button" class="sketch-btn inline-share-btn" data-share-post-index="${postIndex}" data-share-reel-index="${miniList.indexOf(reel)}" aria-label="रील शेयर करें"><svg class="sketch-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.7 2.3 3.1 9.5c-.8.3-.8 1.4 0 1.7l7.1 2.7 2.7 7.1c.3.8 1.4.8 1.7 0l7.2-18.6c.3-.8-.3-1.4-1.1-1.1ZM12 12.9 5.8 10.5l11.8-4.6L12 12.9Zm2.2 4.6-1.7-4.5 4.5-4.6-2.8 9.1Z"/></svg></button><span class="sketch-divider" aria-hidden="true"></span><button type="button" class="sketch-btn inline-save-btn" data-save-post-index="${postIndex}" data-save-reel-index="${miniList.indexOf(reel)}" aria-label="रील सेव करें"><svg class="sketch-icon" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></button></div></div>`;
         }).join('');
         
         reelsPreviewHtml = `
@@ -1778,12 +1828,24 @@
             <div class="post-more-info-text" onclick="openShopInfoModalSafe('${post.storeName}', '${post.category}', '${post.address}', '${encodeURIComponent(post.caption)}', '${encodeURIComponent(post.caption)}')">More Info</div>
           </div>
           
+          <!-- मीडिया पूरी तरह साफ -->
           <div class="post-media-box" style="position:relative;" onclick="openFullPostView('${post.post_image}', '${encodeURIComponent(post.caption)}', ${post.isVideo})">
             ${mediaHtml}
-            <div class="post-action-cluster"><button type="button" class="inline-share-btn" data-share-post-index="${postIndex}" data-share-reel-index="-1" aria-label="पोस्ट शेयर करें"><svg class="share-plane-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.7 2.3 3.1 9.5c-.8.3-.8 1.4 0 1.7l7.1 2.7 2.7 7.1c.3.8 1.4.8 1.7 0l7.2-18.6c.3-.8-.3-1.4-1.1-1.1ZM12 12.9 5.8 10.5l11.8-4.6L12 12.9Zm2.2 4.6-1.7-4.5 4.5-4.6-2.8 9.1Z"/></svg><span>Share</span></button><button type="button" class="inline-save-btn" data-save-post-index="${postIndex}" data-save-reel-index="-1" aria-label="पोस्ट सेव करें">Save</button></div>
           </div>
-          <div class="post-content-body" onclick="openFullPostView('${post.post_image}', '${encodeURIComponent(post.caption)}', ${post.isVideo})">
-            <div style="font-size:13px; font-weight:700; color:#1F2937; word-break:break-word; white-space:pre-wrap; line-height:1.4;">${post.caption}</div>
+          <!-- स्केच के मुताबिक कैप्शन और एक्शन बार -->
+          <div class="post-footer-row">
+            <div class="post-caption-text" onclick="openFullPostView('${post.post_image}', '${encodeURIComponent(post.caption)}', ${post.isVideo})">
+              ${post.caption}
+            </div>
+            <div class="sketch-action-bar">
+              <button type="button" class="sketch-btn inline-share-btn" data-share-post-index="${postIndex}" data-share-reel-index="-1" aria-label="शेयर करें">
+                <svg class="sketch-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 2L11 13M22 2L15 22L11 13L2 9L22 2Z"/></svg>
+              </button>
+              <div class="sketch-divider" aria-hidden="true"></div>
+              <button type="button" class="sketch-btn inline-save-btn" data-save-post-index="${postIndex}" data-save-reel-index="-1" aria-label="सेव करें">
+                <svg class="sketch-icon" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </button>
+            </div>
           </div>
           
           ${reelsPreviewHtml}
@@ -1797,8 +1859,8 @@
       container.replaceChildren(...existingNodes);
       const staging = document.createElement('div');
       freshNodes.forEach(node => staging.appendChild(node));
-      attachFeedLongPressSaveActions(staging, freshPosts);
-      attachInlineSaveButtons(staging, freshPosts);
+      attachFeedLongPressSaveActions(staging, postsArray);
+      attachInlineSaveButtons(staging, postsArray);
       freshNodes.forEach(node => container.appendChild(node));
     } else {
       attachFeedLongPressSaveActions(container, postsArray);
@@ -1810,36 +1872,47 @@
     const source = reel || post || {};
     const title = post.storeName || post.store_name || 'Star Shops';
     const text = source.caption || source.description || post.caption || 'Star Shops post';
-    const mediaUrl = source.video_url || source.url || source.image_url || source.post_image || window.location.href;
-    const shareData = { title, text, url: mediaUrl || window.location.href };
+    const mediaUrl = source.video_url || source.video || source.media_url || source.url || source.image_url || source.post_image || window.location.href;
+    const shareData = { title, text, url: mediaUrl };
     try {
-      if (navigator.share) await navigator.share(shareData);
-      else if (navigator.clipboard?.writeText) {
-        await navigator.clipboard.writeText(`${text} ${mediaUrl}`);
-        showAppNotice('Post link copied.', 'Share');
-      } else showAppNotice('Sharing is not available on this device.', 'Share');
+      if (typeof navigator.share !== 'function') {
+        await showAppNotice('इस device पर native share उपलब्ध नहीं है।', 'Share');
+        return false;
+      }
+      await navigator.share(shareData);
+      return true;
     } catch (e) {
-      if (e?.name !== 'AbortError') showAppNotice('Sharing could not be completed.', 'Share');
+      if (e?.name !== 'AbortError') await showAppNotice('Sharing पूरा नहीं हो सका।', 'Share');
+      return false;
     }
   }
 
-  async function saveInlineFeedItem(post, reel = null) {
+  function getInlineSaveKey(post, reel = null) {
     const source = reel || post || {};
-    const mediaUrl = source.video_url || source.url || source.image_url || source.post_image || '';
+    const mediaUrl = source.video_url || source.video || source.media_url || source.url || source.image_url || source.post_image || '';
     const storeName = post.storeName || post.store_name || 'Star Shops';
     const offerText = source.caption || source.description || post.caption || '✨ बेहतरीन ऑफर';
-    const uniqueKey = `${post.id || storeName}|${mediaUrl}|${offerText}`;
+    return { key: `${post.id || storeName}|${mediaUrl}|${offerText}`, storeName, offerText, mediaUrl };
+  }
+
+  function setInlineSaveButtonState(button, saved) {
+    if (!button) return;
+    button.classList.toggle('is-saved', saved);
+    button.setAttribute('aria-label', saved ? 'अनसेव करें' : 'सेव करें');
+  }
+
+  async function saveInlineFeedItem(post, reel = null) {
+    const { key: uniqueKey, storeName, offerText, mediaUrl } = getInlineSaveKey(post, reel);
     const alreadySaved = savedReelsList.some(item => item.key === uniqueKey);
-    if (alreadySaved) { await showAppNotice('यह पोस्ट पहले से सेव है।', 'पहले से सेव'); return false; }
-    const confirmed = await openAppPrompt({
-      title: 'Star Shops में सेव करें',
-      message: 'यह reel रात के 12 बजे आपकी feed से गायब हो जाएगी। क्या आप इसे अभी सेव करना चाहते हैं?',
-      icon: '★', input: false, confirmText: 'सेव करें', cancelText: 'रद्द करें'
-    });
-    if (!confirmed) return false;
+    if (alreadySaved) {
+      savedReelsList = savedReelsList.filter(item => item.key !== uniqueKey);
+      localStorage.setItem('starshops_saved_deals', JSON.stringify(savedReelsList));
+      showAppNotice('पोस्ट सेव्ड डील्स से हटा दी गई।', 'अनसेव हो गया');
+      return false;
+    }
     savedReelsList.unshift({ key: uniqueKey, store: storeName, location: post.address || post.distance || 'दिल्ली', offer: offerText, mediaUrl, expires: 'आज रात 12:00 बजे' });
     localStorage.setItem('starshops_saved_deals', JSON.stringify(savedReelsList));
-    await showAppNotice('पोस्ट आपके सेव्ड डील्स में जोड़ दी गई।', 'सेव हो गया');
+    showAppNotice('पोस्ट आपके सेव्ड डील्स में जोड़ दी गई।', 'सेव हो गया');
     return true;
   }
 
@@ -1862,8 +1935,13 @@
         const reelIndex = Number(button.dataset.saveReelIndex);
         const reel = reelIndex >= 0 ? post?.reels?.slice(0, 3)?.[reelIndex] : null;
         const saved = await saveInlineFeedItem(post, reel);
-        if (saved) button.innerHTML = 'Save';
+        if (saved !== null) setInlineSaveButtonState(button, saved);
       });
+      const post = postsArray[Number(button.dataset.savePostIndex)];
+      const reelIndex = Number(button.dataset.saveReelIndex);
+      const reel = reelIndex >= 0 ? post?.reels?.slice(0, 3)?.[reelIndex] : null;
+      const { key } = getInlineSaveKey(post, reel);
+      setInlineSaveButtonState(button, savedReelsList.some(item => item.key === key));
     });
   }
 
@@ -2220,7 +2298,7 @@
   function renderStoryStyleGrid(reelsList, store, wrapperContainer) {
     let gridHtml = `<div class="merchant-gallery-grid" id="merchantGalleryGridContainer">`;
     reelsList.forEach((reel, idx) => {
-      let vUrl = reel.video_url || reel.url || reel.image_url || '';
+      let vUrl = reel.video_url || reel.video || reel.media_url || reel.url || reel.image_url || reel.post_image || '';
       let reelCaption = reel.caption || reel.description || ''; 
       let encodedCaption = encodeURIComponent(reelCaption || 'विशेष ऑफर');
       
