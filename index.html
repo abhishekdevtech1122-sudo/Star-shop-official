@@ -15,8 +15,8 @@
       -webkit-tap-highlight-color: transparent;
       touch-action: manipulation;
     }
-    html, body, .device-shell { -webkit-user-select: text; user-select: text; -webkit-touch-callout: default; }
-    input, textarea, select, [contenteditable="true"] { -webkit-user-select: text; user-select: text; -webkit-touch-callout: default; }
+    html, body, .device-shell { -webkit-user-select: none !important; user-select: none !important; -webkit-touch-callout: none !important; }
+    input, textarea, select, [contenteditable="true"] { -webkit-user-select: text !important; user-select: text !important; -webkit-touch-callout: default !important; }
 
     /* 🔒 PERMANENT FULL-MODE DEVICE SHELL LOCK (डिफ़ॉल्ट और डेस्कटॉप मोड दोनों के लिए फिक्स) 🔒 */
     html, body {
@@ -212,7 +212,7 @@
       transition: transform 0.3s ease-in-out;
     }
 
-    .brand-title { font-size: 20px; font-weight: 900; letter-spacing: 1.5px; color: #111827; display: flex; align-items: center; gap: 6px; }
+    .brand-title { font-size: 20px; font-weight: 900; letter-spacing: 1.5px; color: #111827; display: flex; align-items: center; gap: 6px; user-select: none; }
     .brand-title .star-badge { color: #F59E0B; font-size: 16px; }
     .header-right-box { display: flex; align-items: center; gap: 8px; }
     .step-pill { background: #FFFBEB; border: 1px solid #FDE68A; padding: 6px 14px; border-radius: 20px; color: #B45309; font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 5px; cursor: pointer; }
@@ -223,7 +223,7 @@
     .categories-bar { display: flex; align-items: center; gap: 10px; padding: 10px 16px 14px 16px; width: 100%; overflow-x: auto; scrollbar-width: none; z-index: 30; }
     .categories-bar::-webkit-scrollbar { display: none; }
     
-    .category-chip { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; height: 34px; background: #FFFFFF; border: 1px solid #E5E7EB; padding: 0 16px; border-radius: 20px; font-size: 12px; font-weight: 700; color: #4B5563; cursor: pointer; white-space: nowrap; transition: all 0.2s ease; }
+    .category-chip { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; height: 34px; background: #FFFFFF; border: 1px solid #E5E7EB; padding: 0 16px; border-radius: 20px; font-size: 12px; font-weight: 700; color: #4B5563; cursor: pointer; white-space: nowrap; user-select: none; transition: all 0.2s ease; }
     .category-chip.active { background: #111827; color: #FFFFFF; border-color: #111827; }
     .category-chip.chip-open-today { background: #ECFDF5; color: #047857; border-color: #A7F3D0; }
     .category-chip.chip-open-today.active { background: #059669; color: #FFFFFF; border-color: #059669; }
@@ -290,129 +290,7 @@
     .scan-action-btn.reclaim-btn { background: linear-gradient(135deg, #D97706, #B45309) !important; }
     .info-btn-grocery { background: #FFFBEB; border: 1px solid #FDE68A; color: #B45309; padding: 6px 10px; border-radius: 8px; font-size: 12px; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 4px; }
 
-    .post-card { background: #FFFFFF; border-radius: 16px; border: 1px solid #E5E7EB; margin: 0 0 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.03); touch-action: pan-y; width: 100%; }
-    .post-media-box { aspect-ratio: 4 / 5; min-height: 240px; max-height: 360px; }
-    .post-media-box > img, .post-media-box > video { width: 100%; height: 100% !important; object-fit: cover; }
-    /* 🌟 स्केच के अनुसार कैप्शन के बगल में मिनिमलिस्ट एक्शन बार और डिवाइडर लाइन */
-    .post-footer-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 14px;
-      background: #FFFFFF;
-      border-top: 1px solid #E5E7EB;
-    }
-
-    .device-shell.high-discount-active .post-footer-row {
-      background: #0A0A0A !important;
-      border-top-color: rgba(212, 175, 55, 0.2) !important;
-    }
-
-    .post-caption-text {
-      font-size: 13px;
-      font-weight: 700;
-      color: #1F2937;
-      flex: 1;
-      word-break: break-word;
-      white-space: pre-wrap;
-      line-height: 1.4;
-      padding-right: 10px;
-    }
-
-    .device-shell.high-discount-active .post-caption-text {
-      color: #D1D5DB !important;
-    }
-
-    /* स्केच-स्टाइल एक्शन बार (शेयर | लाइन | सेव) */
-    .sketch-action-bar {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: #F8F9FA;
-      border: 1px solid #D1D5DB;
-      border-radius: 8px;
-      padding: 4px 8px;
-      flex-shrink: 0;
-    }
-
-    .device-shell.high-discount-active .sketch-action-bar {
-      background: #141414 !important;
-      border-color: rgba(212, 175, 55, 0.3) !important;
-    }
-
-    .sketch-btn {
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2px;
-      color: #111827;
-      transition: transform 0.1s ease;
-    }
-
-    .device-shell.high-discount-active .sketch-btn {
-      color: #FCF6BA !important;
-    }
-
-    .sketch-btn:active {
-      transform: scale(0.9);
-    }
-
-    /* बीच की पतली वर्टिकल डिवाइडर लाइन */
-    .sketch-divider {
-      width: 1px;
-      height: 16px;
-      background: #D1D5DB;
-    }
-
-    .device-shell.high-discount-active .sketch-divider {
-      background: rgba(212, 175, 55, 0.3) !important;
-    }
-
-    .share-plane-icon {
-      width: 18px;
-      height: 18px;
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-    .sketch-icon {
-      width: 18px;
-      height: 18px;
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-    .inline-save-btn.is-saved { color: #D4AF37; }
-    .inline-save-btn.is-saved .sketch-icon { fill: currentColor; }
-
-    /* मिनी रील्स थंबनेल के अंदर कॉम्पैक्ट साइज */
-    .mini-reel-thumb .sketch-action-bar {
-      position: absolute;
-      right: 4px;
-      bottom: 4px;
-      padding: 3px 6px;
-      gap: 4px;
-    }
-    .mini-reel-thumb .sketch-btn {
-      font-size: 0;
-      padding: 0;
-      height: 24px;
-      width: 24px;
-      border-radius: 50%;
-    }
-    .mini-reel-thumb .share-plane-icon {
-      width: 13px;
-      height: 13px;
-    }
-    .post-content-body { min-height: 64px; }
-    .post-bottom-bar .post-content-body { flex: 1; min-width: 0; min-height: 0; padding: 0; }
+    .post-card { background: #FFFFFF; border-radius: 16px; border: 1px solid #E5E7EB; margin-bottom: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.03); touch-action: pan-y; }
     .device-shell.high-discount-active .post-card { background: #0A0A0A !important; border-color: rgba(212,175,55,0.28) !important; }
     .post-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid #F3F4F6; }
     .post-header-left { display: flex; align-items: center; gap: 10px; cursor: pointer; }
@@ -442,6 +320,10 @@
     .story-tap-left { position: absolute; top: 0; left: 0; width: 40%; height: 100%; z-index: 15; }
     .story-tap-right { position: absolute; top: 0; right: 0; width: 60%; height: 100%; z-index: 15; }
     .story-water-play-btn { position: absolute; bottom: 12px; right: 12px; background: rgba(0, 0, 0, 0.45); border: 1px solid rgba(255, 255, 255, 0.25); color: #fff; padding: 5px 12px; border-radius: 16px; font-size: 10px; font-weight: 700; cursor: pointer; z-index: 25; backdrop-filter: blur(4px); letter-spacing: 0.5px; }
+    .story-music-btn { position:absolute; bottom:12px; left:12px; z-index:26; background:rgba(0,0,0,.62); border:1px solid rgba(255,255,255,.35); color:#fff; padding:7px 12px; border-radius:18px; font-size:11px; font-weight:800; cursor:pointer; backdrop-filter:blur(5px); }
+    .post-music-row { padding:0 16px 12px; }
+    .post-music-btn { border:1px solid #FDE68A; background:#FFFBEB; color:#92400E; border-radius:18px; padding:7px 12px; font-size:12px; font-weight:800; cursor:pointer; }
+    .post-music-btn.is-playing, .story-music-btn.is-playing { background:#F59E0B; color:#111827; }
 
     /* Modal Styling */
     .reel-popup-action-overlay, .crop-modal-overlay, .scanner-modal-overlay, .success-modal-overlay, .shop-profile-modal, .auth-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 999999 !important; display: none; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(5px); }
@@ -459,19 +341,6 @@
 
     .pin-input-box { width: 100%; padding: 12px; border: 2px solid #E5E7EB; border-radius: 12px; font-size: 18px; text-align: center; letter-spacing: 8px; font-weight: 800; outline: none; margin-top: 8px; }
     .pin-input-box:focus { border-color: #F59E0B; }
-    #offlineFallbackBanner { position: fixed; top: 0; left: 50%; transform: translate(-50%, -120%); width: min(100%, 480px); z-index: 10000002; padding: 10px 14px; background: linear-gradient(135deg, #111111, #2a2110); color: #FCF6BA; border-bottom: 1px solid #D4AF37; box-shadow: 0 5px 18px rgba(0,0,0,.3); text-align: center; font-size: 12px; font-weight: 800; transition: transform .25s ease; }
-    #offlineFallbackBanner.visible { transform: translate(-50%, 0); }
-    #customLocationWizardOverlay { position: fixed; inset: 0; z-index: 10000001; display: none; align-items: center; justify-content: center; padding: 22px; background: rgba(0,0,0,.82); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
-    #customLocationWizardOverlay.open { display: flex; }
-    .location-wizard-card { width: 100%; max-width: 370px; padding: 26px 20px 20px; border-radius: 24px; border: 1px solid rgba(212,175,55,.75); background: radial-gradient(ellipse at top, #2a2417 0%, #090909 72%); color: #fff; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,.6), 0 0 28px rgba(212,175,55,.16); }
-    .location-wizard-radar { width: 70px; height: 70px; margin: 0 auto 14px; border: 2px solid #D4AF37; border-radius: 50%; display: grid; place-items: center; color: #FCF6BA; font-size: 32px; box-shadow: 0 0 0 8px rgba(212,175,55,.08), 0 0 25px rgba(212,175,55,.28); }
-    .location-wizard-card h2 { color: #FCF6BA; font-size: 19px; margin-bottom: 8px; }
-    .location-wizard-card p { color: #D1D5DB; font-size: 13px; line-height: 1.55; margin-bottom: 18px; }
-    .location-wizard-actions { display: flex; gap: 9px; }
-    .location-wizard-actions button { flex: 1; min-height: 44px; border-radius: 12px; font-size: 13px; font-weight: 900; cursor: pointer; }
-    .location-wizard-primary { border: 0; color: #15110A; background: linear-gradient(120deg, #BF953F, #FCF6BA, #B38728); }
-    .location-wizard-secondary { color: #E5E7EB; background: #171717; border: 1px solid #3F3F46; }
-
     .app-prompt-overlay { position: fixed; inset: 0; z-index: 10000000; display: none; align-items: center; justify-content: center; padding: 22px; background: rgba(0,0,0,0.78); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
     .app-prompt-overlay.open { display: flex; }
     .app-prompt-card { width: 100%; max-width: 360px; padding: 24px 20px 18px; border-radius: 22px; border: 1px solid rgba(212,175,55,0.65); background: radial-gradient(ellipse at top, #252016 0%, #0A0A0A 72%); color: #FFFFFF; box-shadow: 0 20px 60px rgba(0,0,0,0.55), 0 0 24px rgba(212,175,55,0.12); }
@@ -518,7 +387,7 @@
 
     /* --- SYNCED BOTTOM NAV CSS --- */
     .bottom-nav { position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important; width: 100% !important; max-width: 480px !important; margin: 0 auto !important; height: 60px !important; background: #FFFFFF !important; border-top: 1px solid #E5E7EB !important; display: flex !important; justify-content: space-around !important; align-items: center !important; z-index: 9999 !important; box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05); transition: transform 0.3s ease-in-out; }
-    .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 10px; color: #6B7280; cursor: pointer; height: 100%; transition: color 0.3s ease; }
+    .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 10px; color: #6B7280; cursor: pointer; user-select: none; height: 100%; transition: color 0.3s ease; }
     .nav-item.active { color: #111827; font-weight: 800; }
     
     .nav-item .icon { display: flex; align-items: center; justify-content: center; height: 30px; margin-bottom: 2px; position: relative; }
@@ -687,6 +556,11 @@
   <main id="tab-home" class="tab-screen active">
     <!-- 1. LIVE STORES VIEW (IN-RANGE) -->
     <div id="inRangeContent" style="display:block;">
+      <div class="search-box">
+        <span>🔍</span>
+        <input type="text" id="storeSearchInput" placeholder="दुकान, लोकेशन, 'high' या 'claimed' खोजें..." oninput="fastSearchStores(this.value)">
+      </div>
+
       <div class="categories-bar" id="appCategoriesBar">
         <div class="category-chip active" onclick="filterCategory('ALL', this)" id="chipAll">ALL</div>
         <div class="category-chip chip-open-today" onclick="filterCategory('OPENTODAY', this)">⚡ OPEN TODAY</div>
@@ -846,29 +720,14 @@
 
 </div>
 
-<div id="offlineFallbackBanner" role="status" aria-live="polite">ऑफ़लाइन मोड: पिछला डेटा दिखाया जा रहा है</div>
-
-<div id="customLocationWizardOverlay" aria-hidden="true">
-  <div class="location-wizard-card" role="dialog" aria-modal="true" aria-labelledby="locationWizardTitle">
-    <div class="location-wizard-radar">📍</div>
-    <h2 id="locationWizardTitle">आपके पास की दुकानें खोजें</h2>
-    <p id="locationWizardMessage">लोकेशन ऑन करने पर हम आपके आसपास के Star Shops और ऑफर्स दिखाएंगे। आपकी अनुमति के बिना GPS शुरू नहीं होगा।</p>
-    <div class="location-wizard-actions">
-      <button class="location-wizard-secondary" type="button" onclick="useDefaultLocationFallback()">अभी नहीं</button>
-      <button class="location-wizard-primary" type="button" onclick="startLocationPermissionFlow()">लोकेशन ऑन करें 🚀</button>
-    </div>
-    <button type="button" onclick="promptManualLocation(); closeLocationWizard();" style="width:100%;margin-top:10px;background:transparent;color:#FCF6BA;border:0;padding:8px;font-size:12px;font-weight:800;cursor:pointer;">या एरिया मैन्युअली चुनें</button>
-  </div>
-</div>
-
-<!-- 🚨 GPS Forced Scanning Blur Overlay & Card 🚨 -->
+<!-- GPS scan status popup: fetch coordinates and show nearby shops -->
 <div class="gps-scan-overlay" id="gpsScanOverlay">
   <div class="gps-scan-card">
     <div class="gps-spinner"></div>
-    <div style="font-size: 16px; font-weight: 900; color: #111827; margin-bottom: 6px;">📍 GPS लोकेशन स्कैन हो रही है</div>
-    <div style="font-size: 12px; color: #4B5563; line-height: 1.5; margin-bottom: 16px;" id="gpsScanStatusText">आपके आसपास की दुकानें खोजने के लिए कृपया GPS/लोकेशन ऑन रखें...</div>
-    <button onclick="forceRetryGPSScan()" style="width: 100%; padding: 11px; background: #111827; color: #FFF; border: none; border-radius: 10px; font-weight: 800; font-size: 13px; cursor: pointer;">लोकेशन ऑन करें / रिफ्रेश करें 🔄</button>
-    <button onclick="promptManualLocation()" style="width: 100%; padding: 10px; margin-top: 8px; background: #FFFFFF; color: #111827; border: 1px solid #D1D5DB; border-radius: 10px; font-weight: 800; font-size: 12px; cursor: pointer;">या एरिया मैन्युअली चुनें</button>
+    <div style="font-size:16px;font-weight:900;color:#111827;margin-bottom:6px;">📍 GPS coordinates मिल रहे हैं</div>
+    <div style="font-size:12px;color:#4B5563;line-height:1.5;margin-bottom:16px;" id="gpsScanStatusText">आपकी GPS लोकेशन लेकर आसपास की दुकानों को दूरी के अनुसार दिखाया जाएगा।</div>
+    <button onclick="forceRetryGPSScan()" style="width:100%;padding:11px;background:#111827;color:#FFF;border:none;border-radius:10px;font-weight:800;font-size:13px;cursor:pointer;">GPS से दोबारा लोकेशन लें 🔄</button>
+    <button onclick="promptManualLocation()" style="width:100%;padding:10px;margin-top:8px;background:#FFFFFF;color:#111827;border:1px solid #D1D5DB;border-radius:10px;font-weight:800;font-size:12px;cursor:pointer;">या area manually चुनें</button>
   </div>
 </div>
 
@@ -1033,69 +892,79 @@
     }
   }
 
-  const DEFAULT_LOCATION = { lat: 28.7241, lon: 77.0638, label: 'बेगमपुर/रोहिणी, दिल्ली' };
-  let locationPermissionRequested = localStorage.getItem('starshops_location_permission_requested') === 'true';
-  let locationWizardFallbackTimer = null;
-
-  function closeLocationWizard() {
-    const overlay = document.getElementById('customLocationWizardOverlay');
-    if (overlay) { overlay.classList.remove('open'); overlay.setAttribute('aria-hidden', 'true'); }
-  }
-  function openLocationWizard() {
-    const overlay = document.getElementById('customLocationWizardOverlay');
-    if (overlay) { overlay.classList.add('open'); overlay.setAttribute('aria-hidden', 'false'); }
-  }
-  function setFallbackLocation() {
-    homeLat = DEFAULT_LOCATION.lat; homeLon = DEFAULT_LOCATION.lon;
-    manualLocationSelected = false; gpsResolvedOnce = true;
-    const locationText = document.getElementById('headerLocationText');
-    if (locationText) locationText.innerText = DEFAULT_LOCATION.label;
-    closeLocationWizard();
-    const oldOverlay = document.getElementById('gpsScanOverlay');
-    if (oldOverlay) oldOverlay.classList.remove('open');
-    if (gpsScanInterval) { clearInterval(gpsScanInterval); gpsScanInterval = null; }
-    applyLocationFilter();
-  }
-  function useDefaultLocationFallback() { setFallbackLocation(); }
-  function startLocationPermissionFlow() {
-    locationPermissionRequested = true;
-    localStorage.setItem('starshops_location_permission_requested', 'true');
-    const wizardTitle = document.getElementById('locationWizardTitle');
-    const wizardMessage = document.getElementById('locationWizardMessage');
-    if (wizardTitle) wizardTitle.innerText = 'लोकेशन सिग्नल खोजा जा रहा है';
-    if (wizardMessage) wizardMessage.innerText = 'कृपया कुछ सेकंड प्रतीक्षा करें। सिग्नल न मिलने पर बेगमपुर/रोहिणी का डिफ़ॉल्ट ज़ोन अपने-आप लोड हो जाएगा।';
-    if (typeof AndroidNative !== 'undefined' && AndroidNative.turnOnGPS) { try { AndroidNative.turnOnGPS(); } catch (e) {} }
-    if (!navigator.geolocation) { setFallbackLocation(); return; }
-    const status = document.getElementById('gpsScanStatusText');
-    if (status) status.innerText = 'लोकेशन सिग्नल खोजा जा रहा है...';
-    if (locationWizardFallbackTimer) clearTimeout(locationWizardFallbackTimer);
-    locationWizardFallbackTimer = setTimeout(() => setFallbackLocation(), 7500);
-    navigator.geolocation.getCurrentPosition(position => {
-      clearTimeout(locationWizardFallbackTimer); locationWizardFallbackTimer = null;
-      homeLat = position.coords.latitude; homeLon = position.coords.longitude;
-      manualLocationSelected = false; gpsResolvedOnce = true;
-      const locationText = document.getElementById('headerLocationText');
-      if (locationText) locationText.innerText = 'आपकी लोकेशन';
-      applyLocationFilter();
-    }, () => { setFallbackLocation(); }, { enableHighAccuracy: true, timeout: 7000, maximumAge: 30000 });
-  }
   function requestFirstTimeLocation() {
-    if (!gpsResolvedOnce && homeLat === null && !manualLocationSelected) openLocationWizard();
+    if (!localStorage.getItem('starshops_loc_permission_asked')) {
+      localStorage.setItem('starshops_loc_permission_asked', 'true');
+      if (typeof AndroidNative !== 'undefined' && AndroidNative.turnOnGPS) {
+        AndroidNative.turnOnGPS();
+      } else if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(){}, function(){});
+      }
+    }
   }
 
   const SUPABASE_URL = "https://gejrzpflcuvlbpedliwq.supabase.co";
   const SUPABASE_ANON_KEY = "sb_publishable_dw9J2AX0nd3SxPrRy9JGCg_YqS8ZfUF";
   const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  const SUPABASE_PAGE_SIZE = 1000;
+  const SUPABASE_CATALOG_CACHE_TTL = 5 * 60 * 1000;
+  let supabaseCatalogCache = { merchants: [], reels: [], loadedAt: 0 };
+  let supabaseCatalogLoadPromise = null;
+
+  async function fetchCompleteSupabaseTable(tableName) {
+    const countResult = await supabaseClient.from(tableName).select('*', { count: 'exact', head: true });
+    if (countResult.error) throw countResult.error;
+    const total = Number(countResult.count || 0);
+    if (!total) return [];
+    const offsets = Array.from({ length: Math.ceil(total / SUPABASE_PAGE_SIZE) }, (_, i) => i * SUPABASE_PAGE_SIZE);
+    const rows = [];
+    for (let i = 0; i < offsets.length; i += 4) {
+      const pages = await Promise.all(offsets.slice(i, i + 4).map(async from => {
+        const { data, error } = await supabaseClient.from(tableName).select('*').order('id', { ascending: true }).range(from, from + SUPABASE_PAGE_SIZE - 1);
+        if (error) throw error;
+        return data || [];
+      }));
+      pages.forEach(page => rows.push(...page));
+    }
+    return rows;
+  }
+
+  async function getSupabaseCatalog(forceRefresh = false) {
+    const fresh = supabaseCatalogCache.loadedAt && Date.now() - supabaseCatalogCache.loadedAt < SUPABASE_CATALOG_CACHE_TTL;
+    if (!forceRefresh && fresh) return supabaseCatalogCache;
+    if (supabaseCatalogLoadPromise) return supabaseCatalogLoadPromise;
+    supabaseCatalogLoadPromise = (async () => {
+      const [merchants, reels] = await Promise.all([
+        fetchCompleteSupabaseTable('merchants'), fetchCompleteSupabaseTable('reels')
+      ]);
+      supabaseCatalogCache = { merchants, reels, loadedAt: Date.now() };
+      return supabaseCatalogCache;
+    })();
+    try { return await supabaseCatalogLoadPromise; }
+    finally { supabaseCatalogLoadPromise = null; }
+  }
+
+  function applyRealtimeRowToCatalog(payload) {
+    const tableKey = payload?.table === 'merchants' ? 'merchants' : payload?.table === 'reels' ? 'reels' : '';
+    if (!tableKey || !supabaseCatalogCache.loadedAt) return;
+    const isDelete = payload.eventType === 'DELETE';
+    const row = isDelete ? payload.old : payload.new;
+    if (!row || row.id === undefined || row.id === null) { supabaseCatalogCache.loadedAt = 0; return; }
+    const rows = supabaseCatalogCache[tableKey];
+    const index = rows.findIndex(item => String(item.id) === String(row.id));
+    if (isDelete) { if (index >= 0) rows.splice(index, 1); }
+    else if (index >= 0) rows[index] = { ...rows[index], ...row };
+    else rows.push(row);
+  }
 
   let homeLat = null, homeLon = null, userCurrentState = "", userCurrentCity = "";
   let currentShopperName = ""; let currentUserPhone = "";
   let activeShopName = "", activeShopDiscount = 0, activeCardId = null, activeClaimTitle = "";
   let todayClaimCount = 0, totalClaimedCardsCount = 0;
   let liveSupabaseStores = [];
-  const FEED_PAGE_SIZE = 12;
-  let feedMerchantOffset = 0;
-  let feedHasMore = true;
-  const MERCHANT_CACHE_KEY = 'starshops_cached_feed_v1';
+  let searchableSupabaseStores = [];
+  let activeStoreSearchQuery = '';
+  let activeStoreCategory = 'ALL';
   let lastStoresRenderFingerprint = '';
   let lastPostsRenderFingerprint = '';
   let realtimeSyncChannel = null;
@@ -1129,7 +998,10 @@
   }
 
   let activeSelectedReelData = { id: '', store: '', caption: '', url: '', likes: 0, shares: 0 };
-  let isGloballyPlaying = true; 
+  let isGloballyPlaying = true;
+  let activePostMusicAudio = null;
+  let activePostMusicUrl = '';
+  let activePostMusicButton = null; 
 
   let deviceUserId = localStorage.getItem('starshops_device_uuid');
   if (!deviceUserId) {
@@ -1150,19 +1022,15 @@
   let pullGestureStartY = 0;
   let isTrackingPullGesture = false;
   let pullDistance = 0;
-  let pullGestureMode = 'top';
 
   function initPullToRefresh() {
     const indicator = document.getElementById('pullRefreshIndicator');
     const indicatorText = document.getElementById('pullRefreshText');
     const isPageAtTop = () => (document.scrollingElement?.scrollTop || window.scrollY || 0) <= 2;
-    const isPageAtBottom = () => (window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 8);
     const canRefreshCurrentTab = () => ['tab-home', 'tab-alerts', 'tab-posts'].some(id => document.getElementById(id)?.classList.contains('active'));
 
     document.addEventListener('touchstart', event => {
-      if (isPullRefreshActive || !canRefreshCurrentTab() || !event.touches.length) return;
-      if (!isPageAtTop() && !isPageAtBottom()) return;
-      pullGestureMode = isPageAtBottom() ? 'bottom' : 'top';
+      if (isPullRefreshActive || !canRefreshCurrentTab() || !isPageAtTop() || !event.touches.length) return;
       pullGestureStartY = event.touches[0].clientY;
       pullDistance = 0;
       isTrackingPullGesture = true;
@@ -1170,8 +1038,7 @@
 
     document.addEventListener('touchmove', event => {
       if (!isTrackingPullGesture || !event.touches.length) return;
-      const deltaY = event.touches[0].clientY - pullGestureStartY;
-      pullDistance = pullGestureMode === 'bottom' ? -deltaY : deltaY;
+      pullDistance = event.touches[0].clientY - pullGestureStartY;
       if (pullDistance <= 0) { isTrackingPullGesture = false; return; }
       if (pullDistance > 10) event.preventDefault();
       if (pullDistance > 18) {
@@ -1184,7 +1051,7 @@
     const finishGesture = () => {
       if (!isTrackingPullGesture) return;
       isTrackingPullGesture = false;
-      if (pullDistance >= 72) runPullToRefresh(pullGestureMode);
+      if (pullDistance >= 72) runPullToRefresh();
       else {
         indicator.classList.remove('pulling');
         indicator.style.height = '';
@@ -1196,21 +1063,7 @@
     document.addEventListener('touchcancel', finishGesture, { passive: true });
   }
 
-  function initAppendFeedObserver() {
-    const postFeed = document.getElementById('postsFeedContainer');
-    if (!postFeed || !('IntersectionObserver' in window)) return;
-    const observer = new IntersectionObserver(entries => {
-      if (entries.some(entry => entry.isIntersecting) && feedHasMore && !isFetchingMore && navigator.onLine) {
-        isFetchingMore = true;
-        fetchLiveMerchantsFromSupabase(true, { append: true }).finally(() => { isFetchingMore = false; });
-      }
-    }, { rootMargin: '0px 0px 30% 0px' });
-    const watchLast = () => { const last = postFeed.querySelector('.post-card:last-child'); if (last) observer.observe(last); };
-    watchLast();
-    new MutationObserver(watchLast).observe(postFeed, { childList: true });
-  }
-
-  async function runPullToRefresh(mode = 'top') {
+  async function runPullToRefresh() {
     if (isPullRefreshActive) return;
     isPullRefreshActive = true;
     const indicator = document.getElementById('pullRefreshIndicator');
@@ -1219,15 +1072,15 @@
     indicator.style.height = '';
     indicator.classList.add('active');
     indicator.setAttribute('aria-hidden', 'false');
-    indicatorText.textContent = mode === 'bottom' ? 'नई पोस्ट नीचे जोड़ी जा रही हैं...' : 'दुकानें अपडेट हो रही हैं...';
+    indicatorText.textContent = 'दुकानें अपडेट हो रही हैं...';
     try {
       await Promise.all([
-        fetchLiveMerchantsFromSupabase(true, { append: mode === 'bottom' }),
+        fetchLiveMerchantsFromSupabase(true),
         new Promise(resolve => setTimeout(resolve, 2000))
       ]);
     } finally {
       isPullRefreshActive = false;
-      renderDynamicStores(liveSupabaseStores);
+      renderHomeStoreResults();
       renderDynamicAlerts(liveSupabaseStores);
       renderPostsFeed(dynamicPostsList);
       const allChip = document.getElementById('chipAll');
@@ -1239,10 +1092,6 @@
   }
 
   window.addEventListener('DOMContentLoaded', async () => {
-    cleanupServiceWorkers();
-    window.addEventListener('offline', () => { setOfflineBanner(true); loadCachedFeed(); });
-    window.addEventListener('online', () => { setOfflineBanner(false); });
-    if (!navigator.onLine) { setOfflineBanner(true); loadCachedFeed(); }
     const savedUser = JSON.parse(localStorage.getItem('starshops_consumer_user'));
     if(savedUser) {
         currentShopperName = savedUser.name;
@@ -1291,16 +1140,64 @@
     if (userStepsData.unlockedHighDiscount) activateHighDiscountZoneUIMode();
     
     initInfiniteScrollLogic();
-    initAppendFeedObserver();
     initPullToRefresh();
   });
 
-  // Location permission is requested only after the branded wizard action.
+  // 🚨 3 सेकंड में केवल तब तक स्कैन करेगा जब तक लोकेशन एक बार भी नहीं मिल जाती
   function startContinuousGPSScan() {
     if (gpsResolvedOnce || (homeLat !== null && homeLon !== null)) return;
-    openLocationWizard();
+    
+    const overlay = document.getElementById('gpsScanOverlay');
+    if (overlay) overlay.classList.add('open');
+
+    if (gpsScanInterval) clearInterval(gpsScanInterval);
+
+    gpsScanInterval = setInterval(() => {
+      if (gpsResolvedOnce || (homeLat !== null && homeLon !== null)) {
+        clearInterval(gpsScanInterval);
+        gpsScanInterval = null;
+        if (overlay) overlay.classList.remove('open');
+        return;
+      }
+      
+      if (typeof AndroidNative !== 'undefined' && AndroidNative.turnOnGPS) {
+        AndroidNative.turnOnGPS();
+      }
+
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            homeLat = position.coords.latitude;
+            homeLon = position.coords.longitude;
+            manualLocationSelected = false;
+            gpsResolvedOnce = true; // 🚨 फ्लैग सेट ताकि दोबारा स्कैन न हो
+            const headerLocation = document.getElementById('headerLocationText');
+            if (headerLocation) headerLocation.innerText = 'आपकी लोकेशन';
+            if (overlay) overlay.classList.remove('open');
+            if (gpsScanInterval) {
+              clearInterval(gpsScanInterval);
+              gpsScanInterval = null;
+            }
+            applyLocationFilter();
+          },
+          (error) => {
+            const statusEl = document.getElementById('gpsScanStatusText');
+            if (statusEl) {
+              statusEl.innerText = "GPS coordinates नहीं मिल रहे। कृपया फोन की location permission और GPS चालू करें, फिर दोबारा कोशिश करें।";
+            }
+          },
+          { enableHighAccuracy: true, timeout: 2500, maximumAge: 0 }
+        );
+      }
+    }, 3000);
   }
-  window.forceRetryGPSScan = function() { startLocationPermissionFlow(); };
+
+  window.forceRetryGPSScan = function() {
+    if (typeof AndroidNative !== 'undefined' && AndroidNative.turnOnGPS) {
+      AndroidNative.turnOnGPS();
+    }
+    startContinuousGPSScan();
+  };
 
   window.addEventListener('popstate', function() {
     const isHomeTabActive = document.getElementById('tab-home').classList.contains('active');
@@ -1410,7 +1307,7 @@
     if (gpsScanInterval) { clearInterval(gpsScanInterval); gpsScanInterval = null; }
 
     await fetchLiveMerchantsFromSupabase(true);
-    renderDynamicStores(liveSupabaseStores);
+    renderHomeStoreResults();
     renderDynamicAlerts(liveSupabaseStores);
     renderPostsFeed(dynamicPostsList);
     const allChip = document.getElementById('chipAll');
@@ -1418,15 +1315,20 @@
   }
 
   function startBackgroundAutoSearch() {
-    // Deliberately disabled: after the initial load, merchants/posts change only on pull-to-refresh.
-    if (backgroundAutoSearchTimer) { clearInterval(backgroundAutoSearchTimer); backgroundAutoSearchTimer = null; }
-    if (realtimeSyncChannel) {
-      try { supabaseClient.removeChannel(realtimeSyncChannel); } catch (e) {}
-      realtimeSyncChannel = null;
-    }
+    if (realtimeSyncChannel) return;
+
+    // Realtime delivers new/changed cards immediately; polling is only a low-frequency fallback.
+    if (backgroundAutoSearchTimer) clearInterval(backgroundAutoSearchTimer);
+    backgroundAutoSearchTimer = setInterval(runBackgroundAutoSearch, 30000);
+
+    realtimeSyncChannel = supabaseClient.channel('star-shops-live-cards')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'merchants' }, queueBackgroundAutoSearch)
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'reels' }, queueBackgroundAutoSearch)
+      .subscribe();
   }
 
-  function queueBackgroundAutoSearch() {
+  function queueBackgroundAutoSearch(payload) {
+    applyRealtimeRowToCatalog(payload);
     if (realtimeRefreshTimeout) clearTimeout(realtimeRefreshTimeout);
     realtimeRefreshTimeout = setTimeout(() => {
       realtimeRefreshTimeout = null;
@@ -1444,7 +1346,7 @@
       await fetchLiveMerchantsFromSupabase(true);
 
       // Refresh location quietly; the GPS overlay is not reopened for background checks.
-      if (locationPermissionRequested && !manualLocationSelected && navigator.geolocation) {
+      if (!manualLocationSelected && navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
           homeLat = position.coords.latitude;
           homeLon = position.coords.longitude;
@@ -1454,7 +1356,7 @@
             locationText.innerText = 'आपकी लोकेशन';
           }
           applyLocationFilter();
-        }, () => {}, { enableHighAccuracy: false, timeout: 7000, maximumAge: 30000 });
+        }, () => {}, { enableHighAccuracy: false, timeout: 4000, maximumAge: 15000 });
       }
     } finally {
       isBackgroundAutoSearchRunning = false;
@@ -1473,14 +1375,13 @@
         
         if ((homeTabActive || postsTabActive) && !isFetchingMore) {
           isFetchingMore = true;
-          const loader = document.getElementById('infiniteScrollLoader');
-          if (loader) {
-            loader.classList.add('active');
-            const label = loader.querySelector('div, span');
-            if (label) label.textContent = feedHasMore ? 'नीचे से pull करके और posts लाएँ।' : 'और posts उपलब्ध नहीं हैं। नीचे से pull करके फिर जाँचें।';
-            setTimeout(() => loader.classList.remove('active'), 900);
-          }
-          setTimeout(() => { isFetchingMore = false; }, 900); 
+          document.getElementById('infiniteScrollLoader').classList.add('active');
+          
+          setTimeout(async () => {
+            await fetchLiveMerchantsFromSupabase(true); 
+            document.getElementById('infiniteScrollLoader').classList.remove('active');
+            isFetchingMore = false;
+          }, 1200); 
         }
       }
     });
@@ -1549,7 +1450,7 @@
     if (homeLat !== null && homeLon !== null && locationText && locationText.innerText.includes('सर्च')) {
       locationText.innerText = 'आपकी लोकेशन';
     }
-    renderDynamicStores(liveSupabaseStores);
+    renderHomeStoreResults();
   }
 
   function calculateDistanceMeters(lat1, lon1, lat2, lon2) {
@@ -1603,33 +1504,24 @@
     return count;
   }
 
-  function cacheCurrentFeed() {
-    try {
-      localStorage.setItem(MERCHANT_CACHE_KEY, JSON.stringify({ stores: liveSupabaseStores, posts: dynamicPostsList, savedAt: Date.now() }));
-    } catch (e) {}
-  }
-  function loadCachedFeed() {
-    try {
-      const cached = JSON.parse(localStorage.getItem(MERCHANT_CACHE_KEY) || 'null');
-      if (!cached || !Array.isArray(cached.stores)) return false;
-      liveSupabaseStores = cached.stores; dynamicPostsList = Array.isArray(cached.posts) ? cached.posts : [];
-      renderDynamicStores(liveSupabaseStores); renderDynamicAlerts(liveSupabaseStores); renderPostsFeed(dynamicPostsList);
-      return true;
-    } catch (e) { return false; }
-  }
-  function setOfflineBanner(isOffline) {
-    const banner = document.getElementById('offlineFallbackBanner');
-    if (banner) { banner.classList.toggle('visible', isOffline); banner.textContent = isOffline ? 'ऑफ़लाइन मोड: पिछला डेटा दिखाया जा रहा है' : 'कनेक्शन वापस आ गया है'; }
-    if (!isOffline) setTimeout(() => banner && banner.classList.remove('visible'), 1800);
-  }
-  function cleanupServiceWorkers() {
-    if ('serviceWorker' in navigator) navigator.serviceWorker.getRegistrations().then(regs => regs.forEach(reg => reg.unregister())).catch(() => {});
+  function getMerchantMediaUrl(media) {
+    return String(media?.video_url || media?.url || media?.image_url || '').trim();
   }
 
-  async function fetchLiveMerchantsFromSupabase(isSilent = false, options = {}) {
-    const append = options.append === true;
-    if (!append) { feedMerchantOffset = 0; feedHasMore = true; }
-    if (append && !feedHasMore) return;
+  function isMerchantVideo(media, mediaUrl = getMerchantMediaUrl(media)) {
+    const type = String(media?.media_type || media?.mime_type || media?.file_type || media?.type || '').toLowerCase().trim();
+    if (type.startsWith('video/') || ['video', 'reel', 'mp4', 'm4v', 'mov', 'webm', 'ogv', 'ogg', 'hls'].includes(type)) return true;
+    if (String(media?.video_url || '').trim()) return true;
+    const pathOnly = String(mediaUrl || '').split(/[?#]/, 1)[0].toLowerCase();
+    if (/\.(mp4|m4v|mov|webm|ogv|ogg|m3u8)$/.test(pathOnly)) return true;
+    return pathOnly.includes('reel');
+  }
+
+  function mediaCreatedAt(media) {
+    return media?.created_at || media?.uploaded_at || media?.createdAt || media?.timestamp || '';
+  }
+
+  async function fetchLiveMerchantsFromSupabase(isSilent = false) {
     const container = document.getElementById('dynamicStoresContainer');
     
     if (!isSilent) {
@@ -1637,46 +1529,42 @@
     }
     
     try {
-      const merchantsQuery = supabaseClient.from('merchants').select('*');
-      if (append) merchantsQuery.range(feedMerchantOffset, feedMerchantOffset + FEED_PAGE_SIZE - 1);
-      const [merchantsRes, reelsRes] = await Promise.all([
-        merchantsQuery,
-        supabaseClient.from('reels').select('*')
-      ]);
-      if (merchantsRes.error) throw merchantsRes.error;
+      const catalog = await getSupabaseCatalog();
+      const allStores = catalog.merchants || [];
+      const allReels = catalog.reels || [];
+      const reelsByMerchantId = new Map();
+      allReels.forEach(reel => {
+        const key = String(reel.merchant_id);
+        if (!reelsByMerchantId.has(key)) reelsByMerchantId.set(key, []);
+        reelsByMerchantId.get(key).push(reel);
+      });
+      searchableSupabaseStores = allStores.map((store, index) => ({
+        ...store,
+        display_image: (store.image_url && String(store.image_url).trim()) ? store.image_url : (store.display_image || fallbackSalonImages[index % fallbackSalonImages.length]),
+        reels: (reelsByMerchantId.get(String(store.id)) || []).filter(isMerchantVideo)
+      }));
+      const openStores = searchableSupabaseStores.filter(store => (store.status || '').toLowerCase() !== 'closed' && (store.status || '').toLowerCase() !== 'false');
 
-      const allStores = merchantsRes.data || [];
-      const allReels = reelsRes.data || [];
-      const openStores = allStores.filter(s => (s.status || '').toLowerCase() !== 'closed' && (s.status || '').toLowerCase() !== 'false');
-
-      if (!append) { dynamicPostsList = []; liveSupabaseStores = []; }
+      dynamicPostsList = []; liveSupabaseStores = [];
 
       openStores.forEach((store, index) => {
         const storeId = store.id;
-        const merchantMedia = allReels.filter(r => {
-          const reelMerchantId = r.merchant_id ?? r.merchantId ?? r.store_id ?? r.storeId;
-          return reelMerchantId != null && String(reelMerchantId) === String(storeId);
-        });
-        const getMediaUrl = media => media.video_url || media.video || media.media_url || media.url || media.image_url || media.post_image || '';
-        const isVideoMedia = media => {
-          const type = String(media.media_type || media.type || '').toLowerCase();
-          const url = String(getMediaUrl(media)).toLowerCase();
-          return type === 'video' || type === 'reel' || /\.(mp4|webm|mov|m4v|m3u8)(\?|#|$)/i.test(url) || url.includes('/video') || url.includes('reel');
-        };
-        const storeVideos = merchantMedia.filter(isVideoMedia);
+        const merchantMedia = reelsByMerchantId.get(String(storeId)) || [];
 
-        store.display_image = (store.image_url && store.image_url.trim() !== '') ? store.image_url : '';
-        store.reels = Array.isArray(storeVideos) ? storeVideos : [];
-        store.post_count = Array.isArray(merchantMedia) ? merchantMedia.length : 0;
-        store.video_count = Array.isArray(storeVideos) ? storeVideos.length : 0;
+        const storeVideos = merchantMedia.filter(m => isMerchantVideo(m));
 
-        // A merchant remains a merchant, but no post/reel is fabricated when media is missing.
-        liveSupabaseStores.push(store);
+        store.display_image = (store.image_url && store.image_url.trim() !== '') ? store.image_url : fallbackSalonImages[index % fallbackSalonImages.length];
+        
+        store.reels = storeVideos; 
+
+        if (merchantMedia.length > 0 || store.display_image) {
+          liveSupabaseStores.push(store);
+        }
 
         if (merchantMedia.length > 0) {
           merchantMedia.forEach(media => {
-            let pUrl = getMediaUrl(media);
-            let isVideo = isVideoMedia(media);
+            let pUrl = getMerchantMediaUrl(media);
+            let isVideo = isMerchantVideo(media, pUrl);
             if (!pUrl) return;
             
             let pCap = media.caption || media.description;
@@ -1691,6 +1579,9 @@
               avatar: store.display_image,
               post_image: pUrl,
               caption: pCap,
+              music_url: getPostMusicUrl(media),
+              created_at: mediaCreatedAt(media),
+              media_id: media.id || '',
               distance: store.address || "दिल्ली",
               address: store.address || "दिल्ली",
               reels: storeVideos,
@@ -1698,20 +1589,34 @@
               isHighDiscount: isHighDiscountMerchant(store)
             });
           });
-        } else {
-          // Zero media stays zero: no generated image/post is added to the feed.
-          store.post_count = 0;
-          store.video_count = 0;
+        } else if (store.display_image) {
+          let pCap = store.offer_details?.discount || store.description || "✨ बेहतरीन सर्विस, सबसे सही दाम";
+          dynamicPostsList.push({
+              id: storeId,
+              storeName: store.store_name || 'स्टोर',
+              category: store.category || 'जनरल स्टोर',
+              avatar: store.display_image,
+              post_image: store.display_image,
+              caption: pCap,
+              distance: store.address || "दिल्ली",
+              address: store.address || "दिल्ली",
+              reels: storeVideos,
+              isVideo: false,
+              isHighDiscount: isHighDiscountMerchant(store)
+          });
         }
       });
 
-      feedMerchantOffset += openStores.length;
-      feedHasMore = openStores.length >= FEED_PAGE_SIZE;
-      dynamicPostsList.post_count = dynamicPostsList.length || 0;
-      dynamicPostsList.video_count = dynamicPostsList.filter(post => post.isVideo).length || 0;
+      dynamicPostsList = dynamicPostsList.map((post, order) => ({ ...post, _feedOrder: order }));
+      dynamicPostsList.sort((a, b) => {
+        const aTime = Date.parse(a.created_at || '');
+        const bTime = Date.parse(b.created_at || '');
+        if (Number.isFinite(aTime) && Number.isFinite(bTime) && aTime !== bTime) return bTime - aTime;
+        return a._feedOrder - b._feedOrder;
+      });
 
       if (dynamicPostsList.length === 0) {
-        if(!isSilent && container) container.innerHTML = `<div style="font-size:13px; color:#6B7280; text-align:center; padding:30px;">अभी कोई पोस्ट या रील उपलब्ध नहीं है (0)। pull करके refresh करें।</div>`;
+        if(!isSilent && container) container.innerHTML = `<div style="font-size:13px; color:#6B7280; text-align:center; padding:30px;">फिलहाल किसी भी मर्चेंट ने पोस्ट या रील अपलोड नहीं की है।</div>`;
         return;
       }
 
@@ -1731,10 +1636,10 @@
       const storesChanged = storesFingerprint !== lastStoresRenderFingerprint;
       const postsChanged = postsFingerprint !== lastPostsRenderFingerprint;
 
-      if (!isPullRefreshActive || append) {
+      if (!isPullRefreshActive) {
         if (document.getElementById('inRangeContent').style.display === 'block' &&
             (storesChanged || !container.querySelector('.store-item'))) {
-          renderDynamicStores(liveSupabaseStores);
+          renderHomeStoreResults();
         }
         if (storesChanged) renderDynamicAlerts(liveSupabaseStores);
         if (postsChanged) renderPostsFeed(dynamicPostsList);
@@ -1742,13 +1647,47 @@
 
       lastStoresRenderFingerprint = storesFingerprint;
       lastPostsRenderFingerprint = postsFingerprint;
-      cacheCurrentFeed();
 
-    } catch (err) {
-        const restored = loadCachedFeed();
-        if (!restored && !isSilent && container) container.innerHTML = `<div style="font-size:13px; color:#6B7280; text-align:center; padding:30px;">कनेक्शन उपलब्ध नहीं है। कृपया बाद में फिर कोशिश करें।</div>`;
-        setOfflineBanner(true);
+    } catch (err) { 
+        if(!isSilent && container) container.innerHTML = `<div style="font-size:13px; color:#DC2626; text-align:center; padding:30px;">नेटवर्क या Supabase कनेक्शन में समस्या है।</div>`; 
     }
+  }
+
+  function getPostMusicUrl(item) {
+    return String(item?.music_url || item?.audio_url || item?.soundtrack_url || '').trim();
+  }
+
+  function setPostMusicButtonState(button, playing) {
+    if (!button) return;
+    button.classList.toggle('is-playing', playing);
+    button.textContent = playing ? '♫ संगीत बंद करें' : '♫ संगीत चलाएँ';
+    button.setAttribute('aria-pressed', playing ? 'true' : 'false');
+  }
+
+  function stopPostMusic() {
+    if (activePostMusicAudio) { activePostMusicAudio.pause(); activePostMusicAudio.src = ''; }
+    setPostMusicButtonState(activePostMusicButton, false);
+    activePostMusicAudio = null; activePostMusicUrl = ''; activePostMusicButton = null;
+  }
+
+  function togglePostMusic(button) {
+    const encodedUrl = button?.getAttribute('data-music-url') || '';
+    let musicUrl = '';
+    try { musicUrl = decodeURIComponent(encodedUrl); } catch (_) { return; }
+    let parsedUrl;
+    try { parsedUrl = new URL(musicUrl, window.location.href); } catch (_) { return; }
+    if (parsedUrl.protocol !== 'https:' || !musicUrl) { openSuccessModal('संगीत उपलब्ध नहीं', 'इस पोस्ट का सुरक्षित संगीत लिंक उपलब्ध नहीं है।'); return; }
+    musicUrl = parsedUrl.href;
+
+    if (activePostMusicAudio && activePostMusicUrl === musicUrl && !activePostMusicAudio.paused) { stopPostMusic(); return; }
+    if (activePostMusicAudio) stopPostMusic();
+    const audio = new Audio(musicUrl);
+    audio.loop = true; audio.preload = 'none';
+    activePostMusicAudio = audio; activePostMusicUrl = musicUrl; activePostMusicButton = button;
+    audio.play().then(() => setPostMusicButtonState(button, true)).catch(() => {
+      stopPostMusic();
+      openSuccessModal('प्लेबैक शुरू नहीं हुआ', 'संगीत चलाने के लिए बटन को फिर से दबाएँ या नेटवर्क जाँचें।');
+    });
   }
 
   function openFullPostView(mediaUrl, encodedCaption, isVideo = false) {
@@ -1768,6 +1707,7 @@
   }
 
   function closeFullPostViewModal() {
+    stopPostMusic();
     document.getElementById('fullPostModalMediaContainer').innerHTML = ''; 
     document.getElementById('fullPostViewModal').classList.remove('open');
   }
@@ -1788,22 +1728,20 @@
     return numericDiscount >= 150 || discountText.includes('200') || discountText.includes('flat');
   }
 
-  function renderPostsFeed(postsArray, append = false) {
+  function renderPostsFeed(postsArray) {
     const container = document.getElementById('postsFeedContainer');
     postsArray = (postsArray || []).filter(post =>
       matchesSelectedArea(post) && (userStepsData.unlockedHighDiscount || !post.isHighDiscount));
     if (!postsArray || postsArray.length === 0) { container.innerHTML = `<div style="text-align:center; padding:30px; color:#6B7280;">कोई पोस्ट उपलब्ध नहीं है।</div>`; return; }
-    const existingNodes = append ? Array.from(container.querySelectorAll('.post-card')) : [];
-    const existingKeys = new Set(existingNodes.map(node => node.dataset.postKey));
     let html = '';
-    postsArray.forEach((post, postIndex) => {
+    postsArray.forEach(post => {
       let reelsPreviewHtml = '';
       if (post.reels && post.reels.length > 0) {
         let miniList = post.reels.slice(0, 3);
         let thumbItems = miniList.map(reel => {
-          let vUrl = reel.video_url || reel.video || reel.media_url || reel.url || reel.image_url || reel.post_image || '';
+          let vUrl = getMerchantMediaUrl(reel);
           let mediaElement = `<video src="${vUrl}#t=0.1" preload="metadata" muted playsinline style="width:100%; height:100%; object-fit:cover; display:block; pointer-events:none;"></video>`;
-          return `<div class="mini-reel-thumb" onclick="openMerchantPublicProfileById('${post.id}')">${mediaElement}<div class="sketch-action-bar"><button type="button" class="sketch-btn inline-share-btn" data-share-post-index="${postIndex}" data-share-reel-index="${miniList.indexOf(reel)}" aria-label="रील शेयर करें"><svg class="sketch-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.7 2.3 3.1 9.5c-.8.3-.8 1.4 0 1.7l7.1 2.7 2.7 7.1c.3.8 1.4.8 1.7 0l7.2-18.6c.3-.8-.3-1.4-1.1-1.1ZM12 12.9 5.8 10.5l11.8-4.6L12 12.9Zm2.2 4.6-1.7-4.5 4.5-4.6-2.8 9.1Z"/></svg></button><span class="sketch-divider" aria-hidden="true"></span><button type="button" class="sketch-btn inline-save-btn" data-save-post-index="${postIndex}" data-save-reel-index="${miniList.indexOf(reel)}" aria-label="रील सेव करें"><svg class="sketch-icon" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></button></div></div>`;
+          return `<div class="mini-reel-thumb" onclick="openMerchantPublicProfileById('${post.id}')">${mediaElement}</div>`;
         }).join('');
         
         reelsPreviewHtml = `
@@ -1814,12 +1752,16 @@
       }
       
       let mediaHtml = post.isVideo 
-        ? `<video src="${post.post_image}#t=0.1" style="width:100%; height:100%; max-height:360px; object-fit:cover; display:block;" muted playsinline loop></video>
+        ? `<video src="${post.post_image}#t=0.1" style="width:100%; height:100%; max-height:360px; object-fit:cover; display:block;" muted playsinline loop preload="metadata"></video>
            <div style="position:absolute; top:10px; right:10px; background:rgba(0,0,0,0.7); color:#fff; font-size:10px; padding:4px 8px; border-radius:6px; font-weight:bold;">🎬 रील</div>`
         : `<img src="${post.post_image}" style="width:100%; height:100%; max-height:360px; object-fit:cover; display:block;" alt="Post Image">`;
+      const postMusicUrl = getPostMusicUrl(post);
+      const musicControlHtml = postMusicUrl
+        ? `<div class="post-music-row"><button type="button" class="post-music-btn" data-music-url="${encodeURIComponent(postMusicUrl)}" onclick="event.stopPropagation(); togglePostMusic(this)" aria-pressed="false">♫ संगीत चलाएँ</button></div>`
+        : '';
 
       html += `
-        <div class="post-card" data-post-key="${encodeURIComponent(String(post.id || '') + '|' + String(post.post_image || ''))}">
+        <div class="post-card">
           <div class="post-header">
             <div class="post-header-left" onclick="openMerchantPublicProfileById('${post.id}')">
               <div class="post-avatar-ring"><img src="${post.avatar}" class="post-avatar" alt="Store"></div>
@@ -1828,121 +1770,18 @@
             <div class="post-more-info-text" onclick="openShopInfoModalSafe('${post.storeName}', '${post.category}', '${post.address}', '${encodeURIComponent(post.caption)}', '${encodeURIComponent(post.caption)}')">More Info</div>
           </div>
           
-          <!-- मीडिया पूरी तरह साफ -->
           <div class="post-media-box" style="position:relative;" onclick="openFullPostView('${post.post_image}', '${encodeURIComponent(post.caption)}', ${post.isVideo})">
             ${mediaHtml}
           </div>
-          <!-- स्केच के मुताबिक कैप्शन और एक्शन बार -->
-          <div class="post-footer-row">
-            <div class="post-caption-text" onclick="openFullPostView('${post.post_image}', '${encodeURIComponent(post.caption)}', ${post.isVideo})">
-              ${post.caption}
-            </div>
-            <div class="sketch-action-bar">
-              <button type="button" class="sketch-btn inline-share-btn" data-share-post-index="${postIndex}" data-share-reel-index="-1" aria-label="शेयर करें">
-                <svg class="sketch-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 2L11 13M22 2L15 22L11 13L2 9L22 2Z"/></svg>
-              </button>
-              <div class="sketch-divider" aria-hidden="true"></div>
-              <button type="button" class="sketch-btn inline-save-btn" data-save-post-index="${postIndex}" data-save-reel-index="-1" aria-label="सेव करें">
-                <svg class="sketch-icon" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              </button>
-            </div>
+          <div class="post-content-body" onclick="openFullPostView('${post.post_image}', '${encodeURIComponent(post.caption)}', ${post.isVideo})">
+            <div style="font-size:13px; font-weight:700; color:#1F2937; word-break:break-word; white-space:pre-wrap; line-height:1.4;">${post.caption}</div>
           </div>
-          
+          ${musicControlHtml}
           ${reelsPreviewHtml}
         </div>`;
     });
     container.innerHTML = html;
-    if (append && existingNodes.length > 0) {
-      const renderedNodes = Array.from(container.querySelectorAll('.post-card'));
-      const freshNodes = renderedNodes.filter(node => !existingKeys.has(node.dataset.postKey));
-      const freshPosts = postsArray.filter(post => !existingKeys.has(encodeURIComponent(String(post.id || '') + '|' + String(post.post_image || ''))));
-      container.replaceChildren(...existingNodes);
-      const staging = document.createElement('div');
-      freshNodes.forEach(node => staging.appendChild(node));
-      attachFeedLongPressSaveActions(staging, postsArray);
-      attachInlineSaveButtons(staging, postsArray);
-      freshNodes.forEach(node => container.appendChild(node));
-    } else {
-      attachFeedLongPressSaveActions(container, postsArray);
-      attachInlineSaveButtons(container, postsArray);
-    }
-  }
-
-  async function shareInlineFeedItem(post, reel = null) {
-    const source = reel || post || {};
-    const title = post.storeName || post.store_name || 'Star Shops';
-    const text = source.caption || source.description || post.caption || 'Star Shops post';
-    const mediaUrl = source.video_url || source.video || source.media_url || source.url || source.image_url || source.post_image || window.location.href;
-    const shareData = { title, text, url: mediaUrl };
-    try {
-      if (typeof navigator.share !== 'function') {
-        await showAppNotice('इस device पर native share उपलब्ध नहीं है।', 'Share');
-        return false;
-      }
-      await navigator.share(shareData);
-      return true;
-    } catch (e) {
-      if (e?.name !== 'AbortError') await showAppNotice('Sharing पूरा नहीं हो सका।', 'Share');
-      return false;
-    }
-  }
-
-  function getInlineSaveKey(post, reel = null) {
-    const source = reel || post || {};
-    const mediaUrl = source.video_url || source.video || source.media_url || source.url || source.image_url || source.post_image || '';
-    const storeName = post.storeName || post.store_name || 'Star Shops';
-    const offerText = source.caption || source.description || post.caption || '✨ बेहतरीन ऑफर';
-    return { key: `${post.id || storeName}|${mediaUrl}|${offerText}`, storeName, offerText, mediaUrl };
-  }
-
-  function setInlineSaveButtonState(button, saved) {
-    if (!button) return;
-    button.classList.toggle('is-saved', saved);
-    button.setAttribute('aria-label', saved ? 'अनसेव करें' : 'सेव करें');
-  }
-
-  async function saveInlineFeedItem(post, reel = null) {
-    const { key: uniqueKey, storeName, offerText, mediaUrl } = getInlineSaveKey(post, reel);
-    const alreadySaved = savedReelsList.some(item => item.key === uniqueKey);
-    if (alreadySaved) {
-      savedReelsList = savedReelsList.filter(item => item.key !== uniqueKey);
-      localStorage.setItem('starshops_saved_deals', JSON.stringify(savedReelsList));
-      showAppNotice('पोस्ट सेव्ड डील्स से हटा दी गई।', 'अनसेव हो गया');
-      return false;
-    }
-    savedReelsList.unshift({ key: uniqueKey, store: storeName, location: post.address || post.distance || 'दिल्ली', offer: offerText, mediaUrl, expires: 'आज रात 12:00 बजे' });
-    localStorage.setItem('starshops_saved_deals', JSON.stringify(savedReelsList));
-    showAppNotice('पोस्ट आपके सेव्ड डील्स में जोड़ दी गई।', 'सेव हो गया');
-    return true;
-  }
-
-  function attachInlineSaveButtons(container, postsArray) {
-    container.querySelectorAll('.inline-share-btn').forEach(button => {
-      button.addEventListener('pointerdown', event => event.stopPropagation(), { passive: true });
-      button.addEventListener('click', event => {
-        event.preventDefault(); event.stopPropagation();
-        const post = postsArray[Number(button.dataset.sharePostIndex)];
-        const reelIndex = Number(button.dataset.shareReelIndex);
-        const reel = reelIndex >= 0 ? post?.reels?.slice(0, 3)?.[reelIndex] : null;
-        shareInlineFeedItem(post, reel);
-      });
-    });
-    container.querySelectorAll('.inline-save-btn').forEach(button => {
-      button.addEventListener('pointerdown', event => event.stopPropagation(), { passive: true });
-      button.addEventListener('click', async event => {
-        event.preventDefault(); event.stopPropagation();
-        const post = postsArray[Number(button.dataset.savePostIndex)];
-        const reelIndex = Number(button.dataset.saveReelIndex);
-        const reel = reelIndex >= 0 ? post?.reels?.slice(0, 3)?.[reelIndex] : null;
-        const saved = await saveInlineFeedItem(post, reel);
-        if (saved !== null) setInlineSaveButtonState(button, saved);
-      });
-      const post = postsArray[Number(button.dataset.savePostIndex)];
-      const reelIndex = Number(button.dataset.saveReelIndex);
-      const reel = reelIndex >= 0 ? post?.reels?.slice(0, 3)?.[reelIndex] : null;
-      const { key } = getInlineSaveKey(post, reel);
-      setInlineSaveButtonState(button, savedReelsList.some(item => item.key === key));
-    });
+    attachFeedLongPressSaveActions(container, postsArray);
   }
 
   function attachFeedLongPressSaveActions(container, postsArray) {
@@ -1963,11 +1802,6 @@
         clearPressTimer();
         pressTimer = setTimeout(() => {
           longPressTriggered = true;
-          if (post.isStaticTestPost && localStorage.getItem('starshops_static_test_post_deleted_v1') !== 'true') {
-            card.remove();
-            showAppNotice('Post removed from this view.', 'Removed');
-            return;
-          }
           const actionId = `feed_${post.id || index}_${index}`;
           const stats = JSON.parse(localStorage.getItem('reel_stats_' + actionId) || 'null') || { likes: 0, shares: 0 };
           activeSelectedReelData = {
@@ -2004,32 +1838,6 @@
   }
 
   let currentVisibleAlertKeys = [];
-  let currentVisibleAlertItems = [];
-
-  // Seen notification timestamps: an alert remains available for 24 hours after first view.
-  function markNotificationAsSeen(itemKey) {
-    try {
-      const seenMap = JSON.parse(localStorage.getItem('star_seen_timestamps') || '{}');
-      if (!seenMap[itemKey]) {
-        seenMap[itemKey] = Date.now();
-        localStorage.setItem('star_seen_timestamps', JSON.stringify(seenMap));
-      }
-    } catch (e) {}
-  }
-
-  function getActiveUnexpiredNotifications(rawList) {
-    const list = Array.isArray(rawList) ? rawList : [];
-    const TWENTY_FOUR_HOURS = 24 * 60 * 60 * 1000;
-    const currentTime = Date.now();
-    let seenMap = {};
-    try { seenMap = JSON.parse(localStorage.getItem('star_seen_timestamps') || '{}'); } catch (e) { seenMap = {}; }
-
-    return list.filter(item => {
-      const key = `noti_${item.id || item.key}`;
-      const seenAt = Number(seenMap[key] || 0);
-      return !seenAt || (currentTime - seenAt) <= TWENTY_FOUR_HOURS;
-    });
-  }
 
   function getSeenAlertKeys() {
     try { return new Set(JSON.parse(localStorage.getItem('starshops_seen_alert_ids') || '[]')); }
@@ -2044,7 +1852,6 @@
   function markVisibleAlertsAsSeen() {
     const seen = getSeenAlertKeys();
     currentVisibleAlertKeys.forEach(key => seen.add(key));
-    currentVisibleAlertItems.forEach(item => markNotificationAsSeen(`noti_${item.id || item.key}`));
     localStorage.setItem('starshops_seen_alert_ids', JSON.stringify(Array.from(seen).slice(-500)));
     updateAlertsCountBadge(0);
   }
@@ -2061,8 +1868,6 @@
     const container = document.getElementById('liveAlertsContainer');
     storesArray = (storesArray || []).filter(store =>
       matchesSelectedArea(store) && (userStepsData.unlockedHighDiscount || !isHighDiscountMerchant(store)));
-    storesArray = getActiveUnexpiredNotifications(storesArray);
-    currentVisibleAlertItems = storesArray;
     currentVisibleAlertKeys = storesArray.map(getAlertKey);
     if (document.getElementById('tab-alerts')?.classList.contains('active')) {
       markVisibleAlertsAsSeen();
@@ -2096,7 +1901,7 @@
     btn.onclick = () => {
       closeSuccessModal();
       activateHighDiscountZoneUIMode();
-      renderDynamicStores(liveSupabaseStores);
+      renderHomeStoreResults();
       renderDynamicAlerts(liveSupabaseStores);
       renderPostsFeed(dynamicPostsList);
       const highChip = document.getElementById('chipHighDiscount');
@@ -2113,46 +1918,88 @@
     updateStatusBarTheme(true); 
   }
 
-  function fastSearchStores(query) {
-    const rawTerm = query.toLowerCase().trim();
-    const terms = rawTerm.split(/\s+/).filter(t => t.length > 0);
-    const isSearching = terms.length > 0 && rawTerm !== 'claimed' && rawTerm !== 'high' && rawTerm !== 'verified' && rawTerm !== 'क्लेम' && rawTerm !== 'हाई';
-
-    document.querySelectorAll('.store-item').forEach(card => {
-      const keywords = (card.getAttribute('data-keywords') || '').toLowerCase();
-      const title = (card.querySelector('.store-title').innerText || '').toLowerCase();
-      const address = (card.getAttribute('data-address') || '').toLowerCase();
-      
-      const claimCount = parseInt(card.getAttribute('data-claim-count') || '0');
-      const isHigh = card.getAttribute('data-high-discount') === 'true';
-      const isLocal = card.getAttribute('data-in-range') === 'true'; 
-      
-      const searchableText = title + " " + keywords + " " + address;
-
-      let match = false;
-      
-      if (terms.length === 0) {
-        match = true;
-      } else if (rawTerm === 'claimed' || rawTerm === 'क्लेम') {
-        match = claimCount > 0;
-      } else if (rawTerm === 'high' || rawTerm === 'हाई' || rawTerm === 'verified') {
-        match = isHigh;
-      } else {
-        match = terms.every(word => searchableText.includes(word));
-      }
-
-      if (match && !isSearching && !isLocal) {
-          card.style.display = 'none';
-      } else {
-          card.style.display = match ? 'block' : 'none';
-      }
-    });
+  function normalizeMerchantSearchText(value) {
+    const digits = '०१२३४५६७८९';
+    let text = String(value || '').toLocaleLowerCase('hi-IN').normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[०-९]/g, digit => String(digits.indexOf(digit)))
+      .replace(/[^a-z0-9\u0900-\u097f]+/g, ' ').trim();
+    const aliases = {
+      'रोहिणी':'rohini', 'सेक्टर':'sector', 'दिल्ली':'delhi', 'नई':'new',
+      'एक':'1', 'दो':'2', 'तीन':'3', 'चार':'4', 'पाँच':'5', 'पांच':'5', 'छह':'6', 'सात':'7', 'आठ':'8', 'नौ':'9', 'दस':'10',
+      'ग्यारह':'11', 'बारह':'12', 'तेरह':'13', 'चौदह':'14', 'पंद्रह':'15', 'पन्द्रह':'15', 'सोलह':'16', 'सत्रह':'17', 'अठारह':'18', 'उन्नीस':'19', 'बीस':'20',
+      'इक्कीस':'21', 'बाईस':'22', 'बाइस':'22', 'तेईस':'23', 'चौबीस':'24', 'पच्चीस':'25', 'छब्बीस':'26', 'सत्ताईस':'27', 'सत्ताइस':'27', 'अट्ठाईस':'28', 'अट्ठाइस':'28', 'उनतीस':'29', 'तीस':'30'
+    };
+    return text.split(/\s+/).filter(Boolean).map(word => aliases[word] || word).join(' ');
   }
 
-  function renderDynamicStores(storesArray) {
+  function collectMerchantSearchValues(value, output = [], depth = 0) {
+    if (value === null || value === undefined || depth > 5 || output.length > 500) return output;
+    if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
+      output.push(String(value));
+    } else if (Array.isArray(value)) {
+      value.slice(0, 50).forEach(item => collectMerchantSearchValues(item, output, depth + 1));
+    } else if (typeof value === 'object') {
+      Object.entries(value).forEach(([key, child]) => {
+        output.push(key);
+        collectMerchantSearchValues(child, output, depth + 1);
+      });
+    }
+    return output;
+  }
+
+  function matchesMerchantCategory(store, category = activeStoreCategory) {
+    const storeCategory = String(store.category || '').toUpperCase();
+    const storeOpen = !['closed', 'false'].includes(String(store.status || '').toLowerCase());
+    if (category === 'ALL') return true;
+    if (category === 'OPENTODAY') return storeOpen;
+    if (category === 'HIGHDISCOUNT') return isHighDiscountMerchant(store);
+    return storeCategory.includes(category);
+  }
+
+  function matchesMerchantSearch(store, query) {
+    const normalizedQuery = normalizeMerchantSearchText(query);
+    if (!normalizedQuery) return true;
+    if (['claimed', 'क्लेम'].includes(normalizedQuery)) return getDailyClaimCount(store.store_name || store.name || '') > 0;
+    if (['high', 'हाई', 'verified'].includes(normalizedQuery)) return isHighDiscountMerchant(store);
+    const queryTerms = normalizedQuery.split(/\s+/).filter(Boolean);
+    const searchableText = normalizeMerchantSearchText(collectMerchantSearchValues(store).join(' '));
+    const matchingTerms = queryTerms.filter(term => searchableText.includes(term)).length;
+    const requiredTerms = queryTerms.length >= 3 ? Math.max(2, Math.ceil(queryTerms.length / 2)) : queryTerms.length;
+    return searchableText.includes(normalizedQuery) || matchingTerms >= requiredTerms;
+  }
+
+  function renderHomeStoreResults() {
+    const query = String(document.getElementById('storeSearchInput')?.value || '').trim();
+    activeStoreSearchQuery = query;
+    const searchMode = Boolean(query);
+    const sourceStores = searchMode ? searchableSupabaseStores : liveSupabaseStores;
+    let results = (sourceStores || []).filter(store =>
+      matchesMerchantCategory(store) && (searchMode ? matchesMerchantSearch(store, query) : matchesSelectedArea(store))
+    );
+    if (searchMode && results.length === 0) {
+      const container = document.getElementById('dynamicStoresContainer');
+      if (container) container.innerHTML = '<div style="text-align:center;padding:30px;color:#6B7280;font-size:13px;">इस नाम, नंबर या जानकारी से कोई दुकान नहीं मिली।</div>';
+      return;
+    }
+    renderDynamicStores(results, searchMode);
+  }
+
+  function fastSearchStores(query) {
+    const input = document.getElementById('storeSearchInput');
+    if (input && input.value !== String(query || '')) input.value = String(query || '');
+    renderHomeStoreResults();
+  }
+
+  function findMerchantById(merchantId) {
+    return liveSupabaseStores.find(store => String(store.id) === String(merchantId)) ||
+      searchableSupabaseStores.find(store => String(store.id) === String(merchantId));
+  }
+
+  function renderDynamicStores(storesArray, showAllSearchResults = false) {
     const container = document.getElementById('dynamicStoresContainer');
     storesArray = (storesArray || []).filter(store =>
-      matchesSelectedArea(store) && (userStepsData.unlockedHighDiscount || !isHighDiscountMerchant(store)));
+      (showAllSearchResults || matchesSelectedArea(store)) && (userStepsData.unlockedHighDiscount || !isHighDiscountMerchant(store)));
     if (!container.dataset.merchantClickHandlersAttached) {
       container.addEventListener('click', (event) => {
         const actionElement = event.target.closest('[data-card-action]');
@@ -2162,7 +2009,7 @@
         if (actionElement && cardElement.contains(actionElement)) {
           event.stopPropagation();
           const storeId = decodeURIComponent(cardElement.dataset.storeId || '');
-          const store = liveSupabaseStores.find(item => String(item.id) === storeId);
+          const store = findMerchantById(storeId);
           if (!store) return;
           const storeName = store.store_name || 'स्टार मर्चेंट स्टोर';
           const address = store.address || store.location || 'दिल्ली';
@@ -2184,7 +2031,7 @@
       });
       container.dataset.merchantClickHandlersAttached = 'true';
     }
-    if (!storesArray || storesArray.length === 0) { container.innerHTML = `<div style="text-align:center; padding:30px; color:#6B7280;">कोई खुली हुई दुकान उपलब्ध नहीं है।</div>`; return; }
+    if (!storesArray || storesArray.length === 0) { container.innerHTML = `<div style="text-align:center; padding:30px; color:#6B7280;">${activeStoreSearchQuery ? 'इस नाम, नंबर या जानकारी से कोई दुकान नहीं मिली।' : 'कोई खुली हुई दुकान उपलब्ध नहीं है।'}</div>`; return; }
 
     let html = '';
     storesArray.forEach((store, index) => {
@@ -2201,6 +2048,7 @@
       const isHighDiscountStore = isHighDiscountMerchant(store);
       
       const claimCount = getDailyClaimCount(storeName);
+      const isStoreOpen = !['closed', 'false'].includes(String(store.status || '').toLowerCase());
 
       let displayDistanceText = `📍 ${address}`;
       let sLat = store.latitude || store.lat; 
@@ -2228,11 +2076,11 @@
       else if (claimCount >= 2) { cardClassNames += " reclaimed-card"; btnText = "✓ स्टोर लिमिट पूरी"; }
 
       html += `
-        <div class="${cardClassNames}" id="storeCard_${cardId}" data-in-range="${inRange}" style="display: ${inRange ? 'block' : 'none'};" data-category="${dbCategory}" data-address="${address.toLowerCase()}" data-open-today="true" data-high-discount="${isHighDiscountStore}" data-claim-count="${claimCount}" data-keywords="${storeName.toLowerCase()} ${address.toLowerCase()} ${dbCategory.toLowerCase()} ${claimCount > 0 ? 'claimed' : ''} ${isHighDiscountStore ? 'high' : ''}" data-store-id="${encodeURIComponent(String(store.id))}">
+        <div class="${cardClassNames}" id="storeCard_${cardId}" data-in-range="${inRange}" style="display: ${(showAllSearchResults || inRange) ? 'block' : 'none'};" data-category="${dbCategory}" data-address="${address.toLowerCase()}" data-open-today="${isStoreOpen}" data-high-discount="${isHighDiscountStore}" data-claim-count="${claimCount}" data-keywords="${storeName.toLowerCase()} ${address.toLowerCase()} ${dbCategory.toLowerCase()} ${claimCount > 0 ? 'claimed' : ''} ${isHighDiscountStore ? 'high' : ''}" data-store-id="${encodeURIComponent(String(store.id))}">
           <div class="card-banner"><img src="${bannerImg}" alt="${storeName}"><div class="banner-overlay"></div><div class="badge-fomo">⚡ लाइव डील</div><div class="badge-limit">${isHighDiscountStore ? '★ VERIFIED MERCHANT' : '★ VERIFIED PARTNER'}</div></div>
           <div class="card-body">
             <div class="store-meta"><div class="store-title">${storeName} <span style="color:#F59E0B;">★</span></div><div class="store-distance">${displayDistanceText}</div></div>
-            <div class="store-status-row"><div class="live-open-pill"><span class="blink-dot"></span> दुकान खुली है (आज)</div><div class="mini-reclaim-badge-pill" data-card-action="reclaim">🔄 रीक्लेम करें</div></div>
+            <div class="store-status-row"><div class="live-open-pill" style="${isStoreOpen ? '' : 'background:#FEF2F2;color:#B91C1C;border-color:#FECACA;'}"><span class="blink-dot"></span> दुकान ${isStoreOpen ? 'खुली है (आज)' : 'बंद है'}</div><div class="mini-reclaim-badge-pill" data-card-action="reclaim">🔄 रीक्लेम करें</div></div>
             
             <div class="step-progress-wrapper"><div style="font-size: 11px; font-weight: 900; color: #1E40AF; display:flex; justify-content:space-between;"><span>🎯 2000 कदम लक्ष्य (ट्रैक हो रहा है)</span><span>${userStepsData.currentSteps}/2000 (${percent}%)</span></div><div class="step-progress-bar-bg"><div class="step-progress-bar-fill" style="width: ${percent}%;"></div></div></div>
             <div class="line-sep"></div>
@@ -2273,7 +2121,7 @@
   }
 
   async function openMerchantPublicProfileById(merchantId) {
-    const store = liveSupabaseStores.find(s => s.id == merchantId);
+    const store = findMerchantById(merchantId);
     if (!store) return;
     document.getElementById('pubProfileStoreName').innerText = store.store_name || "स्टोर";
     document.getElementById('pubProfileCategory').innerText = `📂 ${store.category || 'सलून'}`;
@@ -2296,13 +2144,14 @@
   }
 
   function renderStoryStyleGrid(reelsList, store, wrapperContainer) {
+    stopPostMusic();
     let gridHtml = `<div class="merchant-gallery-grid" id="merchantGalleryGridContainer">`;
     reelsList.forEach((reel, idx) => {
-      let vUrl = reel.video_url || reel.video || reel.media_url || reel.url || reel.image_url || reel.post_image || '';
+      let vUrl = getMerchantMediaUrl(reel);
       let reelCaption = reel.caption || reel.description || ''; 
       let encodedCaption = encodeURIComponent(reelCaption || 'विशेष ऑफर');
       
-      let isVideo = reel.media_type === 'video' || (!reel.media_type && (vUrl.includes('.mp4') || vUrl.includes('reel')));
+      let isVideo = isMerchantVideo(reel, vUrl);
 
       let mediaElement = isVideo 
         ? `<video src="${vUrl}#t=0.1" preload="metadata" muted playsinline style="width:100%; height:100%; object-fit:cover; display:block; pointer-events:none;"></video>`
@@ -2348,14 +2197,19 @@
       function loadStoryAt(i) {
         if (i < 0 || i >= reelsList.length) return;
         currentIdx = i; let r = reelsList[i]; 
-        let url = r.video_url || r.url || r.image_url || '';
-        let isStoryVideo = r.media_type === 'video' || (!r.media_type && (url.includes('.mp4') || url.includes('reel')));
+        let url = getMerchantMediaUrl(r);
+        let isStoryVideo = isMerchantVideo(r, url);
 
         let progressBarsHtml = reelsList.map((_, pIdx) => `<div class="story-progress-bar"><div class="story-progress-fill" id="storyProgressFill_${pIdx}" style="width: ${pIdx < i ? '100%' : '0%'}"></div></div>`).join('');
         
+        const storyMusicUrl = getPostMusicUrl(r);
+        const storyMusicButton = storyMusicUrl
+          ? `<button type="button" class="story-music-btn" data-music-url="${encodeURIComponent(storyMusicUrl)}" onclick="event.stopPropagation(); togglePostMusic(this)" aria-pressed="false">♫ संगीत चलाएँ</button>`
+          : '';
+        if (activePostMusicAudio && activePostMusicUrl !== storyMusicUrl) stopPostMusic();
         let storyMediaElement = isStoryVideo 
-          ? `<video id="activeStoryVideo" src="${url}" autoplay playsinline controlslist="nodownload" disablepictureinpicture></video>
-             <button class="story-water-play-btn" id="storyPlayPauseBtn" onclick="toggleStoryPlayPause()">${isGloballyPlaying ? '⏸ पॉज़' : '▶ प्ले'}</button>`
+          ? `<video id="activeStoryVideo" src="${url}" autoplay ${storyMusicUrl ? 'muted' : ''} playsinline controlslist="nodownload" disablepictureinpicture></video>
+             <button class="story-water-play-btn" id="storyPlayPauseBtn" onclick="event.stopPropagation(); toggleStoryPlayPause()">${isGloballyPlaying ? '⏸ पॉज़' : '▶ प्ले'}</button>`
           : `<img id="activeStoryImage" src="${url}" style="width:100%; max-height:320px; object-fit:contain; background:#000;">`;
 
         wrapperContainer.innerHTML = `
@@ -2363,7 +2217,13 @@
             <div class="story-progress-container">${progressBarsHtml}</div>
             <div class="story-tap-left" onclick="storyPrev()"></div><div class="story-tap-right" onclick="storyNext()"></div>
             ${storyMediaElement}
+            ${storyMusicButton}
           </div>`;
+        const renderedMusicButton = wrapperContainer.querySelector(".story-music-btn");
+        if (renderedMusicButton && activePostMusicAudio && activePostMusicUrl === storyMusicUrl && !activePostMusicAudio.paused) {
+          activePostMusicButton = renderedMusicButton;
+          setPostMusicButtonState(renderedMusicButton, true);
+        }
 
         if (isStoryVideo) {
           let vid = document.getElementById('activeStoryVideo');
@@ -2417,11 +2277,13 @@
     if (navigator.share) navigator.share({ title: 'Star Shops रील', text: `🔥 ${activeSelectedReelData.store} का ऑफ़र: ${activeSelectedReelData.caption}`, url: window.location.href }).catch(()=>{});
   }
   function closeMerchantPublicProfileModal() {
+    stopPostMusic();
     document.getElementById('merchantPublicProfileModal').classList.remove('open');
     document.querySelectorAll('#merchantGalleryAreaWrapper video').forEach(v => { v.pause(); v.currentTime = 0; });
   }
 
   function switchMainTab(tabName, clickedNavItem) {
+    if (activePostMusicAudio) stopPostMusic();
     document.querySelectorAll('.tab-screen').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
     
@@ -2443,19 +2305,10 @@
   }
 
   function filterCategory(category, chipEl) {
-    document.querySelectorAll('#appCategoriesBar .category-chip').forEach(c => c.classList.remove('active'));
-    chipEl.classList.add('active');
-    document.querySelectorAll('.store-item').forEach(card => {
-      const cardCategory = (card.getAttribute('data-category') || '').toUpperCase();
-      const isOpenToday = card.getAttribute('data-open-today') === 'true';
-      const isHighDiscount = card.getAttribute('data-high-discount') === 'true';
-      let categoryMatch = false;
-      if (category === 'ALL') categoryMatch = true;
-      else if (category === 'OPENTODAY') categoryMatch = isOpenToday;
-      else if (category === 'HIGHDISCOUNT') categoryMatch = isHighDiscount;
-      else categoryMatch = cardCategory.includes(category);
-      card.style.display = categoryMatch ? 'block' : 'none';
-    });
+    activeStoreCategory = category;
+    document.querySelectorAll('#appCategoriesBar .category-chip').forEach(item => item.classList.remove('active'));
+    if (chipEl) chipEl.classList.add('active');
+    renderHomeStoreResults();
   }
 
   function openShopInfoModal(shopName, category, itemsList, distance, discountText) {
@@ -2509,7 +2362,7 @@
       return; 
     }
     
-    const store = liveSupabaseStores.find(s => s.id == cardId);
+    const store = findMerchantById(cardId);
     if (store && isHighDiscountMerchant(store) && !userStepsData.unlockedHighDiscount) return;
     if (store) {
       let sLat = store.latitude || store.lat; 
@@ -2743,7 +2596,39 @@
     if (rawConsumerFileEvt) rawConsumerFileEvt.target.value = "";
   }
 
-  // Copy, text selection, context menu and print remain available for a frictionless consumer experience.
+  function isEditableTarget(target) {
+    return !!(target && target.closest && target.closest('input, textarea, select, [contenteditable="true"], [data-allow-copy]'));
+  }
+
+  document.addEventListener('contextmenu', event => {
+    if (!isEditableTarget(event.target)) event.preventDefault();
+  }, true);
+  document.addEventListener('copy', event => {
+    if (!isEditableTarget(event.target)) event.preventDefault();
+  }, true);
+  document.addEventListener('cut', event => {
+    if (!isEditableTarget(event.target)) event.preventDefault();
+  }, true);
+  document.addEventListener('selectstart', event => {
+    if (!isEditableTarget(event.target)) event.preventDefault();
+  }, true);
+  document.addEventListener('keydown', event => {
+    const key = (event.key || '').toLowerCase();
+    const modified = event.ctrlKey || event.metaKey;
+    if (modified && key === 'p') {
+      event.preventDefault();
+      event.stopPropagation();
+      return;
+    }
+    if (isEditableTarget(event.target)) return;
+    if (modified && ['a', 'c', 'x', 's', 'u'].includes(key)) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+  window.addEventListener('beforeprint', () => document.documentElement.classList.add('print-blocked'));
+  window.addEventListener('afterprint', () => document.documentElement.classList.remove('print-blocked'));
+  try { window.print = () => {}; } catch (e) {}
 
   // 🚨 NEW: Block Browser Default Media Notification Player 🚨
   document.addEventListener('play', function(e) {
