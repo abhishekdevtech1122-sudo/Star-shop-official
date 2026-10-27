@@ -371,8 +371,8 @@
     .profile-user-name { font-size: 18px; font-weight: 800; color: #111827; }
     .profile-edit-name-btn { background: #FFFBEB; color: #B45309; border: none; width: 26px; height: 26px; border-radius: 50%; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 
-    .wallet-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
-    .wallet-box { background: #F8F9FA; border-radius: 12px; padding: 14px; text-align: center; border: 1px solid #E5E7EB; position: relative; }
+    .wallet-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 16px; }
+    .wallet-box { background: #F8F9FA; border-radius: 12px; padding: 20px; text-align: center; border: 1px solid #E5E7EB; position: relative; }
     .live-savings-detector-card { width: 100%; background: linear-gradient(135deg, #ECFDF5, #D1FAE5); border: 1.5px solid #6EE7B7; border-radius: 14px; padding: 16px; margin-top: 12px; text-align: center; position: relative; }
     .info-btn-badge { position: absolute; top: 10px; right: 10px; background: #059669; color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; cursor: pointer; }
 
@@ -424,9 +424,13 @@
     .step-progress-bar-bg { width: 100%; height: 10px; background: #E5E7EB; border-radius: 6px; overflow: hidden; margin-top: 6px; }
     .step-progress-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #2563EB, #1D4ED8); border-radius: 6px; transition: width 0.4s ease; }
 
-    /* Infinite Scroll Loader Styles */
-    .infinite-scroll-loader { text-align: center; padding: 20px 10px 90px 10px; font-size: 12px; color: #6B7280; font-weight: 800; display: none; width: 100%; }
-    .infinite-scroll-loader.active { display: flex; align-items: center; justify-content: center; gap: 8px; }
+    /* Infinite Scroll Loader: छोटा, bottom navigation के पीछे */
+    .infinite-scroll-loader { position: fixed; left: 50%; bottom: 0; transform: translateX(-50%); z-index: 9998; width: 100%; max-width: 480px; height: 60px; margin: 0; padding: 0; font-size: 0; color: transparent; pointer-events: none; display: none; align-items: center; justify-content: center; }
+    .infinite-scroll-loader.active { display: flex; }
+    .infinite-scroll-loader .spinner-blue { width: 13px; height: 13px; border-width: 2px; }
+    .posts-feed-end-note { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 18px 90px; color: #6B7280; text-align: center; font-size: 11px; font-weight: 600; line-height: 1.5; }
+    .posts-feed-end-note::before { content: ""; width: 6px; height: 6px; flex: 0 0 6px; border-radius: 50%; background: #D4AF37; }
+    .device-shell.high-discount-active .posts-feed-end-note { color: #A3A3A3; }
     @keyframes spinInfinite { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     .spinner-blue { display: inline-block; width: 16px; height: 16px; border: 3px solid rgba(37,99,235,0.2); border-radius: 50%; border-top-color: #2563EB; animation: spinInfinite 0.8s ease-in-out infinite; }
     .pull-refresh-indicator { height: 0; overflow: hidden; opacity: 0; transition: height 0.22s ease, opacity 0.22s ease; display: flex; align-items: center; justify-content: center; }
@@ -531,6 +535,58 @@
         transform: none !important;
       }
     }
+
+    /* 🌟 स्टार और शेयर एक्शन बार स्टाइल */
+    .sketch-action-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #F8F9FA;
+      border: 1px solid #D1D5DB;
+      border-radius: 8px;
+      padding: 4px 8px;
+      flex-shrink: 0;
+    }
+
+    .sketch-btn {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+      color: #111827;
+      transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    /* 🚀 क्लिक करने पर पॉप-अप और बाउंस इफ़ेक्ट */
+    .sketch-btn.pop-bounce {
+      transform: scale(1.35);
+    }
+
+    .sketch-btn:active {
+      transform: scale(0.9);
+    }
+
+    .sketch-icon {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: fill 0.3s ease, color 0.3s ease;
+    }
+
+    /* जब रील सेव हो जाए, तो स्टार गोल्ड और भरा हुआ दिखे */
+    .sketch-btn.is-saved {
+      color: #D4AF37;
+    }
+    .sketch-btn.is-saved .sketch-icon {
+      fill: currentColor;
+    }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -608,12 +664,8 @@
       <div class="wallet-grid">
         <div class="wallet-box" onclick="openMonthlyHistoryModal()" style="cursor:pointer;" title="महीने की हिस्ट्री देखने के लिए क्लिक करें">
           <div class="info-btn-badge" style="top: 8px; right: 8px; width: 20px; height: 20px; font-size: 10px;">ℹ</div>
-          <div style="font-size:18px; font-weight:800; color:#059669;" id="statClaimedCardCount">0 कार्ड्स</div>
-          <div style="font-size:11px; color:#6B7280;" id="statClaimedCardLabel">सफल क्लेम कार्ड्स</div>
-        </div>
-        <div class="wallet-box">
-          <div style="font-size:18px; font-weight:800; color:#F59E0B;" id="statFootprintCount">0</div>
-          <div style="font-size:11px; color:#6B7280;" id="statFootprintLabel">टोटल फुटप्रिंट (फुटफॉल)</div>
+          <div style="font-size:24px; font-weight:800; color:#059669;" id="statClaimedCardCount">0 कार्ड्स</div>
+          <div style="font-size:12px; color:#6B7280;" id="statClaimedCardLabel">कुल सफल क्लेम</div>
         </div>
       </div>
 
@@ -895,12 +947,8 @@
   function requestFirstTimeLocation() {
     if (!localStorage.getItem('starshops_loc_permission_asked')) {
       localStorage.setItem('starshops_loc_permission_asked', 'true');
-      if (typeof AndroidNative !== 'undefined' && AndroidNative.turnOnGPS) {
-        AndroidNative.turnOnGPS();
-      } else if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(){}, function(){});
-      }
     }
+    if (!gpsResolvedOnce && !manualLocationSelected && !gpsScanInterval) startContinuousGPSScan();
   }
 
   const SUPABASE_URL = "https://gejrzpflcuvlbpedliwq.supabase.co";
@@ -974,11 +1022,16 @@
   let userIsOutOfRange = false; 
   let gpsScanInterval = null; 
   let gpsResolvedOnce = false; // 🚨 एक बार लोकेशन मिलने के बाद दोबारा स्कैन रोकने के लिए फ्लैग
+  let locationNameLookupStarted = false;
 
   let userStepsData = JSON.parse(localStorage.getItem('star_user_steps_goal')) || { currentSteps: 0, targetSteps: 2000, unlockedHighDiscount: false };
   let userClaimHistory = [];
   let savedReelsList = JSON.parse(localStorage.getItem('starshops_saved_deals')) || [];
   let dynamicPostsList = [];
+  const POSTS_RENDER_BATCH_SIZE = 10;
+  let postsFeedSource = [];
+  let renderedPostCount = 0;
+  let postsPreloadObserver = null;
   
   let isFetchingMore = false;
   let backgroundAutoSearchTimer = null;
@@ -1097,7 +1150,6 @@
         currentShopperName = savedUser.name;
         currentUserPhone = savedUser.phone;
         document.getElementById('profileDisplayUserName').innerText = currentShopperName;
-        requestFirstTimeLocation();
     } else {
         document.getElementById('authModalOverlay').classList.add('open');
     }
@@ -1124,18 +1176,15 @@
       activateHighDiscountZoneUIMode(); 
     }
 
-    document.getElementById('headerLocationText').innerText = "सर्च हो रहा है...";
+    document.getElementById('headerLocationText').innerText = "लोकेशन खोजी जा रही है...";
     toggleRangeView('in-range');
+    requestFirstTimeLocation();
 
-    // डेटाबेस से दुकानें लोड करें
-    await syncUserClaimStatsFromSupabase();
+    // क्लेम/फुटप्रिंट स्थानीय डिवाइस से पढ़ें; दुकानें Supabase से अलग लोड हों।
+    loadLocalUserStats();
     await fetchLiveMerchantsFromSupabase();
+    renderHomeStoreResults();
     startBackgroundAutoSearch();
-
-    // 🚨 यदि लोकेशन पहले से नहीं मिली है, तभी स्कैनिंग ओवरले दिखाएं और लूप शुरू करें
-    if (!gpsResolvedOnce && (homeLat === null || homeLon === null)) {
-      startContinuousGPSScan();
-    }
 
     if (userStepsData.unlockedHighDiscount) activateHighDiscountZoneUIMode();
     
@@ -1143,59 +1192,91 @@
     initPullToRefresh();
   });
 
-  // 🚨 3 सेकंड में केवल तब तक स्कैन करेगा जब तक लोकेशन एक बार भी नहीं मिल जाती
+  async function updateHeaderLocationNameFromCoordinates(latitude, longitude) {
+    if (locationNameLookupStarted) return;
+    locationNameLookupStarted = true;
+    const headerLocation = document.getElementById('headerLocationText');
+    const requestUrl = new URL('https://api.bigdatacloud.net/data/reverse-geocode-client');
+    requestUrl.searchParams.set('latitude', latitude);
+    requestUrl.searchParams.set('longitude', longitude);
+    requestUrl.searchParams.set('localityLanguage', 'hi');
+
+    const controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
+    const timeoutId = controller ? setTimeout(() => controller.abort(), 7000) : null;
+    try {
+      const requestOptions = { method: 'GET', mode: 'cors', credentials: 'omit' };
+      if (controller) requestOptions.signal = controller.signal;
+      const response = await fetch(requestUrl.toString(), requestOptions);
+      if (!response.ok) throw new Error(`Reverse geocoding failed: ${response.status}`);
+      const place = await response.json();
+      if (manualLocationSelected || !headerLocation) return;
+
+      const locality = String(place.localityName || place.locality || place.suburb || place.city || '').trim();
+      const city = String(place.city || place.principalSubdivision || '').trim();
+      const labels = [];
+      [locality, city].forEach(value => {
+        if (value && !labels.some(existing => existing.toLocaleLowerCase() === value.toLocaleLowerCase())) labels.push(value);
+      });
+      if (labels.length) {
+        const displayName = labels.slice(0, 2).join(', ');
+        headerLocation.innerText = displayName;
+        headerLocation.title = `आपकी लोकेशन: ${displayName}`;
+      }
+    } catch (_) {
+      // नेटवर्क/सेवा उपलब्ध न हो तो generic location label बना रहे।
+    } finally {
+      if (timeoutId) clearTimeout(timeoutId);
+    }
+  }
+
+  // GPS को शांत रूप से स्कैन करें; कोई blocking scanner overlay नहीं दिखता।
   function startContinuousGPSScan() {
-    if (gpsResolvedOnce || (homeLat !== null && homeLon !== null)) return;
-    
+    if (gpsResolvedOnce || manualLocationSelected || (homeLat !== null && homeLon !== null) || gpsScanInterval) return;
     const overlay = document.getElementById('gpsScanOverlay');
-    if (overlay) overlay.classList.add('open');
+    if (overlay) overlay.classList.remove('open');
 
-    if (gpsScanInterval) clearInterval(gpsScanInterval);
+    try {
+      if (typeof AndroidNative !== 'undefined' && AndroidNative.turnOnGPS) AndroidNative.turnOnGPS();
+    } catch (_) {}
 
-    gpsScanInterval = setInterval(() => {
-      if (gpsResolvedOnce || (homeLat !== null && homeLon !== null)) {
-        clearInterval(gpsScanInterval);
-        gpsScanInterval = null;
-        if (overlay) overlay.classList.remove('open');
+    const headerLocation = document.getElementById('headerLocationText');
+    if (headerLocation && !headerLocation.innerText.trim()) headerLocation.innerText = 'लोकेशन खोजी जा रही है...';
+    if (!navigator.geolocation) {
+      if (headerLocation) headerLocation.innerText = 'इलाका चुनें';
+      return;
+    }
+
+    const requestCurrentLocation = () => {
+      if (gpsResolvedOnce || manualLocationSelected) {
+        if (gpsScanInterval) { clearInterval(gpsScanInterval); gpsScanInterval = null; }
         return;
       }
-      
-      if (typeof AndroidNative !== 'undefined' && AndroidNative.turnOnGPS) {
-        AndroidNative.turnOnGPS();
-      }
+      navigator.geolocation.getCurrentPosition(position => {
+        if (manualLocationSelected) return;
+        homeLat = position.coords.latitude;
+        homeLon = position.coords.longitude;
+        manualLocationSelected = false;
+        gpsResolvedOnce = true;
+        if (headerLocation) headerLocation.innerText = 'आपकी लोकेशन';
+        if (gpsScanInterval) { clearInterval(gpsScanInterval); gpsScanInterval = null; }
+        applyLocationFilter();
+        updateHeaderLocationNameFromCoordinates(homeLat, homeLon);
+      }, error => {
+        const statusEl = document.getElementById('gpsScanStatusText');
+        if (statusEl) statusEl.innerText = 'लोकेशन नहीं मिल पाई। आप ऊपर location बार से अपना इलाका चुन सकते हैं।';
+        if (error && error.code === 1) {
+          if (gpsScanInterval) { clearInterval(gpsScanInterval); gpsScanInterval = null; }
+          if (headerLocation) headerLocation.innerText = 'इलाका चुनें';
+        }
+      }, { enableHighAccuracy: false, timeout: 10000, maximumAge: 0 });
+    };
 
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            homeLat = position.coords.latitude;
-            homeLon = position.coords.longitude;
-            manualLocationSelected = false;
-            gpsResolvedOnce = true; // 🚨 फ्लैग सेट ताकि दोबारा स्कैन न हो
-            const headerLocation = document.getElementById('headerLocationText');
-            if (headerLocation) headerLocation.innerText = 'आपकी लोकेशन';
-            if (overlay) overlay.classList.remove('open');
-            if (gpsScanInterval) {
-              clearInterval(gpsScanInterval);
-              gpsScanInterval = null;
-            }
-            applyLocationFilter();
-          },
-          (error) => {
-            const statusEl = document.getElementById('gpsScanStatusText');
-            if (statusEl) {
-              statusEl.innerText = "GPS coordinates नहीं मिल रहे। कृपया फोन की location permission और GPS चालू करें, फिर दोबारा कोशिश करें।";
-            }
-          },
-          { enableHighAccuracy: true, timeout: 2500, maximumAge: 0 }
-        );
-      }
-    }, 3000);
+    gpsScanInterval = setInterval(requestCurrentLocation, 15000);
+    requestCurrentLocation();
   }
 
   window.forceRetryGPSScan = function() {
-    if (typeof AndroidNative !== 'undefined' && AndroidNative.turnOnGPS) {
-      AndroidNative.turnOnGPS();
-    }
+    if (gpsScanInterval) { clearInterval(gpsScanInterval); gpsScanInterval = null; }
     startContinuousGPSScan();
   };
 
@@ -1351,11 +1432,13 @@
           homeLat = position.coords.latitude;
           homeLon = position.coords.longitude;
           gpsResolvedOnce = true;
+          if (gpsScanInterval) { clearInterval(gpsScanInterval); gpsScanInterval = null; }
           const locationText = document.getElementById('headerLocationText');
           if (locationText && (locationText.innerText.includes('सर्च') || locationText.innerText.includes('लोकेशन'))) {
             locationText.innerText = 'आपकी लोकेशन';
           }
           applyLocationFilter();
+          updateHeaderLocationNameFromCoordinates(homeLat, homeLon);
         }, () => {}, { enableHighAccuracy: false, timeout: 4000, maximumAge: 15000 });
       }
     } finally {
@@ -1368,23 +1451,54 @@
   }
 
   function initInfiniteScrollLogic() {
-    window.addEventListener('scroll', async () => {
-      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 100) {
-        const homeTabActive = document.getElementById('tab-home').classList.contains('active');
-        const postsTabActive = document.getElementById('tab-posts').classList.contains('active');
-        
-        if ((homeTabActive || postsTabActive) && !isFetchingMore) {
-          isFetchingMore = true;
-          document.getElementById('infiniteScrollLoader').classList.add('active');
-          
-          setTimeout(async () => {
-            await fetchLiveMerchantsFromSupabase(true); 
-            document.getElementById('infiniteScrollLoader').classList.remove('active');
-            isFetchingMore = false;
-          }, 1200); 
+    if ('IntersectionObserver' in window) {
+      postsPreloadObserver = new IntersectionObserver(entries => {
+        if (entries.some(entry => entry.isIntersecting) && document.getElementById('tab-posts').classList.contains('active')) {
+          loadNextPostsBatch();
         }
+      }, { root: null, rootMargin: '0px 0px 140px 0px', threshold: 0 });
+      updatePostsPreloadObserver();
+      return;
+    }
+
+    let scrollCheckPending = false;
+    window.addEventListener('scroll', () => {
+      if (scrollCheckPending || !document.getElementById('tab-posts').classList.contains('active')) return;
+      scrollCheckPending = true;
+      requestAnimationFrame(() => {
+        scrollCheckPending = false;
+        const cards = document.querySelectorAll('#postsFeedContainer .post-card');
+        const triggerCard = cards[Math.max(0, cards.length - 5)];
+        if (triggerCard && triggerCard.getBoundingClientRect().top <= window.innerHeight + 140) loadNextPostsBatch();
+      });
+    }, { passive: true });
+  }
+
+  function updatePostsPreloadObserver() {
+    if (!postsPreloadObserver) return;
+    postsPreloadObserver.disconnect();
+    const postsTab = document.getElementById('tab-posts');
+    if (!postsTab || !postsTab.classList.contains('active') || !postsFeedSource.length) return;
+    const cards = document.querySelectorAll('#postsFeedContainer .post-card');
+    const triggerCard = cards[Math.max(0, cards.length - 5)];
+    if (triggerCard) postsPreloadObserver.observe(triggerCard);
+  }
+
+  function loadNextPostsBatch() {
+    if (isFetchingMore || !postsFeedSource.length) return;
+    isFetchingMore = true;
+    const loader = document.getElementById('infiniteScrollLoader');
+    if (loader) loader.classList.add('active');
+
+    setTimeout(() => {
+      try {
+        renderPostsFeed(postsFeedSource, true);
+      } finally {
+        if (loader) loader.classList.remove('active');
+        isFetchingMore = false;
+        updatePostsPreloadObserver();
       }
-    });
+    }, 60);
   }
 
   function registerConsumerUser() {
@@ -1477,20 +1591,15 @@
     openShopInfoModal(shopName, category, [desc], distance, disc);
   }
 
-  async function syncUserClaimStatsFromSupabase() {
-    let localClaims = JSON.parse(localStorage.getItem('starshops_local_claims')) || [];
-    userClaimHistory = localClaims;
-
+  function loadLocalUserStats() {
+    let localClaims = [];
     try {
-      const { data, error } = await supabaseClient.from('user_claims').select('*').eq('user_identifier', deviceUserId);
-      if (!error && data && data.length > 0) {
-        let dbClaims = data.map(item => ({ rawDate: item.created_at, date: new Date(item.created_at || Date.now()).toLocaleDateString('hi-IN'), store: item.store_name || 'स्टार मर्चेंट', saved: item.offer_title || 'विशेष छूट' }));
-        if(dbClaims.length > userClaimHistory.length) {
-            userClaimHistory = dbClaims;
-            localStorage.setItem('starshops_local_claims', JSON.stringify(userClaimHistory));
-        }
-      }
-    } catch (err) {}
+      const savedClaims = JSON.parse(localStorage.getItem('starshops_local_claims') || '[]');
+      if (Array.isArray(savedClaims)) localClaims = savedClaims;
+    } catch (_) {
+      localStorage.setItem('starshops_local_claims', JSON.stringify([]));
+    }
+    userClaimHistory = localClaims;
     updateLiveSavingsDetector();
   }
 
@@ -1728,13 +1837,28 @@
     return numericDiscount >= 150 || discountText.includes('200') || discountText.includes('flat');
   }
 
-  function renderPostsFeed(postsArray) {
+  function renderPostsFeed(postsArray, append = false) {
     const container = document.getElementById('postsFeedContainer');
-    postsArray = (postsArray || []).filter(post =>
-      matchesSelectedArea(post) && (userStepsData.unlockedHighDiscount || !post.isHighDiscount));
-    if (!postsArray || postsArray.length === 0) { container.innerHTML = `<div style="text-align:center; padding:30px; color:#6B7280;">कोई पोस्ट उपलब्ध नहीं है।</div>`; return; }
+    if (!append) {
+      postsFeedSource = (postsArray || []).filter(post =>
+        matchesSelectedArea(post) && (userStepsData.unlockedHighDiscount || !post.isHighDiscount));
+      renderedPostCount = 0;
+      container.innerHTML = '';
+    }
+    if (!postsFeedSource.length) {
+      if (!append) container.innerHTML = `<div class="posts-feed-end-note" role="status">आपके एरिया के मर्चेंट जल्द ही नई पोस्ट और दुकानें अपडेट करेंगे।</div>`;
+      updatePostsPreloadObserver();
+      return;
+    }
+    const batchStartIndex = renderedPostCount;
+    const batchLength = Math.min(POSTS_RENDER_BATCH_SIZE, postsFeedSource.length);
+    postsArray = Array.from({ length: batchLength }, (_, index) =>
+      postsFeedSource[(batchStartIndex + index) % postsFeedSource.length]
+    );
+    if (!postsArray.length) { updatePostsPreloadObserver(); return; }
     let html = '';
-    postsArray.forEach(post => {
+    postsArray.forEach((post, postIndex) => {
+      const globalPostIndex = batchStartIndex + postIndex;
       let reelsPreviewHtml = '';
       if (post.reels && post.reels.length > 0) {
         let miniList = post.reels.slice(0, 3);
@@ -1759,6 +1883,15 @@
       const musicControlHtml = postMusicUrl
         ? `<div class="post-music-row"><button type="button" class="post-music-btn" data-music-url="${encodeURIComponent(postMusicUrl)}" onclick="event.stopPropagation(); togglePostMusic(this)" aria-pressed="false">♫ संगीत चलाएँ</button></div>`
         : '';
+      const postMediaUrl = String(post.post_image || '');
+      const postStoreName = String(post.storeName || 'Star Shops');
+      const postOfferText = String(post.caption || 'विशेष ऑफ़र');
+      const postLocation = String(post.address || post.distance || 'दिल्ली');
+      const postActionKey = encodeURIComponent(`${post.media_id || post.id || ''}|${postMediaUrl}`);
+      const postIsSaved = savedReelsList.some(item =>
+        (postMediaUrl && item.mediaUrl === postMediaUrl) ||
+        (!item.mediaUrl && item.store === postStoreName && item.offer === postOfferText)
+      );
 
       html += `
         <div class="post-card">
@@ -1776,15 +1909,93 @@
           <div class="post-content-body" onclick="openFullPostView('${post.post_image}', '${encodeURIComponent(post.caption)}', ${post.isVideo})">
             <div style="font-size:13px; font-weight:700; color:#1F2937; word-break:break-word; white-space:pre-wrap; line-height:1.4;">${post.caption}</div>
           </div>
+          <div style="display:flex; justify-content:flex-end; padding:0 16px 12px;">
+            <div class="sketch-action-bar" data-post-key="${postActionKey}">
+              <button type="button" class="sketch-btn" onclick="shareNativeContent(this, event)" aria-label="शेयर करें" data-store="${encodeURIComponent(postStoreName)}" data-offer="${encodeURIComponent(postOfferText)}" data-media-url="${encodeURIComponent(postMediaUrl)}">
+                <svg class="sketch-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 2L11 13M22 2L15 22L11 13L2 9L22 2Z"/></svg>
+              </button>
+              <div style="width:1px; height:16px; background:#D1D5DB;" aria-hidden="true"></div>
+              <button type="button" class="sketch-btn${postIsSaved ? ' is-saved' : ''}" id="saveStarBtn_${globalPostIndex}" onclick="toggleSaveWithPop(this, event)" aria-label="डील सेव करें" aria-pressed="${postIsSaved ? 'true' : 'false'}" data-post-key="${postActionKey}" data-store="${encodeURIComponent(postStoreName)}" data-location="${encodeURIComponent(postLocation)}" data-offer="${encodeURIComponent(postOfferText)}" data-media-url="${encodeURIComponent(postMediaUrl)}">
+                <svg class="sketch-icon" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </button>
+            </div>
+          </div>
           ${musicControlHtml}
           ${reelsPreviewHtml}
         </div>`;
     });
-    container.innerHTML = html;
-    attachFeedLongPressSaveActions(container, postsArray);
+    if (append) container.insertAdjacentHTML('beforeend', html);
+    else container.innerHTML = html;
+    const newCards = Array.from(container.querySelectorAll('.post-card')).slice(-postsArray.length);
+    attachFeedLongPressSaveActions({ querySelectorAll: () => newCards }, postsArray, batchStartIndex);
+    renderedPostCount += postsArray.length;
+    updatePostsPreloadObserver();
   }
 
-  function attachFeedLongPressSaveActions(container, postsArray) {
+  function getSketchActionValue(button, key) {
+    try { return decodeURIComponent(button.getAttribute(`data-${key}`) || ''); }
+    catch (_) { return button.getAttribute(`data-${key}`) || ''; }
+  }
+
+  async function shareNativeContent(button, event) {
+    if (event) { event.preventDefault(); event.stopPropagation(); }
+    const storeName = getSketchActionValue(button, 'store') || 'Star Shops';
+    const offerText = getSketchActionValue(button, 'offer') || 'विशेष ऑफ़र';
+    const mediaUrl = getSketchActionValue(button, 'media-url');
+    const shareText = `🔥 ${storeName} का ऑफ़र: ${offerText}${mediaUrl ? `\n${mediaUrl}` : ''}`;
+
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: `Star Shops - ${storeName}`, text: shareText, url: window.location.href });
+      } else if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(`${shareText}\n${window.location.href}`);
+        openSuccessModal('शेयर लिंक कॉपी हो गया', 'अब आप इस पोस्ट का लिंक किसी के साथ शेयर कर सकते हैं।');
+      } else {
+        openSuccessModal('शेयर उपलब्ध नहीं', shareText);
+      }
+    } catch (error) {
+      if (error && error.name !== 'AbortError') openSuccessModal('शेयर नहीं हो सका', 'कृपया दोबारा कोशिश करें।');
+    }
+  }
+
+  function toggleSaveWithPop(button, event) {
+    if (event) { event.preventDefault(); event.stopPropagation(); }
+    const storeName = getSketchActionValue(button, 'store') || 'Star Shops';
+    const location = getSketchActionValue(button, 'location') || 'दिल्ली';
+    const offerText = getSketchActionValue(button, 'offer') || 'विशेष ऑफ़र';
+    const mediaUrl = getSketchActionValue(button, 'media-url');
+    const postKey = button.getAttribute('data-post-key') || '';
+    const savedIndex = savedReelsList.findIndex(item =>
+      (mediaUrl && item.mediaUrl === mediaUrl) ||
+      (!item.mediaUrl && item.store === storeName && item.offer === offerText)
+    );
+
+    button.classList.remove('pop-bounce');
+    requestAnimationFrame(() => button.classList.add('pop-bounce'));
+    setTimeout(() => button.classList.remove('pop-bounce'), 320);
+
+    const isNowSaved = savedIndex < 0;
+    if (isNowSaved) {
+      savedReelsList.unshift({ key: `feed_${postKey}`, store: storeName, location, offer: offerText, mediaUrl, expires: 'आज रात 12:00 बजे' });
+    } else {
+      savedReelsList.splice(savedIndex, 1);
+    }
+    localStorage.setItem('starshops_saved_deals', JSON.stringify(savedReelsList));
+
+    document.querySelectorAll('.sketch-btn[data-post-key]').forEach(starButton => {
+      if (starButton.getAttribute('data-post-key') !== postKey) return;
+      starButton.classList.toggle('is-saved', isNowSaved);
+      starButton.setAttribute('aria-pressed', isNowSaved ? 'true' : 'false');
+      starButton.setAttribute('aria-label', isNowSaved ? 'सेव्ड डील हटाएँ' : 'डील सेव करें');
+    });
+
+    openSuccessModal(
+      isNowSaved ? 'डील सेव हो गई!' : 'सेव्ड डील हटा दी गई',
+      isNowSaved ? `${storeName} का ऑफ़र आपकी सेव्ड डील्स में जोड़ दिया गया है।` : `${storeName} का ऑफ़र सेव्ड डील्स से हटा दिया गया है।`
+    );
+  }
+
+  function attachFeedLongPressSaveActions(container, postsArray, indexOffset = 0) {
     const cards = Array.from(container.querySelectorAll('.post-card'));
     cards.forEach((card, index) => {
       const post = postsArray[index];
@@ -1802,7 +2013,7 @@
         clearPressTimer();
         pressTimer = setTimeout(() => {
           longPressTriggered = true;
-          const actionId = `feed_${post.id || index}_${index}`;
+          const actionId = `feed_${post.id || index}_${index + indexOffset}`;
           const stats = JSON.parse(localStorage.getItem('reel_stats_' + actionId) || 'null') || { likes: 0, shares: 0 };
           activeSelectedReelData = {
             id: actionId,
@@ -2290,7 +2501,9 @@
     document.getElementById(`tab-${tabName}`).classList.add('active');
     if (clickedNavItem) clickedNavItem.classList.add('active');
     if (tabName === 'alerts') markVisibleAlertsAsSeen();
+    if (tabName === 'profile') loadLocalUserStats();
     window.scrollTo(0, 0);
+    if (tabName === 'posts') updatePostsPreloadObserver();
   }
 
   function updateLiveSavingsDetector() {
@@ -2485,8 +2698,6 @@
           }
         }
         
-        await syncUserClaimStatsFromSupabase(); 
-
       } else {
         openSuccessModal("विफल ❌", data?.message || "गलत पिन या स्टोर लिमिट पार हो गई!");
       }
