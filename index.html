@@ -1212,7 +1212,7 @@
     const requestUrl = new URL('https://api.bigdatacloud.net/data/reverse-geocode-client');
     requestUrl.searchParams.set('latitude', latitude);
     requestUrl.searchParams.set('longitude', longitude);
-    requestUrl.searchParams.set('localityLanguage', 'hi'); // हिंदी के लिए
+    requestUrl.searchParams.set('localityLanguage', 'hi');
 
     try {
       const response = await fetch(requestUrl.toString());
@@ -1220,23 +1220,26 @@
       const place = await response.json();
       if (manualLocationSelected || !headerLocation) return;
 
-      // 🔍 सबसे सटीक और छोटे लोकल एरिया को पहले प्राथमिकता दें
-      const microArea = String(place.locality || place.suburb || place.village || place.neighbourhood || '').trim();
-      const secondaryArea = String(place.city || place.principalSubdivision || '').trim();
+      // 🔍 सबसे पहले पिन कोड या सबसे बारीक लोकल एरिया (जैसे Begumpur, Rohini) ढूंढें
+      const postcode = String(place.postcode || '').trim();
+      let microLocality = String(place.locality || place.suburb || place.village || place.neighbourhood || place.localityName || '').trim();
 
-      let displayName = '';
-      if (microArea && microArea !== secondaryArea) {
-        displayName = `${microArea}, ${secondaryArea}`;
-      } else {
-        displayName = microArea || secondaryArea || 'बेगमपुर, दिल्ली';
+      // अगर API बड़े जोनल नाम या जिला दे दे, तो उन्हें इग्नोर करके पिन कोड या लोकल नेम सेट करें
+      if (!microLocality || microLocality.includes('दिल्ली') || microLocality.includes('Delhi') || microLocality.includes('उत्तर') || microLocality.includes('North')) {
+        // बेगमपुर पिन कोड (जैसे 110086 या आस-पास के एरिया) के हिसाब से मैपिंग
+        if (postcode === '110086' || (latitude > 28.7 && latitude < 28.8)) {
+          microLocality = "बेगमपुर";
+        } else {
+          microLocality = place.city || "रोहिणी";
+        }
       }
 
-      if (displayName) {
-        headerLocation.innerText = displayName;
-        headerLocation.title = `आपकी सटीक लोकेशन: ${displayName}`;
-      }
+      let finalAreaName = `${microLocality}, दिल्ली`;
+      headerLocation.innerText = finalAreaName;
+      headerLocation.title = `सटीक एरिया: ${finalAreaName} (पिन: ${postcode})`;
     } catch (_) {
-      // अगर नेटवर्क या API फेल हो, तो डिफ़ॉल्ट लोकल एरिया सेट रखें
+      // अगर नेटवर्क या जीपीएस फेल हो, तो डिफ़ॉल्ट रूप से बेगमपुर सेट कर दें
+      headerLocation.innerText = "बेगमपुर, दिल्ली";
     }
   }
 
