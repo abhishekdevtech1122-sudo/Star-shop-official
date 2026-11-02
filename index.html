@@ -2,6 +2,10 @@
 <html lang="hi">
 <head>
   <meta charset="UTF-8">
+  <!-- PWA & Full Screen Meta Tags -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <!-- 🚨 NEW: Theme Color Meta Tag for Status Bar 🚨 -->
   <meta name="theme-color" content="#F8F9FA" id="themeColorMeta">
@@ -395,16 +399,25 @@
     .device-shell.high-discount-active .alerts-count-badge { background: linear-gradient(135deg, #FCF6BA, #B38728); color: #111111; border-color: #111111; }
     .nav-item .icon svg { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
     
-    /* NORMAL MODE (Silver) */
+    /* WHITE MODE: dark black icons without shadows */
+    .device-shell:not(.high-discount-active) .nav-item .icon svg [fill="url(#metal3D)"] {
+      fill: #111827;
+    }
+    .device-shell:not(.high-discount-active) .nav-item .icon svg [stroke="url(#metal3D)"] {
+      stroke: #111827;
+    }
+    .device-shell:not(.high-discount-active) .nav-item .icon svg [filter="url(#dropShadow)"] {
+      filter: none;
+    }
     .nav-item:not(.active) .icon svg {
-      opacity: 0.35;
+      opacity: 1;
       transform: scale(0.85);
-      filter: grayscale(100%);
+      filter: none;
     }
     .nav-item.active .icon svg {
       opacity: 1;
       transform: scale(1.15);
-      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
+      filter: none;
     }
 
     /* ELITE MODE (Gold) */
@@ -1199,33 +1212,31 @@
     const requestUrl = new URL('https://api.bigdatacloud.net/data/reverse-geocode-client');
     requestUrl.searchParams.set('latitude', latitude);
     requestUrl.searchParams.set('longitude', longitude);
-    requestUrl.searchParams.set('localityLanguage', 'hi');
+    requestUrl.searchParams.set('localityLanguage', 'hi'); // हिंदी के लिए
 
-    const controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
-    const timeoutId = controller ? setTimeout(() => controller.abort(), 7000) : null;
     try {
-      const requestOptions = { method: 'GET', mode: 'cors', credentials: 'omit' };
-      if (controller) requestOptions.signal = controller.signal;
-      const response = await fetch(requestUrl.toString(), requestOptions);
-      if (!response.ok) throw new Error(`Reverse geocoding failed: ${response.status}`);
+      const response = await fetch(requestUrl.toString());
+      if (!response.ok) throw new Error('Geocoding failed');
       const place = await response.json();
       if (manualLocationSelected || !headerLocation) return;
 
-      const locality = String(place.localityName || place.locality || place.suburb || place.city || '').trim();
-      const city = String(place.city || place.principalSubdivision || '').trim();
-      const labels = [];
-      [locality, city].forEach(value => {
-        if (value && !labels.some(existing => existing.toLocaleLowerCase() === value.toLocaleLowerCase())) labels.push(value);
-      });
-      if (labels.length) {
-        const displayName = labels.slice(0, 2).join(', ');
+      // 🔍 सबसे सटीक और छोटे लोकल एरिया को पहले प्राथमिकता दें
+      const microArea = String(place.locality || place.suburb || place.village || place.neighbourhood || '').trim();
+      const secondaryArea = String(place.city || place.principalSubdivision || '').trim();
+
+      let displayName = '';
+      if (microArea && microArea !== secondaryArea) {
+        displayName = `${microArea}, ${secondaryArea}`;
+      } else {
+        displayName = microArea || secondaryArea || 'बेगमपुर, दिल्ली';
+      }
+
+      if (displayName) {
         headerLocation.innerText = displayName;
-        headerLocation.title = `आपकी लोकेशन: ${displayName}`;
+        headerLocation.title = `आपकी सटीक लोकेशन: ${displayName}`;
       }
     } catch (_) {
-      // नेटवर्क/सेवा उपलब्ध न हो तो generic location label बना रहे।
-    } finally {
-      if (timeoutId) clearTimeout(timeoutId);
+      // अगर नेटवर्क या API फेल हो, तो डिफ़ॉल्ट लोकल एरिया सेट रखें
     }
   }
 
@@ -2060,6 +2071,15 @@
     return `${store.id || store.store_name || ''}|${store.updated_at || ''}|${offer}`;
   }
 
+  const ALERT_EXPIRY_MS = 24 * 60 * 60 * 1000;
+
+  function isAlertWithinExpiryWindow(store, now = Date.now()) {
+    const timestampValue = store.offer_details?.updated_at || store.offer_details?.created_at ||
+      store.offer_updated_at || store.updated_at || store.created_at || '';
+    const timestamp = Date.parse(timestampValue);
+    return !Number.isFinite(timestamp) || now - timestamp < ALERT_EXPIRY_MS;
+  }
+
   function markVisibleAlertsAsSeen() {
     const seen = getSeenAlertKeys();
     currentVisibleAlertKeys.forEach(key => seen.add(key));
@@ -2078,7 +2098,8 @@
   function renderDynamicAlerts(storesArray) {
     const container = document.getElementById('liveAlertsContainer');
     storesArray = (storesArray || []).filter(store =>
-      matchesSelectedArea(store) && (userStepsData.unlockedHighDiscount || !isHighDiscountMerchant(store)));
+      isAlertWithinExpiryWindow(store) && matchesSelectedArea(store) &&
+      (userStepsData.unlockedHighDiscount || !isHighDiscountMerchant(store)));
     currentVisibleAlertKeys = storesArray.map(getAlertKey);
     if (document.getElementById('tab-alerts')?.classList.contains('active')) {
       markVisibleAlertsAsSeen();
@@ -2161,10 +2182,19 @@
 
   function matchesMerchantCategory(store, category = activeStoreCategory) {
     const storeCategory = String(store.category || '').toUpperCase();
+    const storeName = String(store.store_name || '').toUpperCase();
+    const storeDesc = String(store.description || '').toUpperCase();
     const storeOpen = !['closed', 'false'].includes(String(store.status || '').toLowerCase());
     if (category === 'ALL') return true;
     if (category === 'OPENTODAY') return storeOpen;
     if (category === 'HIGHDISCOUNT') return isHighDiscountMerchant(store);
+    // अगर यूजर PARLOR या SALON ढूंढ रहा है, तो कैटेगरी या नाम कहीं भी मैच होना चाहिए
+    if (category === 'PARLOR') {
+      return storeCategory.includes('PARLOR') || storeCategory.includes('PARLOUR') || storeName.includes('पार्लर') || storeName.includes('PARLOR');
+    }
+    if (category === 'SALON') {
+      return storeCategory.includes('SALON') || storeCategory.includes('SALOON') || storeName.includes('सैलून') || storeName.includes('SALON');
+    }
     return storeCategory.includes(category);
   }
 
