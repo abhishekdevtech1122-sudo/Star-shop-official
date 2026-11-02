@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
+  
   <meta charset="UTF-8">
   <!-- PWA & Full Screen Meta Tags -->
   <meta name="mobile-web-app-capable" content="yes">
@@ -10,6 +11,10 @@
   <!-- 🚨 NEW: Theme Color Meta Tag for Status Bar 🚨 -->
   <meta name="theme-color" content="#F8F9FA" id="themeColorMeta">
   <link rel="manifest" href="manifest.json">
+  <!-- PWA Install Button (शुरुआत में यह छिपा रहेगा) -->
+<button id="pwaInstallBtn" style="display: none; background: linear-gradient(135deg, #F59E0B, #D97706); color: #fff; border: none; padding: 8px 14px; border-radius: 20px; font-weight: 800; font-size: 12px; cursor: pointer; align-items: center; gap: 6px; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);">
+  ⭐ ऐप इंस्टॉल करें
+</button>
   <style>
     * {
       box-sizing: border-box;
@@ -2885,7 +2890,41 @@
       }
     }
   }, true);
+let deferredPrompt;
 
+window.addEventListener('beforeinstallprompt', (e) => {
+  // ब्राउज़र के डिफ़ॉल्ट बैनर को रोकें ताकि हमारा कस्टम बटन काम करे
+  e.preventDefault();
+  deferredPrompt = e;
+  
+  // इंस्टॉल बटन को स्क्रीन पर दिखाएं
+  const installBtn = document.getElementById('pwaInstallBtn');
+  if (installBtn) {
+    installBtn.style.display = 'inline-flex';
+  }
+});
+
+document.getElementById('pwaInstallBtn')?.addEventListener('click', async () => {
+  if (!deferredPrompt) return;
+  
+  // इंस्टॉल प्रॉम्प्ट दिखाएं
+  deferredPrompt.prompt();
+  
+  // यूजर के जवाब का इंतज़ार करें
+  const { outcome } = await deferredPrompt.userChoice;
+  if (outcome === 'accepted') {
+    console.log('User accepted the install prompt');
+  }
+  
+  // प्रॉम्प्ट दोबारा इस्तेमाल नहीं हो सकता, उसे हटा दें
+  deferredPrompt = null;
+  document.getElementById('pwaInstallBtn').style.display = 'none';
+});
+
+window.addEventListener('appinstalled', (evt) => {
+  console.log('Star Shops successfully installed!');
+  document.getElementById('pwaInstallBtn').style.display = 'none';
+});
 </script>
 </body>
 </html>
