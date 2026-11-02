@@ -1,8 +1,12 @@
-[{
-      "relation": ["delegate_permission/common.handle_all_urls"],
-      "target": {
-        "namespace": "android_app",
-        "package_name": "io.github.abhishekdevtech1122_sudo.twa",
-        "sha256_cert_fingerprints": ["55:A2:9D:14:40:4D:31:12:38:07:B3:3D:1B:ED:4B:25:CD:BD:4A:C0:80:55:67:FA:02:F2:79:31:B3:EE:4B:D5"]
-      }
-    }]
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "io.github.abhishekdevtech1122_sudo.twa",
+      "sha256_cert_fingerprints": [
+        "55:A2:9D:14:40:4D:31:12:38:07:B3:3D:1B:ED:4B:25:CD:BD:4A:C0:80:55:67:FA:02:F2:79:31:B3:EE:4B:D5"
+      ]
+    }
+  }
+]
